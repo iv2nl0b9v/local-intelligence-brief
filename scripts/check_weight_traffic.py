@@ -32,4 +32,8 @@ if traffic != audit['estimated_target_weight_bytes_per_pass']:
 config = json.loads((ROOT / 'data/configurations.json').read_text(encoding='utf-8'))['pro6000']
 if abs(config['weight_gb_per_pass'] - traffic / 1e9) > 1e-10:
     raise SystemExit('Headline traffic differs from header accounting')
+inputs = json.loads((ROOT / 'data/roofline-inputs.json').read_text(encoding='utf-8'))
+roofline_payload = next(p[3] for p in inputs['PAIRS'] if p[0] == 'pro6000')
+if abs(roofline_payload - traffic / 1e9) > 1e-10:
+    raise SystemExit('Roofline traffic differs from header accounting')
 print(f'Confirmed {traffic / 1e9:.9f} GB/pass parameter-read estimate (not measured DRAM traffic).')

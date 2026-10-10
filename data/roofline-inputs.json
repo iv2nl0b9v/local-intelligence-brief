@@ -1,0 +1,565 @@
+{
+  "DEVICES": {
+    "m5": [
+      "MacBook Pro · M5",
+      153,
+      3.98,
+      16,
+      "Derived: A19 benchmark 257 FP32 FLOP/core/clock × 10 cores × ~1.55 GHz"
+    ],
+    "m5pro": [
+      "MacBook Pro · M5 Pro",
+      307,
+      9.0,
+      36,
+      "Derived: 20 cores × ~1.75 GHz"
+    ],
+    "m5max": [
+      "MacBook Pro · M5 Max",
+      614,
+      18.0,
+      70,
+      "Derived: 40 cores × ~1.75 GHz (A19 benchmark author’s extrapolation)"
+    ],
+    "m5ultra": [
+      "Mac Studio · M5 Ultra",
+      1200,
+      36.0,
+      140,
+      "Derived: 80 cores × ~1.75 GHz"
+    ],
+    "rtx4090": [
+      "GeForce RTX 4090",
+      1008,
+      82.6,
+      165,
+      "NVIDIA Ada specifications"
+    ],
+    "r9700": [
+      "Radeon AI PRO R9700",
+      640,
+      47.8,
+      191,
+      "AMD specifications (FP32 vector)"
+    ],
+    "rtx5090": [
+      "GeForce RTX 5090",
+      1792,
+      104.8,
+      209,
+      "NVIDIA Blackwell whitepaper"
+    ],
+    "halo": [
+      "Ryzen AI Max+ 395 / Halo",
+      256,
+      14.8,
+      59,
+      "2,560 shaders × 2 × 2.9 GHz, single-issue (dual-issue counts 29.7)"
+    ],
+    "spark": [
+      "1 × DGX Spark",
+      273,
+      30.7,
+      125,
+      "Derived: 6,144 CUDA cores × 2 × ~2.5 GHz; NVIDIA publishes no FP32 figure"
+    ],
+    "spark2": [
+      "2 × DGX Spark",
+      546,
+      61.4,
+      250,
+      "Two nodes summed (tensor parallel)"
+    ],
+    "pro6000": [
+      "RTX PRO 6000 Blackwell",
+      1792,
+      125.0,
+      504,
+      "NVIDIA specifications (125 TFLOPS FP32)"
+    ],
+    "pro2": [
+      "2 × RTX PRO 6000 Blackwell",
+      1792,
+      125.0,
+      504,
+      "Sequential layer split: one card active at a time"
+    ],
+    "m5ultra512": [
+      "M5 Ultra · 512 GB",
+      1200,
+      36.0,
+      140,
+      "Same chip as M5 Ultra"
+    ],
+    "station": [
+      "DGX Station · GB300",
+      914,
+      80.0,
+      2500,
+      "NVIDIA DGX Station data sheet: 80 TFLOPS FP32. Station split assumes 60% HBM / 40% CPU traffic; HBM-only is separate."
+    ],
+    "station_hbm": [
+      "DGX Station · GB300 (HBM only)",
+      7100,
+      80.0,
+      2500,
+      "NVIDIA DGX Station data sheet: 80 TFLOPS FP32. Station split assumes 60% HBM / 40% CPU traffic; HBM-only is separate."
+    ]
+  },
+  "MODELS": {
+    "qwen36": [
+      3,
+      10,
+      16,
+      256,
+      null,
+      20480,
+      0
+    ],
+    "qwen27": [
+      26,
+      16,
+      24,
+      256,
+      null,
+      65536,
+      0
+    ],
+    "flashnext": [
+      6,
+      12,
+      24,
+      256,
+      2048,
+      24576,
+      768
+    ],
+    "glmflash": [
+      18,
+      11,
+      64,
+      256,
+      2048,
+      11264,
+      704
+    ],
+    "glm53": [
+      40,
+      78,
+      64,
+      256,
+      2048,
+      89856,
+      5632
+    ]
+  },
+  "PAIRS": [
+    [
+      "m5",
+      "m5",
+      "qwen36",
+      1.7,
+      [
+        51.0,
+        59.5
+      ],
+      [
+        4096,
+        1024
+      ],
+      true,
+      0,
+      [
+        1,
+        1
+      ],
+      false,
+      "B12, 4-bit MLX"
+    ],
+    [
+      "m5pro",
+      "m5pro",
+      "qwen27",
+      19.5,
+      [
+        21,
+        44
+      ],
+      [
+        4096,
+        4096
+      ],
+      false,
+      3,
+      [
+        3.0,
+        3.0
+      ],
+      true,
+      "Estimate, MTPLX dynamic Q4"
+    ],
+    [
+      "rtx4090",
+      "rtx4090",
+      "qwen27",
+      17.9,
+      [
+        38.41,
+        46.16
+      ],
+      [
+        65536,
+        4096
+      ],
+      false,
+      0,
+      [
+        1,
+        1
+      ],
+      false,
+      "B10, Q4_K_S 16.68 GiB"
+    ],
+    [
+      "r9700",
+      "r9700",
+      "qwen27",
+      17.5,
+      [
+        51.8,
+        51.8
+      ],
+      [
+        4096,
+        4096
+      ],
+      false,
+      2,
+      [
+        2.5,
+        2.5
+      ],
+      false,
+      "B8, Q4-class, MTP=2"
+    ],
+    [
+      "rtx5090",
+      "rtx5090",
+      "qwen27",
+      17.5,
+      [
+        59,
+        59
+      ],
+      [
+        6091,
+        6091
+      ],
+      false,
+      0,
+      [
+        1,
+        1
+      ],
+      false,
+      "B3, Q4_K_M"
+    ],
+    [
+      "halo",
+      "halo",
+      "flashnext",
+      3.2,
+      [
+        31.7,
+        47.1
+      ],
+      [
+        8192,
+        8192
+      ],
+      true,
+      4,
+      [
+        2.5,
+        3.5
+      ],
+      false,
+      "B7, UD-IQ4_XS, MTP + n-gram"
+    ],
+    [
+      "spark",
+      "spark",
+      "flashnext",
+      3.4,
+      [
+        36.83,
+        45.75
+      ],
+      [
+        2048,
+        2048
+      ],
+      true,
+      3,
+      [
+        2.3,
+        2.3
+      ],
+      false,
+      "B5, NVFP4, MTP3"
+    ],
+    [
+      "m5max",
+      "m5max",
+      "flashnext",
+      3.5,
+      [
+        63.5,
+        63.5
+      ],
+      [
+        65502,
+        65502
+      ],
+      true,
+      3,
+      [
+        2.3,
+        2.3
+      ],
+      false,
+      "B1, MTPLX dynamic Q4"
+    ],
+    [
+      "pro6000",
+      "pro6000",
+      "flashnext",
+      9.95111452,
+      [
+        81,
+        88
+      ],
+      [
+        1024,
+        1024
+      ],
+      true,
+      0,
+      [
+        1,
+        1
+      ],
+      false,
+      "B9, NVFP4, no MTP"
+    ],
+    [
+      "spark2",
+      "spark2",
+      "glmflash",
+      9.9,
+      [
+        46.58,
+        62.61
+      ],
+      [
+        133,
+        142
+      ],
+      true,
+      [
+        4.7015,
+        6.073
+      ],
+      [
+        3.1655,
+        4.866
+      ],
+      false,
+      "B16, EXL3 4-bit, DFlash2"
+    ],
+    [
+      "m5ultra",
+      "m5ultra",
+      "glmflash",
+      10.2,
+      [
+        44.0,
+        62.4
+      ],
+      [
+        4096,
+        200
+      ],
+      true,
+      5,
+      [
+        2.4,
+        4.3
+      ],
+      false,
+      "B17, oQ4e, DFlash2"
+    ],
+    [
+      "pro2",
+      "pro2",
+      "glmflash",
+      10.8,
+      [
+        41,
+        70
+      ],
+      [
+        4096,
+        4096
+      ],
+      true,
+      0,
+      [
+        1,
+        1
+      ],
+      true,
+      "Estimate, IQ4_XS"
+    ],
+    [
+      "m5ultra512",
+      "m5ultra512",
+      "glm53",
+      24.0,
+      [
+        20,
+        40
+      ],
+      [
+        4096,
+        4096
+      ],
+      true,
+      5,
+      [
+        3.3,
+        3.3
+      ],
+      true,
+      "Estimate, IQ4_XS, DFlash2"
+    ],
+    [
+      "station",
+      "station",
+      "glm53",
+      24.0,
+      [
+        21,
+        40
+      ],
+      [
+        4096,
+        4096
+      ],
+      true,
+      5,
+      [
+        3.3,
+        3.3
+      ],
+      true,
+      "Estimate, IQ4_XS split HBM/CPU, DFlash2"
+    ]
+  ],
+  "REFERENCES": [
+    [
+      "halo_nospec",
+      "halo",
+      "flashnext",
+      3.2,
+      [
+        16.8,
+        16.8
+      ],
+      [
+        8192,
+        8192
+      ],
+      true,
+      0,
+      [
+        1,
+        1
+      ],
+      false,
+      "B7 without speculation"
+    ],
+    [
+      "spark2_nospec",
+      "spark2",
+      "glmflash",
+      9.9,
+      [
+        18.0,
+        18.0
+      ],
+      [
+        2048,
+        2048
+      ],
+      true,
+      0,
+      [
+        1,
+        1
+      ],
+      false,
+      "B16 without speculation"
+    ],
+    [
+      "m5ultra_nospec",
+      "m5ultra",
+      "glmflash",
+      10.2,
+      [
+        32.9,
+        38.8
+      ],
+      [
+        4096,
+        200
+      ],
+      true,
+      0,
+      [
+        1,
+        1
+      ],
+      false,
+      "B17 without drafting"
+    ],
+    [
+      "station_glmflash",
+      "station_hbm",
+      "glmflash",
+      10.1,
+      [
+        137,
+        137
+      ],
+      [
+        2048,
+        2048
+      ],
+      true,
+      0,
+      [
+        1,
+        1
+      ],
+      false,
+      "B15, NVFP4 in HBM"
+    ]
+  ],
+  "notes": {
+    "pro6000": "Header-audited current mixed BF16/NVFP4 artifact; historical benchmark revision unpinned. Context 1024 is illustrative.",
+    "spark2": "EXL3 only. Raw-log median draft/emission statistics are workload summaries, not matched steps. Context = prompt + 100 generated tokens, approximate midpoint. Baseline traffic 9.9 GB and expert reuse remain assumptions.",
+    "r9700": "Quantization, context and acceptance unreported; Q4-class traffic and 4K are scenarios.",
+    "default": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported."
+  }
+}

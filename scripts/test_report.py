@@ -30,15 +30,33 @@ class AuditRegression(unittest.TestCase):
         subprocess.run([sys.executable, str(ROOT / 'scripts/roofline.py'), '--check'], check=True)
         self.assertEqual(before, [(p.stat().st_mtime_ns, hashlib.sha256(p.read_bytes()).hexdigest()) for p in paths])
 
-    def test_unknown_traffic_and_forecasts_have_no_attainment(self):
+    def test_rooflines_retain_all_pairs_without_causal_time_shares(self):
         from roofline import build
         rows, _, _ = build()
-        for key, r in rows.items():
-            if key != 'pro6000':
-                self.assertIsNone(r['bandwidth_attainment'])
-        self.assertAlmostEqual(rows['pro6000']['bandwidth_attainment'][0], .4497992612276786)
+        self.assertEqual(len(rows), 14)
+        for r in rows.values():
+            self.assertEqual(len(r['bandwidth_attainment']), 2)
+            self.assertNotIn('other_time_share', r)
+            if r['estimate']:
+                self.assertTrue(r['scenario_only'])
+            for m, c, gap in zip(r['bandwidth_attainment'], r['compute_attainment'], r['roof_gap']):
+                self.assertAlmostEqual(gap, 1-max(m,c))
+        self.assertAlmostEqual(rows['pro6000']['inputs']['weight_gb_per_pass'], 9.95111452)
+        self.assertTrue(.45 < rows['pro6000']['bandwidth_attainment'][0] < .46)
+        self.assertGreater(rows['spark2']['bandwidth_demand_sensitivity'][1], 1)
         self.assertEqual(rows['spark2']['display'], '47–63')
         self.assertIn('EXL3', rows['spark2']['note'])
+
+    def test_expert_reuse_and_profile_accounting(self):
+        from roofline import step, build
+        a = step('spark2','glmflash',10,133,True,5,3,.5,1)
+        b = step('spark2','glmflash',10,133,True,5,3,.5,6)
+        self.assertEqual(a['weight_gb_per_step'],10)
+        self.assertEqual(b['weight_gb_per_step'],35)
+        self.assertEqual(a['gops_per_token'],b['gops_per_token'])
+        _,_,profile=build()
+        for r in profile['rows']:
+            self.assertLess(abs(r['bandwidth_ms']+r['nccl_ms']+r['small_ms']+r['idle_ms']-r['wall_ms']),.03)
 
     def test_raw_decode_arithmetic(self):
         from statistics import median

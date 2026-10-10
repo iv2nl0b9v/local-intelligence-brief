@@ -94,49 +94,125 @@ B18 · GLM-5.3 drafter	GLM-5.3 at concurrency 1: 113 tok/s autoregressive; MTP 1
 
 B19 · 2× PRO Server Edition	GLM-5.3-Flash, TP2, adaptive EAGLE: 164.8 tok/s median decode; 153.5 aggregate wall-clock tok/s at concurrency 1, 105.7 ms median TTFT. Code workload, forced 256 output tokens, n=3.	SGLang v0.4.3 SM120; ormandj/GLM-5.3-Flash-W4A16-NVFP4-K32-Experts-FP8-WO, revision ee0989a944b0e213589191d7fca63af825a0741e. Adaptive EAGLE 5/1/6, FP8 KV. Target 81.44 GB + draft 3.20 GB per rank; tight memory. Configured context 524,288, shared pool 500,000; prefill tested through 64K, not proof of a full 512K request fit. Different artifact, backend and Server Edition hardware from the Workstation IQ4_XS forecast. Experiment journal.
 
-Bandwidth attainment and profiling evidence
+Bottleneck analysis: quantitative rooflines plus measured profiles
 
-A roofline bounds modeled work; it does not partition elapsed time. rate × bytes / peak bandwidth is conditional attainment, not measured memory utilization or a memory-time share. A gap below a peak can reflect missing traffic, inefficient kernels, cache behavior, synchronization, host work or other constraints. We therefore report Unprofiled unless a trace supports a diagnosis. Forecast speeds cannot independently validate their own assumed bottlenecks.
+What the model tells us: compare Rbw = B / D and Rcompute = P / F, where D and F are bytes and FLOPs per emitted token. The smaller roof identifies the resource pressure under those assumptions. Every device retains its numerical estimates, ideal resource times, reference roofs and normalized chart. At rate R, R × D / B and R × F / P are required fractions of the reference peaks. 1 − max(demand) is the gap to the modeled roof, not an attribution of elapsed time.
+
+Why a large gap can still be memory-related: a kernel can be limited by memory latency, small transfer shapes, occupancy or insufficient parallel requests while achieving little of the advertised streaming bandwidth. For example, 45% BW demand is consistent with a runtime spending nearly all its time moving the assumed bytes at 45% of peak; it does not establish 55% removable overhead. The Spark author reports GEMV bandwidth from 19 GB/s for a small shape to 236–242 GB/s for a large one on the same chip. A per-kernel roofline with sustained, shape-matched ceilings is more informative than a whole-model peak comparison. Nsight Compute’s profiling guide also distinguishes rooflines for different instruction paths.
+
+Computational assumptions: preserve the earlier active-weight payloads as planning scenarios except the audited PRO correction below. For MoE drafting, write step reads explicitly as Ddense + U × Dexperts, then divide by emitted tokens a. The central unmeasured scenario uses half the payload as routed experts and U=1+0.5k, algebraically recovering the earlier multiplier. It is an assumption, not a law or a fit to speed. Sensitivity varies total payload by ±25%, routed share 25–75%, and expert union from complete reuse to no reuse (1 to k+1). These are illustrative stress tests, not confidence intervals; ratios above 100% flag inconsistent assumptions and remain visible. Dense speculative rows vary payload only. The audited PRO row holds weight payload fixed; uncertainty in physical traffic and benchmark artifact identity remains outside that range.
+
+Compute and cache fixes: FLOPs count 2 × active parameters × (k+1)/a plus expanded-attention arithmetic, using QK/V dimension 256 for both GLM models. The old arbitrary three dequantization FLOPs per weight are removed; dequantization is real work but needs instruction-specific modeling. FP32 vector and FP16 matrix roofs are both shown as references; neither is a universal mixed-kernel ceiling. Drafter, recurrent, routing and elementwise work are omitted from these target FLOP estimates, so compute demand is incomplete. Cache reads assume reuse within a verify step; actual cache format/traffic, absorbed MLA arithmetic and activations must be measured. GLM-Flash latent KV width is corrected from 576 to 512. Spark’s EXL3 row uses the raw-log draft/emission summaries and approximate midpoint contexts 133/142, not an invented 2K prompt. Other unreported contexts remain marked assumptions in data/roofline-inputs.json. Prefill needs its own kernel/chunk/expert-union analysis; the earlier generic 2K-chunk compute classification is not retained as evidence.
 
 Corrected PRO 6000 traffic: the audited Flash-Next artifact keeps dense/attention/shared weights in BF16 and quantizes routed experts. Header accounting gives 8.558 GB dense/output + 0.066 GB PLE projections + 1.327 GB selected experts = 9.951 GB per target pass, not 3.4 GB. At 81–88 tok/s and 1,792 GB/s that is 45–49% weights-only attainment. This is a conditional parameter-read estimate, excluding cache, activations, host lookup traffic, full embedding tables, vision and MTP; cache reuse/reloads can change physical DRAM traffic. The benchmark did not pin this revision. See data/weight-traffic-audit.json and the captured headers for reproducibility.
-
-Why most cells are unknown: quantization is often mixed; expert selection and reuse across speculative verification must be measured. The old 1 + 0.25k multiplier, generic dequantization FLOP count, blanket FP32 compute ceiling and fixed 2K prefill chunk are removed. They cannot justify per-device compute or overhead classifications. Draft-model work, recurrent-state rollback, actual KV format and interconnect traffic also matter. GLM-Flash compressed MLA uses latent rank 512 with no rotary-key component; expanded caches have very different costs.
 
 Measured Spark profile: a nearby pre-final EXL3 trace attributes roughly 82–83% of 70–83 ms verify steps to bandwidth-bound kernels and only 3.8–4.6% to GPU idle gaps. This is the source author’s kernel classification, not a new measurement or an exact profile of every headline workload. It contradicts interpreting a peak-roof gap as mostly inference overhead.
 
 Decode validation: the B16 raw logs reproduce (output tokens − 1)/(wall time − TTFT). Prose/coding medians are 46.58/62.61 decode tok/s versus 44.39/57.96 delivered tok/s including TTFT; prompt lengths are 33/42, output normally 200 (one coding run 164). Mean draft lengths vary; median emitted tokens per step are 3.1655/4.866. The production output head was transplanted from another checkpoint, so base-model scores do not establish this artifact’s quality. Structured output (99.44) is excluded from the headline. NVFP4 results remain a separate configuration.
 
-Next benchmark: pin hardware/power, model and runtime revisions; run identical prompts at 1K/8K/32K with fixed output length and concurrency one, with speculation on/off. Save per-request wall time, TTFT and token counts; report medians and dispersion for decode and delivered throughput. Profile representative runs for DRAM bytes/bandwidth, kernel durations, occupancy, idle gaps, host stalls and collectives. Record expert unions and emitted tokens per verification step. Validate quality and per-rank memory, including the drafter, before transferring gains or recommending purchases.
+How to improve the analysis next, in priority order:
 
-Configuration	Decode tok/s	Conditional weights-only bandwidth attainment	Evidence
+Measure bytes before inferring overhead. Pin each artifact and count dense, shared and routed tensor bytes at actual precision, including scales. For speculation log distinct expert unions, draft length and emitted tokens per step, plus drafter bytes. Use DRAM/L2 counters to test the parameter-read estimate. The audited PRO change from 3.4 to 9.951 GB/pass shows why this comes first.
 
-MacBook Pro · M5 B12, 4-bit MLX	51–60	—	Unprofiled
+Calibrate ceilings to the kernels. Benchmark representative GEMV/GEMM and quantized expert shapes on each device at the actual power/clock settings. Replace advertised peak bandwidth with measured sustainable throughput; use the vector or tensor instruction ceiling each kernel actually uses. Model layer-split cards sequentially, TP per rank with collectives, and Station HBM/CPU tiers separately.
 
-MacBook Pro · M5 Pro Estimate, MTPLX dynamic Q4	21–44 (scenario)	—	Unprofiled
+Profile the critical path. Use Nsight Systems for CPU gaps, synchronization and collectives; Nsight Compute for representative NVIDIA kernels; equivalent Metal/ROCm profiling on Apple/AMD. Collect kernel duration, DRAM/L2 bytes, achieved throughput and occupancy. Attribute elapsed spans without double counting overlaps. Low link utilization does not exclude collective latency.
 
-GeForce RTX 4090 B10, Q4_K_S 16.68 GiB	38–46	—	Unprofiled
+Run controlled interventions. With identical prompts, output length, quantization and concurrency one, vary context (1K/8K/32K), speculation and verification length. Test graph capture/fusion against host gaps, fewer expert reads against MoE time, and rank topology against collectives. A change that selectively reduces the suspected component is stronger evidence than a peak-roof gap.
 
-Radeon AI PRO R9700 B8, Q4-class, MTP=2	51.8	—	Unprofiled
+Keep decode and user-visible rates separate. Report (N−1)/(wall−TTFT) and N/wall, prompt/output lengths, repetitions, dispersion, cache state and quality checks. Profile runs separately from timing runs. For the available Spark trace, bandwidth-class work is the first optimization target; idle-gap elimination alone offers only about 4.5% at unchanged acceptance. Other devices need matching traces before assigning a measured bottleneck.
 
-GeForce RTX 5090 B3, Q4_K_M	59	—	Unprofiled
+Practical hypotheses from the restored model: the 4090’s ~83–85% BW demand leaves comparatively little peak-bandwidth headroom if the payload is correct. The corrected PRO has ~45–49% demand: first measure sustained bandwidth and the BF16 dense kernels, then host lookup/launch costs. Drafted Apple, Halo and single-Spark results depend strongly on expert reuse and acceptance, so improving byte and draft accounting precedes hardware conclusions. Two-PRO layer-split and Station forecasts test their own assumptions only; matched measurements are needed. These are testable priorities, not confirmed diagnoses.
 
-Ryzen AI Max+ 395 / Halo B7, UD-IQ4_XS, MTP + n-gram	32–47	—	Unprofiled
+Solid: reported rate. Hollow: forecast. Endpoint connectors represent different workloads, not confidence intervals. Hover for pairing details.
 
-1 × DGX Spark B5, NVFP4, MTP3	37–46	—	Unprofiled
+Restored comparative decode rooflineNormalized reference model, not measured kernel rooflines. Blue points are reported speeds, hollow points forecasts. Lines connect workload endpoints. Diagonal is peak bandwidth, horizontal is vector FP32 reference.0.0001×0.01%0.001×0.1%0.01×1%0.1×10%1×100%10×1000%bandwidth referencevector referenceMacBook Pro · M5: 51–60 tok/s; BW demand 59%–67%; Bandwidth-led modelMacBook Pro · M5: 51–60 tok/s; BW demand 59%–67%; Bandwidth-led modelMacBook Pro · M5 Pro: 21–44 tok/s; BW demand 45%–94%; Bandwidth-led modelMacBook Pro · M5 Pro: 21–44 tok/s; BW demand 45%–94%; Bandwidth-led modelm5proGeForce RTX 4090: 38–46 tok/s; BW demand 83%–85%; Bandwidth-led modelGeForce RTX 4090: 38–46 tok/s; BW demand 83%–85%; Bandwidth-led modelrtx4090Radeon AI PRO R9700: 51.8 tok/s; BW demand 58%; Bandwidth-led modelRadeon AI PRO R9700: 51.8 tok/s; BW demand 58%; Bandwidth-led modelGeForce RTX 5090: 59 tok/s; BW demand 59%; Bandwidth-led modelGeForce RTX 5090: 59 tok/s; BW demand 59%; Bandwidth-led modelRyzen AI Max+ 395 / Halo: 32–47 tok/s; BW demand 32%–34%; Bandwidth-led modelRyzen AI Max+ 395 / Halo: 32–47 tok/s; BW demand 32%–34%; Bandwidth-led model1 × DGX Spark: 37–46 tok/s; BW demand 35%–44%; Bandwidth-led model1 × DGX Spark: 37–46 tok/s; BW demand 35%–44%; Bandwidth-led modelMacBook Pro · M5 Max: 63.5 tok/s; BW demand 28%; Bandwidth-led modelMacBook Pro · M5 Max: 63.5 tok/s; BW demand 28%; Bandwidth-led modelRTX PRO 6000 Blackwell: 81–88 tok/s; BW demand 45%–49%; Bandwidth-led modelRTX PRO 6000 Blackwell: 81–88 tok/s; BW demand 45%–49%; Bandwidth-led modelpro60002 × DGX Spark: 47–63 tok/s; BW demand 58%–59%; Bandwidth-led model2 × DGX Spark: 47–63 tok/s; BW demand 58%–59%; Bandwidth-led modelspark2Mac Studio · M5 Ultra: 44–62 tok/s; BW demand 28%–35%; Bandwidth-led modelMac Studio · M5 Ultra: 44–62 tok/s; BW demand 28%–35%; Bandwidth-led model2 × RTX PRO 6000 Blackwell: 41–70 tok/s; BW demand 25%–42%; Bandwidth-led model2 × RTX PRO 6000 Blackwell: 41–70 tok/s; BW demand 25%–42%; Bandwidth-led modelM5 Ultra · 512 GB: 18–40 tok/s; BW demand 25%–55%; Bandwidth-led modelM5 Ultra · 512 GB: 18–40 tok/s; BW demand 25%–55%; Bandwidth-led modelDGX Station · GB300: 19–40 tok/s; BW demand 35%–72%; Bandwidth-led modelDGX Station · GB300: 19–40 tok/s; BW demand 35%–72%; Bandwidth-led modelModeled arithmetic intensity ÷ vector-reference ridge (log)Required compute ÷ vector reference (log)Measured Spark step anatomy — separate from the roofline estimates2026-10-05 pre-final stack; profiling perturbs performance; not exact headline workload. Author attribution to bandwidth-bound kernels; not an independent DRAM counter validation. Pinned source data.
 
-MacBook Pro · M5 Max B1, MTPLX dynamic Q4	63.5	—	Unprofiled
+Rank / verify rows	Step ms	BW-class kernels ms / share	Collectives ms	Small kernels ms	Idle ms / share
 
-RTX PRO 6000 Blackwell B9, NVFP4, no MTP	81–88	45%–49%	Unprofiled
+0 / 5	70.42	57.63 / 81.8%	3.90	5.63	3.27 / 4.6%
 
-2 × DGX Spark B16: EXL3 4-bit TP2, DFlash2; prose 33 / coding 42 prompt tokens	47–63	—	Related profile
+0 / 6	75.09	61.92 / 82.5%	4.10	5.84	3.23 / 4.3%
 
-Mac Studio · M5 Ultra B17, oQ4e, DFlash2	44–62	—	Unprofiled
+0 / 8	83.11	69.04 / 83.1%	4.76	6.16	3.14 / 3.8%
 
-2 × RTX PRO 6000 Blackwell Estimate, IQ4_XS	41–70 (scenario)	—	Unprofiled
+1 / 5	70.42	57.81 / 82.1%	4.69	5.64	2.28 / 3.2%
 
-M5 Ultra · 512 GB Estimate, IQ4_XS, DFlash2	18–40 (scenario)	—	Unprofiled
+1 / 6	75.09	61.92 / 82.5%	5.01	5.86	2.30 / 3.1%
 
-DGX Station · GB300 Estimate, IQ4_XS split HBM/CPU, DFlash2	19–40 (scenario)	—	Unprofiled
+1 / 8	83.09	68.81 / 82.8%	5.81	6.14	2.34 / 2.8%
+
+Rank-0 M=6: removing all 3.23 ms idle would improve the 75.09 ms step by only 4.5% at unchanged acceptance. Removing all 13.17 ms outside the bandwidth-class kernels is an optimistic 21.3% speedup. Neither is an achievable promise: work can overlap, classifications are approximate, and essential collectives cannot simply disappear.
+
+Pairing / input confidence	GB & GFLOP per emitted token	BW / vector / matrix reference roofs (tok/s)	Ideal BW / vector / observed (ms/token)	BW / vector demand; roof gap	Traffic sensitivity: BW demand	Interpretation
+
+MacBook Pro · M5 B12, 4-bit MLX Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	1.7–1.8 GB 6.2–6.7 GFLOP	86–89 / 597–645 / 2398–2594	11.2–11.7 / 1.5–1.7 / 16.8–19.6	59%–67% / 9% gap 33%–41%	45%–83%	Bandwidth-led model. Vector peak is 7.0× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+MacBook Pro · M5 Pro Estimate, MTPLX dynamic Q4 Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	6.6 GB 71.5 GFLOP	47 / 126 / 504	21.5 / 7.9 / 22.8–47.5	45%–94% / 17%–35% gap 6%–55%	34%–117%	Bandwidth-led model. Vector peak is 2.7× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. Forecast inputs: self-consistency only, not independent evidence. Sensitivity exceeds 100%: those traffic assumptions contradict the rate; do not cap them. No matching profile.
+
+GeForce RTX 4090 B10, Q4_K_S 16.68 GiB Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	18.2–22.2 GB 53.6–77.8 GFLOP	45–55 / 1062–1541 / 2122–3078	18.0–22.0 / 0.6–0.9 / 21.7–26.0	83%–85% / 3%–4% gap 15%–17%	63%–104%	Bandwidth-led model. Vector peak is 23.4× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. Sensitivity exceeds 100%: those traffic assumptions contradict the rate; do not cap them. No matching profile.
+
+Radeon AI PRO R9700 B8, Q4-class, MTP=2 Quantization, context and acceptance unreported; Q4-class traffic and 4K are scenarios.	7.1 GB 64.3 GFLOP	90 / 743 / 2969	11.1 / 1.3 / 19.3	58% / 7% gap 42%	43%–72%	Bandwidth-led model. Vector peak is 8.3× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+GeForce RTX 5090 B3, Q4_K_M Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	17.9 GB 54.4 GFLOP	100 / 1927 / 3842	10.0 / 0.5 / 16.9	59% / 3% gap 41%	45%–73%	Bandwidth-led model. Vector peak is 19.2× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+Ryzen AI Max+ 395 / Halo B7, UD-IQ4_XS, MTP + n-gram Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	1.8–2.6 GB 18.0–25.2 GFLOP	99–139 / 587–822 / 2341–3277	7.2–10.1 / 1.2–1.7 / 21.2–31.5	32%–34% / 5%–6% gap 66%–68%	12%–84%	Bandwidth-led model. Vector peak is 5.9× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+1 × DGX Spark B5, NVFP4, MTP3 Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	2.6 GB 21.9 GFLOP	105 / 1401 / 5703	9.6 / 0.7 / 21.9–27.2	35%–44% / 3% gap 56%–65%	15%–101%	Bandwidth-led model. Vector peak is 13.4× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. Sensitivity exceeds 100%: those traffic assumptions contradict the rate; do not cap them. No matching profile.
+
+MacBook Pro · M5 Max B1, MTPLX dynamic Q4 Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	2.7 GB 21.9 GFLOP	227 / 821 / 3193	4.4 / 1.2 / 15.7	28% / 8% gap 72%	12%–64%	Bandwidth-led model. Vector peak is 3.6× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+RTX PRO 6000 Blackwell B9, NVFP4, no MTP Header-audited current mixed BF16/NVFP4 artifact; historical benchmark revision unpinned. Context 1024 is illustrative.	10.0 GB 12.3 GFLOP	180 / 10161 / 40969	5.6 / 0.1 / 11.4–12.3	45%–49% / 1% gap 51%–55%	45%–49%	Bandwidth-led model. Vector peak is 56.6× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+2 × DGX Spark B16: EXL3 4-bit TP2, DFlash2; prose 33 / coding 42 prompt tokens EXL3 only. Raw-log median draft/emission statistics are workload summaries, not matched steps. Context = prompt + 100 generated tokens, approximate midpoint. Baseline traffic 9.9 GB and expert reuse remain assumptions.	5.1–6.8 GB 52.5–65.0 GFLOP	80–107 / 944–1170 / 3845–4764	9.4–12.5 / 0.9–1.1 / 16.0–21.5	58%–59% / 5% gap 41%–42%	18%–162%	Bandwidth-led model. Vector peak is 11.0× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. Sensitivity exceeds 100%: those traffic assumptions contradict the rate; do not cap them. Related EXL3 profile: bandwidth-dominated kernels.
+
+Mac Studio · M5 Ultra B17, oQ4e, DFlash2 Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	5.3–9.6 GB 50.4–93.7 GFLOP	125–225 / 384–714 / 1494–2776	4.4–8.0 / 1.4–2.6 / 16.0–22.7	28%–35% / 9%–11% gap 65%–72%	9%–93%	Bandwidth-led model. Vector peak is 3.1× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+2 × RTX PRO 6000 Blackwell Estimate, IQ4_XS Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	10.8 GB 37.5 GFLOP	166 / 3335 / 13448	6.0 / 0.3 / 14.3–24.5	25%–42% / 1%–2% gap 58%–75%	19%–53%	Bandwidth-led model. Vector peak is 20.2× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. Forecast inputs: self-consistency only, not independent evidence. No matching profile.
+
+M5 Ultra · 512 GB Estimate, IQ4_XS, DFlash2 Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	16.4 GB 164.5 GFLOP	73 / 219 / 851	13.7 / 4.6 / 24.9–54.5	25%–55% / 8%–18% gap 45%–75%	8%–145%	Bandwidth-led model. Vector peak is 3.0× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. Forecast inputs: self-consistency only, not independent evidence. Sensitivity exceeds 100%: those traffic assumptions contradict the rate; do not cap them. No matching profile.
+
+DGX Station · GB300 Estimate, IQ4_XS split HBM/CPU, DFlash2 Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	16.4 GB 164.5 GFLOP	56 / 486 / 15199	18.0 / 2.1 / 24.8–51.4	35%–72% / 4%–8% gap 28%–65%	12%–191%	Bandwidth-led model. Vector peak is 8.7× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. Forecast inputs: self-consistency only, not independent evidence. Sensitivity exceeds 100%: those traffic assumptions contradict the rate; do not cap them. No matching profile.
+
+Ryzen AI Max+ 395 / Halo B7 without speculation Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	3.3 GB 12.6 GFLOP	79 / 1174 / 4681	12.7 / 0.9 / 59.5	21% / 1% gap 79%	16%–27%	Bandwidth-led model. Vector peak is 14.9× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+2 × DGX Spark B16 without speculation Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	9.9 GB 37.5 GFLOP	55 / 1638 / 6671	18.2 / 0.6 / 55.6	33% / 1% gap 67%	25%–41%	Bandwidth-led model. Vector peak is 29.8× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+Mac Studio · M5 Ultra B17 without drafting Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	10.2 GB 36.1–37.5 GFLOP	117–118 / 961–996 / 3736–3873	8.5 / 1.0 / 25.8–30.4	28%–33% / 3%–4% gap 67%–72%	21%–41%	Bandwidth-led model. Vector peak is 8.2× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+DGX Station · GB300 (HBM only) B15, NVFP4 in HBM Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.	10.1 GB 37.5 GFLOP	701 / 2135 / 66709	1.4 / 0.5 / 7.3	20% / 6% gap 80%	15%–24%	Bandwidth-led model. Vector peak is 3.0× the BW roof at the closest endpoint. Measured effective compute and bandwidth can change the limiter. No matching profile.
+
+Device reference	BW GB/s	FP32 vector TFLOPS	FP16 matrix TFLOPS	Provenance / assumption
+
+MacBook Pro · M5	153	3.98	16	Derived: A19 benchmark 257 FP32 FLOP/core/clock × 10 cores × ~1.55 GHz
+
+MacBook Pro · M5 Pro	307	9.0	36	Derived: 20 cores × ~1.75 GHz
+
+MacBook Pro · M5 Max	614	18.0	70	Derived: 40 cores × ~1.75 GHz (A19 benchmark author’s extrapolation)
+
+Mac Studio · M5 Ultra	1200	36.0	140	Derived: 80 cores × ~1.75 GHz
+
+GeForce RTX 4090	1008	82.6	165	NVIDIA Ada specifications
+
+Radeon AI PRO R9700	640	47.8	191	AMD specifications (FP32 vector)
+
+GeForce RTX 5090	1792	104.8	209	NVIDIA Blackwell whitepaper
+
+Ryzen AI Max+ 395 / Halo	256	14.8	59	2,560 shaders × 2 × 2.9 GHz, single-issue (dual-issue counts 29.7)
+
+1 × DGX Spark	273	30.7	125	Derived: 6,144 CUDA cores × 2 × ~2.5 GHz; NVIDIA publishes no FP32 figure
+
+2 × DGX Spark	546	61.4	250	Two nodes summed (tensor parallel)
+
+RTX PRO 6000 Blackwell	1792	125.0	504	NVIDIA specifications (125 TFLOPS FP32)
+
+2 × RTX PRO 6000 Blackwell	1792	125.0	504	Sequential layer split: one card active at a time
+
+M5 Ultra · 512 GB	1200	36.0	140	Same chip as M5 Ultra
+
+DGX Station · GB300	914	80.0	2500	NVIDIA DGX Station data sheet: 80 TFLOPS FP32. Station split assumes 60% HBM / 40% CPU traffic; HBM-only is separate.
+
+DGX Station · GB300 (HBM only)	7100	80.0	2500	NVIDIA DGX Station data sheet: 80 TFLOPS FP32. Station split assumes 60% HBM / 40% CPU traffic; HBM-only is separate.
 
 How the estimates were made
 

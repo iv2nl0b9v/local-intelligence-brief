@@ -1,222 +1,1703 @@
 {
-  "method": "Conditional weights-only attainment; no time shares or residual attribution.",
+  "method": "Comparative decode roofline scenarios, not elapsed-time attribution. Traffic sensitivity is illustrative, not a confidence interval.",
   "pairs": {
     "m5": {
       "device": "MacBook Pro · M5",
       "model": "qwen36",
+      "estimate": false,
+      "note": "B12, 4-bit MLX",
       "speed": [
         51.0,
         59.5
       ],
       "display": "51–60",
-      "estimate": false,
-      "note": "B12, 4-bit MLX",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 1.78388608,
+          "gops_per_token": 6.67108864,
+          "intensity": 3.739638262102477,
+          "ridge": 26.013071895424837,
+          "bandwidth_roof": 85.76780867083171,
+          "compute_roof": 596.6042747709615,
+          "matrix_reference_roof": 2398.4091448078857,
+          "memory_ms": 11.659386143790849,
+          "vector_ms": 1.6761529246231155,
+          "context": 4096,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 1.7,
+          "cache_gb_per_step": 0.08388608
+        },
+        {
+          "gb_per_token": 1.72097152,
+          "gops_per_token": 6.16777216,
+          "intensity": 3.583889732236824,
+          "ridge": 26.013071895424837,
+          "bandwidth_roof": 88.90327249575867,
+          "compute_roof": 645.2897248396413,
+          "matrix_reference_roof": 2594.1295470940354,
+          "memory_ms": 11.248179869281046,
+          "vector_ms": 1.5496914974874372,
+          "context": 1024,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 1.7,
+          "cache_gb_per_step": 0.02097152
+        }
+      ],
+      "bandwidth_attainment": [
+        0.5946286933333333,
+        0.6692667022222223
+      ],
+      "compute_attainment": [
+        0.08548379915577889,
+        0.09220664410050251
+      ],
+      "roof_gap": [
+        0.40537130666666665,
+        0.3307332977777777
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.4529620266666667,
+        0.8345444799999999
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 6.956039614590938,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 1.7,
+        "context": [
+          4096,
+          1024
+        ],
+        "k": [
+          0,
+          0
+        ],
+        "a": [
+          1,
+          1
+        ],
+        "moe": true,
+        "device": "m5"
+      },
+      "scenario_only": false
     },
     "m5pro": {
       "device": "MacBook Pro · M5 Pro",
       "model": "qwen27",
+      "estimate": true,
+      "note": "Estimate, MTPLX dynamic Q4",
       "speed": [
         21.040000000000003,
         43.8
       ],
       "display": "21–44",
-      "estimate": true,
-      "note": "Estimate, MTPLX dynamic Q4",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "scenario": "m5pro_qwen38",
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 6.589478485333333,
+          "gops_per_token": 71.48081698133333,
+          "intensity": 10.847719912954148,
+          "ridge": 29.315960912052116,
+          "bandwidth_roof": 46.58942292372781,
+          "compute_roof": 125.90790620580457,
+          "matrix_reference_roof": 503.63162482321826,
+          "memory_ms": 21.464099300760044,
+          "vector_ms": 7.942312997925926,
+          "context": 4096,
+          "draft_tokens": 3,
+          "emitted_tokens": 3.0,
+          "weight_gb_per_step": 19.5,
+          "cache_gb_per_step": 0.268435456
+        },
+        {
+          "gb_per_token": 6.589478485333333,
+          "gops_per_token": 71.48081698133333,
+          "intensity": 10.847719912954148,
+          "ridge": 29.315960912052116,
+          "bandwidth_roof": 46.58942292372781,
+          "compute_roof": 125.90790620580457,
+          "matrix_reference_roof": 503.63162482321826,
+          "memory_ms": 21.464099300760044,
+          "vector_ms": 7.942312997925926,
+          "context": 4096,
+          "draft_tokens": 3,
+          "emitted_tokens": 3.0,
+          "weight_gb_per_step": 19.5,
+          "cache_gb_per_step": 0.268435456
+        }
+      ],
+      "bandwidth_attainment": [
+        0.4516046492879914,
+        0.9401275493732898
+      ],
+      "compute_attainment": [
+        0.1671062654763615,
+        0.34787330930915555
+      ],
+      "roof_gap": [
+        0.5483953507120086,
+        0.059872450626710205
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.3402365711120956,
+        1.1719679402527685
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 2.702499801552171,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 19.5,
+        "context": [
+          4096,
+          4096
+        ],
+        "k": [
+          3,
+          3
+        ],
+        "a": [
+          3.0,
+          3.0
+        ],
+        "moe": false,
+        "device": "m5pro"
+      },
+      "scenario_only": true,
+      "scenario": "m5pro_qwen38"
     },
     "rtx4090": {
       "device": "GeForce RTX 4090",
       "model": "qwen27",
+      "estimate": false,
+      "note": "B10, Q4_K_S 16.68 GiB",
       "speed": [
         38.41,
         46.16
       ],
       "display": "38–46",
-      "estimate": false,
-      "note": "B10, Q4_K_S 16.68 GiB",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 22.194967295999998,
+          "gops_per_token": 77.769803776,
+          "intensity": 3.5039386514444546,
+          "ridge": 81.94444444444444,
+          "bandwidth_roof": 45.415701071191165,
+          "compute_roof": 1062.1088904623236,
+          "matrix_reference_roof": 2121.6460886959253,
+          "memory_ms": 22.018816761904763,
+          "vector_ms": 0.9415230481355933,
+          "context": 65536,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 17.9,
+          "cache_gb_per_step": 4.294967296
+        },
+        {
+          "gb_per_token": 18.168435455999997,
+          "gops_per_token": 53.610612736,
+          "intensity": 2.9507556039061953,
+          "ridge": 81.94444444444444,
+          "bandwidth_roof": 55.4808366653891,
+          "compute_roof": 1540.739711496216,
+          "matrix_reference_roof": 3077.7488183641117,
+          "memory_ms": 18.024241523809522,
+          "vector_ms": 0.6490388951089588,
+          "context": 4096,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 17.9,
+          "cache_gb_per_step": 0.268435456
+        }
+      ],
+      "bandwidth_attainment": [
+        0.8457427518247618,
+        0.8319989887390474
+      ],
+      "compute_attainment": [
+        0.03616390027888814,
+        0.029959635398229538
+      ],
+      "roof_gap": [
+        0.15425724817523823,
+        0.16800101126095257
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.6270724014374602,
+        1.0369255760406348
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 23.38638104027988,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 17.9,
+        "context": [
+          65536,
+          4096
+        ],
+        "k": [
+          0,
+          0
+        ],
+        "a": [
+          1,
+          1
+        ],
+        "moe": false,
+        "device": "rtx4090"
+      },
+      "scenario_only": false
     },
     "r9700": {
       "device": "Radeon AI PRO R9700",
       "model": "qwen27",
+      "estimate": false,
+      "note": "B8, Q4-class, MTP=2",
       "speed": [
         51.8,
         51.8
       ],
       "display": "51.8",
-      "estimate": false,
-      "note": "B8, Q4-class, MTP=2",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 7.107374182399999,
+          "gops_per_token": 64.3327352832,
+          "intensity": 9.051547538119948,
+          "ridge": 74.6875,
+          "bandwidth_roof": 90.04732037112002,
+          "compute_roof": 743.0120884737604,
+          "matrix_reference_roof": 2968.9395167047746,
+          "memory_ms": 11.105272159999998,
+          "vector_ms": 1.3458731230794978,
+          "context": 4096,
+          "draft_tokens": 2,
+          "emitted_tokens": 2.5,
+          "weight_gb_per_step": 17.5,
+          "cache_gb_per_step": 0.268435456
+        },
+        {
+          "gb_per_token": 7.107374182399999,
+          "gops_per_token": 64.3327352832,
+          "intensity": 9.051547538119948,
+          "ridge": 74.6875,
+          "bandwidth_roof": 90.04732037112002,
+          "compute_roof": 743.0120884737604,
+          "matrix_reference_roof": 2968.9395167047746,
+          "memory_ms": 11.105272159999998,
+          "vector_ms": 1.3458731230794978,
+          "context": 4096,
+          "draft_tokens": 2,
+          "emitted_tokens": 2.5,
+          "weight_gb_per_step": 17.5,
+          "cache_gb_per_step": 0.268435456
+        }
+      ],
+      "bandwidth_attainment": [
+        0.5752530978879999,
+        0.5752530978879999
+      ],
+      "compute_attainment": [
+        0.06971622777551797,
+        0.06971622777551797
+      ],
+      "roof_gap": [
+        0.42474690211200006,
+        0.42474690211200006
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.433612472888,
+        0.7168937228879999
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 8.251351460671108,
+      "assumption_note": "Quantization, context and acceptance unreported; Q4-class traffic and 4K are scenarios.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 17.5,
+        "context": [
+          4096,
+          4096
+        ],
+        "k": [
+          2,
+          2
+        ],
+        "a": [
+          2.5,
+          2.5
+        ],
+        "moe": false,
+        "device": "r9700"
+      },
+      "scenario_only": false
     },
     "rtx5090": {
       "device": "GeForce RTX 5090",
       "model": "qwen27",
+      "estimate": false,
+      "note": "B3, Q4_K_M",
       "speed": [
         59,
         59
       ],
       "display": "59",
-      "estimate": false,
-      "note": "B3, Q4_K_M",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 17.899179776,
+          "gops_per_token": 54.395078656,
+          "intensity": 3.038970463268674,
+          "ridge": 58.482142857142854,
+          "bandwidth_roof": 100.11631943061388,
+          "compute_roof": 1926.6448838646936,
+          "matrix_reference_roof": 3842.2593580889406,
+          "memory_ms": 9.988381571428572,
+          "vector_ms": 0.519037010076336,
+          "context": 6091,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 17.5,
+          "cache_gb_per_step": 0.399179776
+        },
+        {
+          "gb_per_token": 17.899179776,
+          "gops_per_token": 54.395078656,
+          "intensity": 3.038970463268674,
+          "ridge": 58.482142857142854,
+          "bandwidth_roof": 100.11631943061388,
+          "compute_roof": 1926.6448838646936,
+          "matrix_reference_roof": 3842.2593580889406,
+          "memory_ms": 9.988381571428572,
+          "vector_ms": 0.519037010076336,
+          "context": 6091,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 17.5,
+          "cache_gb_per_step": 0.399179776
+        }
+      ],
+      "bandwidth_attainment": [
+        0.5893145127142857,
+        0.5893145127142857
+      ],
+      "compute_attainment": [
+        0.03062318359450382,
+        0.03062318359450382
+      ],
+      "roof_gap": [
+        0.4106854872857143,
+        0.4106854872857143
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.44527154396428575,
+        0.7333574814642857
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 19.244064252681248,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 17.5,
+        "context": [
+          6091,
+          6091
+        ],
+        "k": [
+          0,
+          0
+        ],
+        "a": [
+          1,
+          1
+        ],
+        "moe": false,
+        "device": "rtx5090"
+      },
+      "scenario_only": false
     },
     "halo": {
       "device": "Ryzen AI Max+ 395 / Halo",
       "model": "flashnext",
+      "estimate": false,
+      "note": "B7, UD-IQ4_XS, MTP + n-gram",
       "speed": [
         31.7,
         47.1
       ],
       "display": "32–47",
-      "estimate": false,
-      "note": "B7, UD-IQ4_XS, MTP + n-gram",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 2.5826492416,
+          "gops_per_token": 25.207959552,
+          "intensity": 9.760504502881387,
+          "ridge": 57.8125,
+          "bandwidth_roof": 99.12302293183382,
+          "compute_roof": 587.1161435922635,
+          "matrix_reference_roof": 2340.5305724286177,
+          "memory_ms": 10.0884736,
+          "vector_ms": 1.7032405102702701,
+          "context": 8192,
+          "draft_tokens": 4,
+          "emitted_tokens": 2.5,
+          "weight_gb_per_step": 6.4,
+          "cache_gb_per_step": 0.056623104
+        },
+        {
+          "gb_per_token": 1.8447494582857142,
+          "gops_per_token": 18.005685394285713,
+          "intensity": 9.760504502881387,
+          "ridge": 57.8125,
+          "bandwidth_roof": 138.77223210456734,
+          "compute_roof": 821.9626010291688,
+          "matrix_reference_roof": 3276.7428014000648,
+          "memory_ms": 7.206052571428571,
+          "vector_ms": 1.2166003644787644,
+          "context": 8192,
+          "draft_tokens": 4,
+          "emitted_tokens": 3.5,
+          "weight_gb_per_step": 6.4,
+          "cache_gb_per_step": 0.056623104
+        }
+      ],
+      "bandwidth_attainment": [
+        0.31980461311999997,
+        0.3394050761142857
+      ],
+      "compute_attainment": [
+        0.05399272417556756,
+        0.05730187716694981
+      ],
+      "roof_gap": [
+        0.68019538688,
+        0.6605949238857143
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.12167961312000003,
+        0.8440479332571429
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 5.923105714764358,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 3.2,
+        "context": [
+          8192,
+          8192
+        ],
+        "k": [
+          4,
+          4
+        ],
+        "a": [
+          2.5,
+          3.5
+        ],
+        "moe": true,
+        "device": "halo"
+      },
+      "scenario_only": false
     },
     "spark": {
       "device": "1 × DGX Spark",
       "model": "flashnext",
+      "estimate": false,
+      "note": "B5, NVFP4, MTP3",
       "speed": [
         36.83,
         45.75
       ],
       "display": "37–46",
-      "estimate": false,
-      "note": "B5, NVFP4, MTP3",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 2.6095237008695658,
+          "gops_per_token": 21.91996482782609,
+          "intensity": 8.399986871367272,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 104.61679267715745,
+          "compute_roof": 1400.5496925354635,
+          "matrix_reference_roof": 5702.563894688369,
+          "memory_ms": 9.558694874980095,
+          "vector_ms": 0.7140053689845631,
+          "context": 2048,
+          "draft_tokens": 3,
+          "emitted_tokens": 2.3,
+          "weight_gb_per_step": 5.95,
+          "cache_gb_per_step": 0.051904512
+        },
+        {
+          "gb_per_token": 2.6095237008695658,
+          "gops_per_token": 21.91996482782609,
+          "intensity": 8.399986871367272,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 104.61679267715745,
+          "compute_roof": 1400.5496925354635,
+          "matrix_reference_roof": 5702.563894688369,
+          "memory_ms": 9.558694874980095,
+          "vector_ms": 0.7140053689845631,
+          "context": 2048,
+          "draft_tokens": 3,
+          "emitted_tokens": 2.3,
+          "weight_gb_per_step": 5.95,
+          "cache_gb_per_step": 0.051904512
+        }
+      ],
+      "bandwidth_attainment": [
+        0.35204673224551686,
+        0.4373102905303393
+      ],
+      "compute_attainment": [
+        0.026296817739701456,
+        0.03266574563104376
+      ],
+      "roof_gap": [
+        0.6479532677544831,
+        0.5626897094696607
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.15261688672871476,
+        1.0101871419397994
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 13.387427168193682,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 3.4,
+        "context": [
+          2048,
+          2048
+        ],
+        "k": [
+          3,
+          3
+        ],
+        "a": [
+          2.3,
+          2.3
+        ],
+        "moe": true,
+        "device": "spark"
+      },
+      "scenario_only": false
     },
     "m5max": {
       "device": "MacBook Pro · M5 Max",
       "model": "flashnext",
+      "estimate": false,
+      "note": "B1, MTPLX dynamic Q4",
       "speed": [
         63.5,
         63.5
       ],
       "display": "63.5",
-      "estimate": false,
-      "note": "B1, MTPLX dynamic Q4",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 2.706798775652174,
+          "gops_per_token": 21.91996482782609,
+          "intensity": 8.09811391411787,
+          "ridge": 29.315960912052116,
+          "bandwidth_roof": 226.83621905069884,
+          "compute_roof": 821.1692008351251,
+          "matrix_reference_roof": 3193.4357810254864,
+          "memory_ms": 4.408467061322759,
+          "vector_ms": 1.217775823768116,
+          "context": 65502,
+          "draft_tokens": 3,
+          "emitted_tokens": 2.3,
+          "weight_gb_per_step": 6.125,
+          "cache_gb_per_step": 0.100637184
+        },
+        {
+          "gb_per_token": 2.706798775652174,
+          "gops_per_token": 21.91996482782609,
+          "intensity": 8.09811391411787,
+          "ridge": 29.315960912052116,
+          "bandwidth_roof": 226.83621905069884,
+          "compute_roof": 821.1692008351251,
+          "matrix_reference_roof": 3193.4357810254864,
+          "memory_ms": 4.408467061322759,
+          "vector_ms": 1.217775823768116,
+          "context": 65502,
+          "draft_tokens": 3,
+          "emitted_tokens": 2.3,
+          "weight_gb_per_step": 6.125,
+          "cache_gb_per_step": 0.100637184
+        }
+      ],
+      "bandwidth_attainment": [
+        0.2799376583939952,
+        0.2799376583939952
+      ],
+      "compute_attainment": [
+        0.07732876480927536,
+        0.07732876480927536
+      ],
+      "roof_gap": [
+        0.7200623416060048,
+        0.7200623416060048
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.12255910011613086,
+        0.6438755744115564
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 3.620097373654383,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 3.5,
+        "context": [
+          65502,
+          65502
+        ],
+        "k": [
+          3,
+          3
+        ],
+        "a": [
+          2.3,
+          2.3
+        ],
+        "moe": true,
+        "device": "m5max"
+      },
+      "scenario_only": false
     },
     "pro6000": {
       "device": "RTX PRO 6000 Blackwell",
       "model": "flashnext",
+      "estimate": false,
+      "note": "B9, NVFP4, no MTP",
       "speed": [
         81,
         88
       ],
       "display": "81–88",
-      "estimate": false,
-      "note": "B9, NVFP4, no MTP",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": 9.95111452,
-      "bandwidth_gbps": 1792,
+      "endpoints": [
+        {
+          "gb_per_token": 9.977066776000001,
+          "gops_per_token": 12.301989888,
+          "intensity": 1.2330267165889517,
+          "ridge": 69.75446428571429,
+          "bandwidth_roof": 179.61190801195053,
+          "compute_roof": 10160.95779122136,
+          "matrix_reference_roof": 40968.981814204526,
+          "memory_ms": 5.56755958482143,
+          "vector_ms": 0.098415919104,
+          "context": 1024,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 9.95111452,
+          "cache_gb_per_step": 0.025952256
+        },
+        {
+          "gb_per_token": 9.977066776000001,
+          "gops_per_token": 12.301989888,
+          "intensity": 1.2330267165889517,
+          "ridge": 69.75446428571429,
+          "bandwidth_roof": 179.61190801195053,
+          "compute_roof": 10160.95779122136,
+          "matrix_reference_roof": 40968.981814204526,
+          "memory_ms": 5.56755958482143,
+          "vector_ms": 0.098415919104,
+          "context": 1024,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 9.95111452,
+          "cache_gb_per_step": 0.025952256
+        }
+      ],
       "bandwidth_attainment": [
-        0.4497992612276786,
-        0.4886708023214286
-      ]
+        0.45097232637053575,
+        0.48994524346428575
+      ],
+      "compute_attainment": [
+        0.007971689447424,
+        0.008660600881152
+      ],
+      "roof_gap": [
+        0.5490276736294643,
+        0.5100547565357143
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.45097232637053575,
+        0.48994524346428575
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 56.571737941480464,
+      "assumption_note": "Header-audited current mixed BF16/NVFP4 artifact; historical benchmark revision unpinned. Context 1024 is illustrative.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 9.95111452,
+        "context": [
+          1024,
+          1024
+        ],
+        "k": [
+          0,
+          0
+        ],
+        "a": [
+          1,
+          1
+        ],
+        "moe": true,
+        "device": "pro6000"
+      },
+      "scenario_only": false
     },
     "spark2": {
       "device": "2 × DGX Spark",
       "model": "glmflash",
+      "estimate": false,
+      "note": "B16: EXL3 4-bit TP2, DFlash2; prose 33 / coding 42 prompt tokens",
       "speed": [
         46.577964,
         62.607182
       ],
       "display": "47–63",
-      "estimate": false,
-      "note": "B16: EXL3 4-bit TP2, DFlash2; prose 33 / coding 42 prompt tokens",
-      "diagnosis": "Related profile",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 6.803918573369135,
+          "gops_per_token": 65.01363294151066,
+          "intensity": 9.555322016341753,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 80.24787394385793,
+          "compute_roof": 944.4173048326394,
+          "matrix_reference_roof": 3845.3473323804533,
+          "memory_ms": 12.4613893285149,
+          "vector_ms": 1.058853956702128,
+          "context": 133,
+          "draft_tokens": 4.7015,
+          "emitted_tokens": 3.1655,
+          "weight_gb_per_step": 21.536212499999998,
+          "cache_gb_per_step": 0.001591744
+        },
+        {
+          "gb_per_token": 5.123792531031649,
+          "gops_per_token": 52.47678656636581,
+          "intensity": 10.24178599124502,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 106.56169169481687,
+          "compute_roof": 1170.0411556707893,
+          "matrix_reference_roof": 4764.011220157937,
+          "memory_ms": 9.384235404819869,
+          "vector_ms": 0.8546707909831566,
+          "context": 142,
+          "draft_tokens": 6.073,
+          "emitted_tokens": 4.866,
+          "weight_gb_per_step": 24.930675,
+          "cache_gb_per_step": 0.001699456
+        }
+      ],
+      "bandwidth_attainment": [
+        0.5804261435335512,
+        0.5875205339204013
+      ],
+      "compute_attainment": [
+        0.04931926147652928,
+        0.053508529761166435
+      ],
+      "roof_gap": [
+        0.41957385646644885,
+        0.41247946607959873
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.17500693475287638,
+        1.6198689137400768
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 10.979941638142177,
+      "assumption_note": "EXL3 only. Raw-log median draft/emission statistics are workload summaries, not matched steps. Context = prompt + 100 generated tokens, approximate midpoint. Baseline traffic 9.9 GB and expert reuse remain assumptions.",
+      "profile_status": "Related EXL3 profile: bandwidth-dominated kernels",
+      "inputs": {
+        "weight_gb_per_pass": 9.9,
+        "context": [
+          133,
+          142
+        ],
+        "k": [
+          4.7015,
+          6.073
+        ],
+        "a": [
+          3.1655,
+          4.866
+        ],
+        "moe": true,
+        "device": "spark2"
+      },
+      "scenario_only": false
     },
     "m5ultra": {
       "device": "Mac Studio · M5 Ultra",
       "model": "glmflash",
+      "estimate": false,
+      "note": "B17, oQ4e, DFlash2",
       "speed": [
         44.0,
         62.4
       ],
       "display": "44–62",
-      "estimate": false,
-      "note": "B17, oQ4e, DFlash2",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 9.57331344,
+          "gops_per_token": 93.69098752,
+          "intensity": 9.786683378456267,
+          "ridge": 30.0,
+          "bandwidth_roof": 125.34844988842234,
+          "compute_roof": 384.24186736547273,
+          "matrix_reference_roof": 1494.273928643505,
+          "memory_ms": 7.9777612,
+          "vector_ms": 2.602527431111111,
+          "context": 4096,
+          "draft_tokens": 5,
+          "emitted_tokens": 2.4,
+          "weight_gb_per_step": 22.95,
+          "cache_gb_per_step": 0.025952256
+        },
+        {
+          "gb_per_token": 5.337765953488373,
+          "gops_per_token": 50.43373841860466,
+          "intensity": 9.448473173621423,
+          "ridge": 30.0,
+          "bandwidth_roof": 224.81315412785528,
+          "compute_roof": 713.8078819618069,
+          "matrix_reference_roof": 2775.9195409625822,
+          "memory_ms": 4.448138294573644,
+          "vector_ms": 1.4009371782945739,
+          "context": 200,
+          "draft_tokens": 5,
+          "emitted_tokens": 4.3,
+          "weight_gb_per_step": 22.95,
+          "cache_gb_per_step": 0.0023936
+        }
+      ],
+      "bandwidth_attainment": [
+        0.3510214928,
+        0.27756382958139536
+      ],
+      "compute_attainment": [
+        0.11451120696888889,
+        0.08741847992558141
+      ],
+      "roof_gap": [
+        0.6489785072,
+        0.7224361704186046
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.09254057376744187,
+        0.9256569094666667
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 3.0653898608838146,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 10.2,
+        "context": [
+          4096,
+          200
+        ],
+        "k": [
+          5,
+          5
+        ],
+        "a": [
+          2.4,
+          4.3
+        ],
+        "moe": true,
+        "device": "m5ultra"
+      },
+      "scenario_only": false
     },
     "pro2": {
       "device": "2 × RTX PRO 6000 Blackwell",
       "model": "glmflash",
+      "estimate": true,
+      "note": "Estimate, IQ4_XS",
       "speed": [
         40.80145719489982,
         70.06737247353223
       ],
       "display": "41–70",
-      "estimate": true,
-      "note": "Estimate, IQ4_XS",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "scenario": "pro_dual_glmflash_layer_split",
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 10.825952256,
+          "gops_per_token": 37.476395008,
+          "intensity": 3.4617181123470857,
+          "ridge": 69.75446428571429,
+          "bandwidth_roof": 165.52816395498428,
+          "compute_roof": 3335.4328764363954,
+          "matrix_reference_roof": 13448.465357791547,
+          "memory_ms": 6.0412680000000005,
+          "vector_ms": 0.299811160064,
+          "context": 4096,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 10.8,
+          "cache_gb_per_step": 0.025952256
+        },
+        {
+          "gb_per_token": 10.825952256,
+          "gops_per_token": 37.476395008,
+          "intensity": 3.4617181123470857,
+          "ridge": 69.75446428571429,
+          "bandwidth_roof": 165.52816395498428,
+          "compute_roof": 3335.4328764363954,
+          "matrix_reference_roof": 13448.465357791547,
+          "memory_ms": 6.0412680000000005,
+          "vector_ms": 0.299811160064,
+          "context": 4096,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 10.8,
+          "cache_gb_per_step": 0.025952256
+        }
+      ],
+      "bandwidth_attainment": [
+        0.24649253770491805,
+        0.42329577516843114
+      ],
+      "compute_attainment": [
+        0.012232732213904553,
+        0.021006980223926077
+      ],
+      "roof_gap": [
+        0.7535074622950819,
+        0.5767042248315688
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.1850171278688525,
+        0.5288660350336862
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 20.15024390256315,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 10.8,
+        "context": [
+          4096,
+          4096
+        ],
+        "k": [
+          0,
+          0
+        ],
+        "a": [
+          1,
+          1
+        ],
+        "moe": true,
+        "device": "pro2"
+      },
+      "scenario_only": true,
+      "scenario": "pro_dual_glmflash_layer_split"
     },
     "m5ultra512": {
       "device": "M5 Ultra · 512 GB",
       "model": "glm53",
+      "estimate": true,
+      "note": "Estimate, IQ4_XS, DFlash2",
       "speed": [
         18.333333333333332,
         40.20618556701031
       ],
       "display": "18–40",
-      "estimate": true,
-      "note": "Estimate, IQ4_XS, DFlash2",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "scenario": "ultra512_glm53",
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 16.42639204848485,
+          "gops_per_token": 164.48905960727276,
+          "intensity": 10.013705938696686,
+          "ridge": 30.0,
+          "bandwidth_roof": 73.05316934224071,
+          "compute_roof": 218.8595404822187,
+          "matrix_reference_roof": 851.1204352086284,
+          "memory_ms": 13.688660040404041,
+          "vector_ms": 4.569140544646466,
+          "context": 4096,
+          "draft_tokens": 5,
+          "emitted_tokens": 3.3,
+          "weight_gb_per_step": 54.0,
+          "cache_gb_per_step": 0.20709376
+        },
+        {
+          "gb_per_token": 16.42639204848485,
+          "gops_per_token": 164.48905960727276,
+          "intensity": 10.013705938696686,
+          "ridge": 30.0,
+          "bandwidth_roof": 73.05316934224071,
+          "compute_roof": 218.8595404822187,
+          "matrix_reference_roof": 851.1204352086284,
+          "memory_ms": 13.688660040404041,
+          "vector_ms": 4.569140544646466,
+          "context": 4096,
+          "draft_tokens": 5,
+          "emitted_tokens": 3.3,
+          "weight_gb_per_step": 54.0,
+          "cache_gb_per_step": 0.20709376
+        }
+      ],
+      "bandwidth_attainment": [
+        0.2509587674074074,
+        0.5503688057482038
+      ],
+      "compute_attainment": [
+        0.08376757665185186,
+        0.18370771261980634
+      ],
+      "roof_gap": [
+        0.7490412325925926,
+        0.4496311942517962
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.08429210074074074,
+        1.448916134707904
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 2.995893846260138,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 24.0,
+        "context": [
+          4096,
+          4096
+        ],
+        "k": [
+          5,
+          5
+        ],
+        "a": [
+          3.3,
+          3.3
+        ],
+        "moe": true,
+        "device": "m5ultra512"
+      },
+      "scenario_only": true,
+      "scenario": "ultra512_glm53"
     },
     "station": {
       "device": "DGX Station · GB300",
       "model": "glm53",
+      "estimate": true,
+      "note": "Estimate, IQ4_XS split HBM/CPU, DFlash2",
       "speed": [
         19.452777143768042,
         40.312614211321645
       ],
       "display": "19–40",
-      "estimate": true,
-      "note": "Estimate, IQ4_XS split HBM/CPU, DFlash2",
-      "diagnosis": "Unprofiled",
-      "weight_gb_per_pass": null,
-      "bandwidth_gbps": null,
-      "scenario": "station_glm53",
-      "bandwidth_attainment": null
+      "endpoints": [
+        {
+          "gb_per_token": 16.42639204848485,
+          "gops_per_token": 164.48905960727276,
+          "intensity": 10.013705938696686,
+          "ridge": 87.527352297593,
+          "bandwidth_roof": 55.64216398234001,
+          "compute_roof": 486.35453440493046,
+          "matrix_reference_roof": 15198.579200154078,
+          "memory_ms": 17.97198254757642,
+          "vector_ms": 2.0561132450909096,
+          "context": 4096,
+          "draft_tokens": 5,
+          "emitted_tokens": 3.3,
+          "weight_gb_per_step": 54.0,
+          "cache_gb_per_step": 0.20709376
+        },
+        {
+          "gb_per_token": 16.42639204848485,
+          "gops_per_token": 164.48905960727276,
+          "intensity": 10.013705938696686,
+          "ridge": 87.527352297593,
+          "bandwidth_roof": 55.64216398234001,
+          "compute_roof": 486.35453440493046,
+          "matrix_reference_roof": 15198.579200154078,
+          "memory_ms": 17.97198254757642,
+          "vector_ms": 2.0561132450909096,
+          "context": 4096,
+          "draft_tokens": 5,
+          "emitted_tokens": 3.3,
+          "weight_gb_per_step": 54.0,
+          "cache_gb_per_step": 0.20709376
+        }
+      ],
+      "bandwidth_attainment": [
+        0.34960497132969276,
+        0.7244975990530539
+      ],
+      "compute_attainment": [
+        0.03999711273910318,
+        0.08288730002413847
+      ],
+      "roof_gap": [
+        0.6503950286703073,
+        0.2755024009469461
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.11742541520753588,
+        1.9073324103062752
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 8.740755204260067,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 24.0,
+        "context": [
+          4096,
+          4096
+        ],
+        "k": [
+          5,
+          5
+        ],
+        "a": [
+          3.3,
+          3.3
+        ],
+        "moe": true,
+        "device": "station"
+      },
+      "scenario_only": true,
+      "scenario": "station_glm53"
     }
+  },
+  "references": {
+    "halo_nospec": {
+      "device": "Ryzen AI Max+ 395 / Halo",
+      "model": "flashnext",
+      "estimate": false,
+      "note": "B7 without speculation",
+      "speed": [
+        16.8,
+        16.8
+      ],
+      "display": "16.8",
+      "endpoints": [
+        {
+          "gb_per_token": 3.256623104,
+          "gops_per_token": 12.603979776,
+          "intensity": 3.8702605040537104,
+          "ridge": 57.8125,
+          "bandwidth_roof": 78.6090351338366,
+          "compute_roof": 1174.232287184527,
+          "matrix_reference_roof": 4681.061144857235,
+          "memory_ms": 12.721184,
+          "vector_ms": 0.8516202551351351,
+          "context": 8192,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 3.2,
+          "cache_gb_per_step": 0.056623104
+        },
+        {
+          "gb_per_token": 3.256623104,
+          "gops_per_token": 12.603979776,
+          "intensity": 3.8702605040537104,
+          "ridge": 57.8125,
+          "bandwidth_roof": 78.6090351338366,
+          "compute_roof": 1174.232287184527,
+          "matrix_reference_roof": 4681.061144857235,
+          "memory_ms": 12.721184,
+          "vector_ms": 0.8516202551351351,
+          "context": 8192,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 3.2,
+          "cache_gb_per_step": 0.056623104
+        }
+      ],
+      "bandwidth_attainment": [
+        0.2137158912,
+        0.2137158912
+      ],
+      "compute_attainment": [
+        0.014307220286270269,
+        0.014307220286270269
+      ],
+      "roof_gap": [
+        0.7862841088,
+        0.7862841088
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.16121589120000002,
+        0.2662158912
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 14.93762498401521,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 3.2,
+        "context": [
+          8192,
+          8192
+        ],
+        "k": [
+          0,
+          0
+        ],
+        "a": [
+          1,
+          1
+        ],
+        "moe": true,
+        "device": "halo"
+      },
+      "scenario_only": false
+    },
+    "spark2_nospec": {
+      "device": "2 × DGX Spark",
+      "model": "glmflash",
+      "estimate": false,
+      "note": "B16 without speculation",
+      "speed": [
+        18.0,
+        18.0
+      ],
+      "display": "18.0",
+      "endpoints": [
+        {
+          "gb_per_token": 9.924510464,
+          "gops_per_token": 37.476395008,
+          "intensity": 3.7761454475705607,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 55.01530800743785,
+          "compute_roof": 1638.3646289055573,
+          "matrix_reference_roof": 6670.865752872791,
+          "memory_ms": 18.176759091575093,
+          "vector_ms": 0.6103647395439739,
+          "context": 2048,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 9.9,
+          "cache_gb_per_step": 0.024510464
+        },
+        {
+          "gb_per_token": 9.924510464,
+          "gops_per_token": 37.476395008,
+          "intensity": 3.7761454475705607,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 55.01530800743785,
+          "compute_roof": 1638.3646289055573,
+          "matrix_reference_roof": 6670.865752872791,
+          "memory_ms": 18.176759091575093,
+          "vector_ms": 0.6103647395439739,
+          "context": 2048,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 9.9,
+          "cache_gb_per_step": 0.024510464
+        }
+      ],
+      "bandwidth_attainment": [
+        0.32718166364835166,
+        0.32718166364835166
+      ],
+      "compute_attainment": [
+        0.01098656531179153,
+        0.01098656531179153
+      ],
+      "roof_gap": [
+        0.6728183363516483,
+        0.6728183363516483
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.24558825705494505,
+        0.40877507024175824
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 29.780159163774144,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 9.9,
+        "context": [
+          2048,
+          2048
+        ],
+        "k": [
+          0,
+          0
+        ],
+        "a": [
+          1,
+          1
+        ],
+        "moe": true,
+        "device": "spark2"
+      },
+      "scenario_only": false
+    },
+    "m5ultra_nospec": {
+      "device": "Mac Studio · M5 Ultra",
+      "model": "glmflash",
+      "estimate": false,
+      "note": "B17 without drafting",
+      "speed": [
+        32.9,
+        38.8
+      ],
+      "display": "32.9–38.8",
+      "endpoints": [
+        {
+          "gb_per_token": 10.225952256,
+          "gops_per_token": 37.476395008,
+          "intensity": 3.66483179950415,
+          "ridge": 30.0,
+          "bandwidth_roof": 117.3484845184867,
+          "compute_roof": 960.6046684136819,
+          "matrix_reference_roof": 3735.684821608763,
+          "memory_ms": 8.52162688,
+          "vector_ms": 1.0410109724444443,
+          "context": 4096,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 10.2,
+          "cache_gb_per_step": 0.025952256
+        },
+        {
+          "gb_per_token": 10.202393599999999,
+          "gops_per_token": 36.1441792,
+          "intensity": 3.5427156231259307,
+          "ridge": 30.0,
+          "bandwidth_roof": 117.61945745751272,
+          "compute_roof": 996.0109980862422,
+          "matrix_reference_roof": 3873.3761036687197,
+          "memory_ms": 8.501994666666667,
+          "vector_ms": 1.004004977777778,
+          "context": 200,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 10.2,
+          "cache_gb_per_step": 0.0023936
+        }
+      ],
+      "bandwidth_attainment": [
+        0.28036152435199996,
+        0.32987739306666664
+      ],
+      "compute_attainment": [
+        0.034249260993422216,
+        0.03895539313777778
+      ],
+      "roof_gap": [
+        0.7196384756480001,
+        0.6701226069333334
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.21044902435199997,
+        0.4123273930666666
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 8.185914563407518,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 10.2,
+        "context": [
+          4096,
+          200
+        ],
+        "k": [
+          0,
+          0
+        ],
+        "a": [
+          1,
+          1
+        ],
+        "moe": true,
+        "device": "m5ultra"
+      },
+      "scenario_only": false
+    },
+    "station_glmflash": {
+      "device": "DGX Station · GB300 (HBM only)",
+      "model": "glmflash",
+      "estimate": false,
+      "note": "B15, NVFP4 in HBM",
+      "speed": [
+        137,
+        137
+      ],
+      "display": "137.0",
+      "endpoints": [
+        {
+          "gb_per_token": 10.124510464,
+          "gops_per_token": 37.476395008,
+          "intensity": 3.701551313641864,
+          "ridge": 11.267605633802816,
+          "bandwidth_roof": 701.2684736951643,
+          "compute_roof": 2134.677040919293,
+          "matrix_reference_roof": 66708.65752872791,
+          "memory_ms": 1.4259873892957748,
+          "vector_ms": 0.46845493759999995,
+          "context": 2048,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 10.1,
+          "cache_gb_per_step": 0.024510464
+        },
+        {
+          "gb_per_token": 10.124510464,
+          "gops_per_token": 37.476395008,
+          "intensity": 3.701551313641864,
+          "ridge": 11.267605633802816,
+          "bandwidth_roof": 701.2684736951643,
+          "compute_roof": 2134.677040919293,
+          "matrix_reference_roof": 66708.65752872791,
+          "memory_ms": 1.4259873892957748,
+          "vector_ms": 0.46845493759999995,
+          "context": 2048,
+          "draft_tokens": 0,
+          "emitted_tokens": 1,
+          "weight_gb_per_step": 10.1,
+          "cache_gb_per_step": 0.024510464
+        }
+      ],
+      "bandwidth_attainment": [
+        0.19536027233352113,
+        0.19536027233352113
+      ],
+      "compute_attainment": [
+        0.06417832645119999,
+        0.06417832645119999
+      ],
+      "roof_gap": [
+        0.8046397276664788,
+        0.8046397276664788
+      ],
+      "bandwidth_demand_sensitivity": [
+        0.14663844134760562,
+        0.24408210331943664
+      ],
+      "limiting_reference": "Bandwidth-led model",
+      "vector_to_bw_roof_ratio": 3.0440225405701327,
+      "assumption_note": "Original planning inputs retained unless corrected explicitly. D is approximate active-weight payload, not measured DRAM traffic. Context, drafting acceptance and expert reuse are assumptions when unreported.",
+      "profile_status": "No matching profile",
+      "inputs": {
+        "weight_gb_per_pass": 10.1,
+        "context": [
+          2048,
+          2048
+        ],
+        "k": [
+          0,
+          0
+        ],
+        "a": [
+          1,
+          1
+        ],
+        "moe": true,
+        "device": "station_hbm"
+      },
+      "scenario_only": false
+    }
+  },
+  "devices": {
+    "m5": [
+      "MacBook Pro · M5",
+      153,
+      3.98,
+      16,
+      "Derived: A19 benchmark 257 FP32 FLOP/core/clock × 10 cores × ~1.55 GHz"
+    ],
+    "m5pro": [
+      "MacBook Pro · M5 Pro",
+      307,
+      9.0,
+      36,
+      "Derived: 20 cores × ~1.75 GHz"
+    ],
+    "m5max": [
+      "MacBook Pro · M5 Max",
+      614,
+      18.0,
+      70,
+      "Derived: 40 cores × ~1.75 GHz (A19 benchmark author’s extrapolation)"
+    ],
+    "m5ultra": [
+      "Mac Studio · M5 Ultra",
+      1200,
+      36.0,
+      140,
+      "Derived: 80 cores × ~1.75 GHz"
+    ],
+    "rtx4090": [
+      "GeForce RTX 4090",
+      1008,
+      82.6,
+      165,
+      "NVIDIA Ada specifications"
+    ],
+    "r9700": [
+      "Radeon AI PRO R9700",
+      640,
+      47.8,
+      191,
+      "AMD specifications (FP32 vector)"
+    ],
+    "rtx5090": [
+      "GeForce RTX 5090",
+      1792,
+      104.8,
+      209,
+      "NVIDIA Blackwell whitepaper"
+    ],
+    "halo": [
+      "Ryzen AI Max+ 395 / Halo",
+      256,
+      14.8,
+      59,
+      "2,560 shaders × 2 × 2.9 GHz, single-issue (dual-issue counts 29.7)"
+    ],
+    "spark": [
+      "1 × DGX Spark",
+      273,
+      30.7,
+      125,
+      "Derived: 6,144 CUDA cores × 2 × ~2.5 GHz; NVIDIA publishes no FP32 figure"
+    ],
+    "spark2": [
+      "2 × DGX Spark",
+      546,
+      61.4,
+      250,
+      "Two nodes summed (tensor parallel)"
+    ],
+    "pro6000": [
+      "RTX PRO 6000 Blackwell",
+      1792,
+      125.0,
+      504,
+      "NVIDIA specifications (125 TFLOPS FP32)"
+    ],
+    "pro2": [
+      "2 × RTX PRO 6000 Blackwell",
+      1792,
+      125.0,
+      504,
+      "Sequential layer split: one card active at a time"
+    ],
+    "m5ultra512": [
+      "M5 Ultra · 512 GB",
+      1200,
+      36.0,
+      140,
+      "Same chip as M5 Ultra"
+    ],
+    "station": [
+      "DGX Station · GB300",
+      914,
+      80.0,
+      2500,
+      "NVIDIA DGX Station data sheet: 80 TFLOPS FP32. Station split assumes 60% HBM / 40% CPU traffic; HBM-only is separate."
+    ],
+    "station_hbm": [
+      "DGX Station · GB300 (HBM only)",
+      7100,
+      80.0,
+      2500,
+      "NVIDIA DGX Station data sheet: 80 TFLOPS FP32. Station split assumes 60% HBM / 40% CPU traffic; HBM-only is separate."
+    ]
+  },
+  "profile": {
+    "source": "https://github.com/yuyuyUuuuuuuuuuuu/glm-5.3-flash-dgx-spark-vllm-optimization/blob/00f9e65ed056d55105f9674b9e209ce7a976dd26/data/decode_step_vs_rows.csv",
+    "snapshot": "2026-10-05 pre-final stack; profiling perturbs performance; not exact headline workload",
+    "classification": "Author attribution to bandwidth-bound kernels; not an independent DRAM counter validation",
+    "rows": [
+      {
+        "rank": 0.0,
+        "M_verify_rows": 5.0,
+        "steps_profiled": 18.0,
+        "wall_ms": 70.42,
+        "bandwidth_ms": 57.63,
+        "moe_ms": 31.34,
+        "fp8_gemv_ms": 22.36,
+        "nccl_ms": 3.9,
+        "small_ms": 5.63,
+        "idle_ms": 3.27,
+        "pre_idle_ms": 2.62,
+        "source": "prof-1005/ana/per_m.log"
+      },
+      {
+        "rank": 0.0,
+        "M_verify_rows": 6.0,
+        "steps_profiled": 15.0,
+        "wall_ms": 75.09,
+        "bandwidth_ms": 61.92,
+        "moe_ms": 35.58,
+        "fp8_gemv_ms": 22.45,
+        "nccl_ms": 4.1,
+        "small_ms": 5.84,
+        "idle_ms": 3.23,
+        "pre_idle_ms": 2.59,
+        "source": "prof-1005/ana/per_m.log"
+      },
+      {
+        "rank": 0.0,
+        "M_verify_rows": 8.0,
+        "steps_profiled": 6.0,
+        "wall_ms": 83.11,
+        "bandwidth_ms": 69.04,
+        "moe_ms": 42.34,
+        "fp8_gemv_ms": 22.78,
+        "nccl_ms": 4.76,
+        "small_ms": 6.16,
+        "idle_ms": 3.14,
+        "pre_idle_ms": 2.51,
+        "source": "prof-1005/ana/per_m.log"
+      },
+      {
+        "rank": 1.0,
+        "M_verify_rows": 5.0,
+        "steps_profiled": 18.0,
+        "wall_ms": 70.42,
+        "bandwidth_ms": 57.81,
+        "moe_ms": 31.48,
+        "fp8_gemv_ms": 22.44,
+        "nccl_ms": 4.69,
+        "small_ms": 5.64,
+        "idle_ms": 2.28,
+        "pre_idle_ms": 1.62,
+        "source": "prof-1005/ana/per_m.log"
+      },
+      {
+        "rank": 1.0,
+        "M_verify_rows": 6.0,
+        "steps_profiled": 15.0,
+        "wall_ms": 75.09,
+        "bandwidth_ms": 61.92,
+        "moe_ms": 35.46,
+        "fp8_gemv_ms": 22.56,
+        "nccl_ms": 5.01,
+        "small_ms": 5.86,
+        "idle_ms": 2.3,
+        "pre_idle_ms": 1.64,
+        "source": "prof-1005/ana/per_m.log"
+      },
+      {
+        "rank": 1.0,
+        "M_verify_rows": 8.0,
+        "steps_profiled": 6.0,
+        "wall_ms": 83.09,
+        "bandwidth_ms": 68.81,
+        "moe_ms": 42.21,
+        "fp8_gemv_ms": 22.74,
+        "nccl_ms": 5.81,
+        "small_ms": 6.14,
+        "idle_ms": 2.34,
+        "pre_idle_ms": 1.69,
+        "source": "prof-1005/ana/per_m.log"
+      }
+    ]
   }
 }
