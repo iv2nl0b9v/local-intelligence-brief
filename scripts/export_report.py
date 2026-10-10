@@ -28,6 +28,8 @@ class ReportParser(HTMLParser):
                 self.fragments.append(href[1:])
         if tag == 'aside':
             self.evidence = True
+        if self.evidence and tag == 'br':
+            self.notes.append(' ')
         if tag == 'strong' and self.row is not None and not self.row:
             self.strong = []
         if tag == 'table':
@@ -83,7 +85,7 @@ def main():
     parser = ReportParser()
     parser.feed((ROOT / 'index.html').read_text(encoding='utf-8'))
     hardware, models = parser.tables[:2]
-    check(all(len(r) == 10 for r in hardware), 'hardware rows must have 10 cells')
+    check(all(len(r) == 9 for r in hardware), 'hardware rows must have 9 cells')
     check(all(len(r) == 4 for r in models), 'model rows must have 4 cells')
     check(len(parser.ids) == len(set(parser.ids)), 'duplicate element IDs')
     check(set(parser.fragments) <= set(parser.ids), 'broken fragment links')
@@ -123,6 +125,17 @@ def main():
     rows, refs, pre = roofline.build()
     html = (ROOT / 'index.html').read_text(encoding='utf-8')
     check(roofline.render(html, rows, refs, pre) == html, 'roofline content is stale; run python scripts/roofline.py')
+    check((ROOT / 'data/roofline.json').read_text(encoding='utf-8') == roofline.serialized(rows, refs, pre), 'roofline JSON is stale')
+    tagged = dict(re.findall(r'<tr data-config="([^"]+)"[^>]*>(.*?)</tr>', html, re.S))
+    check(set(tagged) == set(rows), 'configuration IDs differ from canonical data')
+    for key, record in rows.items():
+        headline = re.search(r'<td class="speed">.*?<strong>(.*?)</strong>', tagged[key], re.S)
+        check(headline and headline[1] == record['display'], f'{key}: HTML headline differs from canonical speed')
+        if 'scenario' in record:
+            expected = '–'.join(str(round(v)) for v in calculations[record['scenario']]['endpoints'])
+            check(record['display'] == expected, f'{key}: headline differs from computed scenario {expected}')
+        check(not record['estimate'] or record['bandwidth_attainment'] is None, f'{key}: circular forecast diagnosis')
+    check(not any(k in json.dumps(rows) for k in ('other_time_share','memory_time_share','compute_time_share')), 'causal time shares must not return')
 
     out = ROOT / 'data'
     out.mkdir(exist_ok=True)
@@ -135,6 +148,7 @@ def main():
         write(f'{name}.json', json.dumps(records, ensure_ascii=False, indent=2) + '\n')
     write('sources.json', json.dumps(sorted(set(parser.links)), indent=2) + '\n')
     notes = re.sub(r'\n{3,}', '\n\n', ''.join(parser.notes)).strip()
+    notes = '\n'.join(line.rstrip() for line in notes.splitlines())
     write('research-notes.txt', notes + '\n')
     print(f'Validated {len(hardware) - 1} devices, {len(models) - 1} model rows, score/speed ordering, '
           'upper-bound gate, estimate rounding, roofline consistency and internal links. Exported data/.')

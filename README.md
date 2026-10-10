@@ -25,7 +25,7 @@ Decode is one active request, warm model, with workload/context differences reco
 1. Start with `index.html`: it contains the complete source ledger, benchmark conditions, hardware/pricing references, formulas, and selection notes. It is the authoritative report source.
 2. Check the linked original benchmark logs, runtime versions, model artifacts and quantization. Do not transfer a result between models or GPU counts as if it were measured.
 3. Consult `data/configs/` for captured model architecture configurations and `data/config-manifest.json` for URLs, UTC capture times and SHA-256 hashes. These snapshots support cache calculations; they do not pin the full weight artifacts or runtime code.
-4. Change assumptions in the report and, where relevant, `scripts/calculations.py`. Keep both consistent. Regenerate the derived data and PDF.
+4. Headline identities and displayed rates are pinned in `data/configurations.json`. Change assumptions in the report and, where relevant, `scripts/calculations.py`. Keep both consistent. Regenerate the derived data and PDF.
 5. Validate the 35 tok/s upper-bound rule, ordering, table structure, links, and that every displayed estimate range equals its computed endpoints rounded to the nearest integer, with `python scripts/export_report.py`.
 
 ### Important unresolved evidence
@@ -33,13 +33,16 @@ Decode is one active request, warm model, with workload/context differences reco
 - Measured rows are third-party or vendor results, labelled **M**, not this report's replication. The R9700's **51.8 tok/s** is AMD's preliminary vendor number (Vulkan, MTP=2, quantization unstated). Halo's **32–47** comes from one community llama.cpp thread whose same-build runs varied 25–36 tok/s across days.
 - Four rows remain estimates:
   - **M5 Pro / Qwen3.8-27B: 21–44.** The upper end extrapolates favorable repetitive editing. An independent 2.33× MTP multiplier verified on M5 Pro supports roughly 40, but there is no direct measurement.
-  - **2 × RTX PRO 6000 / GLM-5.3-Flash IQ4_XS: 41–70, best ~55.** Assumes llama.cpp's sequential layer split. Four cards measured 63.7 tok/s with NVFP4, which does not fit on two.
-  - **M5 Ultra 512 GB / GLM-5.3: 20–40** and **DGX Station / GLM-5.3: 21–40.** Both qualify only with a DFlash2 drafter. The drafter exists for GLM-5.3, but no full-model run on these systems was found. The gain applied (1.34–1.61×) is the smallest measured DFlash2 gain on a GLM MoE (oMLX on M5 Ultra). Without drafting both fall to 15–25 tok/s, and GLM-5.3-Flash is the fallback.
-- Dual Spark runs GLM-5.3-Flash at 28–63 tok/s (prose to coding) with the DFlash2 drafter, which is licensed for non-commercial use only. Without drafting it measures ~14–18 tok/s; the fallback is Flash-Next split across both nodes at 42–52.
-- Each device row shows its token time at peak, derived from a roofline (`scripts/roofline.py`): Memory is the share of the measured time per token that weight and cache reads would take at peak bandwidth, Compute the share the arithmetic would take at peak vector compute, and Other the time neither explains (launches, synchronization, host lookups, slow kernels). On peak figures memory always exceeds compute during decode, but on the Macs with drafting compute comes within ~2×. The bytes read per token under MoE drafting are an assumption, bounded by one two-Spark run. Several Apple and Spark compute peaks are derived because the vendors publish none.
+  - **2 × RTX PRO 6000 / GLM-5.3-Flash IQ4_XS: 41–70, best ~55.** Assumes llama.cpp's sequential layer split. The original four-card NVFP4 artifact does not fit on two. A different expert-NVFP4/FP8-WO artifact now measures **164.8 tok/s** on two **Server Edition** cards with SGLang and adaptive EAGLE (B19); that result and its price are not interchangeable with this Workstation IQ4_XS scenario.
+  - **M5 Ultra 512 GB / GLM-5.3: 18–40** and **DGX Station / GLM-5.3: 19–40.** Both qualify only with a DFlash2 drafter. The drafter exists for GLM-5.3, but no full-model run on these systems was found. The 1.22–1.61× gain includes all three B17 prompt lengths, including the previously omitted 1K test. This transfer is a sensitivity scenario, not a conservative performance bound. Drafter memory and full-model backend support remain unverified. Without drafting both fall to 15–25 tok/s, and GLM-5.3-Flash is the fallback.
+- Dual Spark runs GLM-5.3-Flash EXL3 4-bit at 47–63 tok/s (prose to coding); the separate NVFP4 configuration reports 28–52. The EXL3 result uses the DFlash2 drafter, which is licensed for non-commercial use only. Without drafting it measures ~14–18 tok/s; the fallback is Flash-Next split across both nodes at 42–52.
+- The old Memory / Compute / Other percentages and causal shading were removed: peak-roof attainment is not a time breakdown. Unsupported traffic and compute estimates now remain unknown. Shaded device rows are forecasts, not demonstrated eligibility.
+- Header accounting for the single PRO 6000 gives **9.951 GB/pass**, because dense/attention/shared weights remain BF16. That implies **45–49% conditional weights-only bandwidth attainment**, not the old 15–17%. This is not measured DRAM traffic and the historical benchmark did not pin the audited weight revision.
+- A nearby dual-Spark EXL3 profile attributes ~82–83% of verifier time to bandwidth-bound kernels and ~4% to idle gaps. This source-author classification does not establish every device's bottleneck. The raw prose/coding logs reproduce the reported decode rates; including TTFT lowers the medians to 44.39/57.96 tok/s. See the report for prompt sizes, modified output head, and quality limitations.
+
 - The single RTX PRO 6000 Flash-Next result (81–88 tok/s without MTP) keeps the 51B n-gram table in about 100 GB of host RAM. The card-only price excludes that host.
 - Compressed MLA versus expanded per-head KV changes GLM-Flash's 128K cache dramatically. The selected memory budget requires the compressed-cache backend scenario.
-- Apple compute figures are third-party estimates for the matrix units in each M5 GPU core (FP16/INT8), scaled from A19 microbenchmarks; Apple publishes none. They are peak values that mainly affect prefill. Single-user decode on the Macs is limited by memory bandwidth, which is why they decode well despite lower peaks.
+- Apple compute figures are third-party estimates for the matrix units in each M5 GPU core (FP16/INT8), scaled from A19 microbenchmarks; Apple publishes none. They are peak values that mainly affect prefill. These figures cannot establish a bottleneck without profiling the exact runtime and workload.
 - Prices are approximate and hardware availability is snapshot-specific.
 
 These limitations and all other assumptions are detailed in the research drawer. No in-house hardware benchmark was performed for this report. No raw third-party benchmark logs are represented as our own measurements.
@@ -50,6 +53,9 @@ These limitations and all other assumptions are detailed in the research drawer.
 python scripts/calculations.py
 python scripts/roofline.py
 python scripts/export_report.py
+python scripts/roofline.py --check
+python scripts/check_weight_traffic.py
+python scripts/test_report.py
 ```
 
 Capture or refresh architecture configs (requires internet; overwrites snapshot files):
@@ -69,3 +75,11 @@ On other platforms, open `index.html` in Chromium/Chrome and print to PDF using 
 ## Files
 
 `index.html` and the scripts are editable sources. The PDF and `data/hardware.json`, `data/models.json`, `data/sources.json`, `data/research-notes.txt`, and `data/calculations.json` are derived outputs. `data/configs/` contains timestamped upstream JSON snapshots, not model weights. Source pages can change; citations and these snapshots are not a complete offline archive of the web.
+
+## Audit evidence and reproducibility
+
+`data/weight-headers/` contains five captured safetensors JSON headers and a revision/URL/hash manifest. `scripts/check_weight_traffic.py` reproduces their category totals and the 9.951 GB parameter-read estimate offline. It extrapolates the selected experts from layer 0 across 48 layers; physical reads, cache effects and historical artifact identity remain unmeasured.
+
+`data/spark-decode-audit.json` preserves the numeric fields needed to reproduce the two headline workload medians, with upstream revision, paths and full-original-file hashes. It is a third-party log extract, not an in-house benchmark. The regression tests reject changed HTML headlines, verify forecast rounding through the exporter, check decode versus delivered rate formulas, retain unknown traffic as unknown, and ensure `roofline.py --check` does not write files.
+
+The report now includes the B19 two-PRO Server Edition result, distinguishes it from the Workstation estimate, and updates the DGX Station price range to the source's $99,000–188,500 OEM span. Model scores and 128K architecture-cache arithmetic were retained; they do not validate local quantization quality or an exact runtime's total memory fit.

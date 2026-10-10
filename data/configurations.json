@@ -1,0 +1,202 @@
+{
+  "m5": {
+    "device": "MacBook Pro · M5",
+    "model": "qwen36",
+    "speed": [
+      51.0,
+      59.5
+    ],
+    "display": "51–60",
+    "estimate": false,
+    "note": "B12, 4-bit MLX",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null
+  },
+  "m5pro": {
+    "device": "MacBook Pro · M5 Pro",
+    "model": "qwen27",
+    "speed": [
+      21.040000000000003,
+      43.8
+    ],
+    "display": "21–44",
+    "estimate": true,
+    "note": "Estimate, MTPLX dynamic Q4",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null,
+    "scenario": "m5pro_qwen38"
+  },
+  "rtx4090": {
+    "device": "GeForce RTX 4090",
+    "model": "qwen27",
+    "speed": [
+      38.41,
+      46.16
+    ],
+    "display": "38–46",
+    "estimate": false,
+    "note": "B10, Q4_K_S 16.68 GiB",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null
+  },
+  "r9700": {
+    "device": "Radeon AI PRO R9700",
+    "model": "qwen27",
+    "speed": [
+      51.8,
+      51.8
+    ],
+    "display": "51.8",
+    "estimate": false,
+    "note": "B8, Q4-class, MTP=2",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null
+  },
+  "rtx5090": {
+    "device": "GeForce RTX 5090",
+    "model": "qwen27",
+    "speed": [
+      59,
+      59
+    ],
+    "display": "59",
+    "estimate": false,
+    "note": "B3, Q4_K_M",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null
+  },
+  "halo": {
+    "device": "Ryzen AI Max+ 395 / Halo",
+    "model": "flashnext",
+    "speed": [
+      31.7,
+      47.1
+    ],
+    "display": "32–47",
+    "estimate": false,
+    "note": "B7, UD-IQ4_XS, MTP + n-gram",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null
+  },
+  "spark": {
+    "device": "1 × DGX Spark",
+    "model": "flashnext",
+    "speed": [
+      36.83,
+      45.75
+    ],
+    "display": "37–46",
+    "estimate": false,
+    "note": "B5, NVFP4, MTP3",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null
+  },
+  "m5max": {
+    "device": "MacBook Pro · M5 Max",
+    "model": "flashnext",
+    "speed": [
+      63.5,
+      63.5
+    ],
+    "display": "63.5",
+    "estimate": false,
+    "note": "B1, MTPLX dynamic Q4",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null
+  },
+  "pro6000": {
+    "device": "RTX PRO 6000 Blackwell",
+    "model": "flashnext",
+    "speed": [
+      81,
+      88
+    ],
+    "display": "81–88",
+    "estimate": false,
+    "note": "B9, NVFP4, no MTP",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": 9.95111452,
+    "bandwidth_gbps": 1792
+  },
+  "spark2": {
+    "device": "2 × DGX Spark",
+    "model": "glmflash",
+    "speed": [
+      46.577964,
+      62.607182
+    ],
+    "display": "47–63",
+    "estimate": false,
+    "note": "B16: EXL3 4-bit TP2, DFlash2; prose 33 / coding 42 prompt tokens",
+    "diagnosis": "Related profile",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null
+  },
+  "m5ultra": {
+    "device": "Mac Studio · M5 Ultra",
+    "model": "glmflash",
+    "speed": [
+      44.0,
+      62.4
+    ],
+    "display": "44–62",
+    "estimate": false,
+    "note": "B17, oQ4e, DFlash2",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null
+  },
+  "pro2": {
+    "device": "2 × RTX PRO 6000 Blackwell",
+    "model": "glmflash",
+    "speed": [
+      40.80145719489982,
+      70.06737247353223
+    ],
+    "display": "41–70",
+    "estimate": true,
+    "note": "Estimate, IQ4_XS",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null,
+    "scenario": "pro_dual_glmflash_layer_split"
+  },
+  "m5ultra512": {
+    "device": "M5 Ultra · 512 GB",
+    "model": "glm53",
+    "speed": [
+      18.333333333333332,
+      40.20618556701031
+    ],
+    "display": "18–40",
+    "estimate": true,
+    "note": "Estimate, IQ4_XS, DFlash2",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null,
+    "scenario": "ultra512_glm53"
+  },
+  "station": {
+    "device": "DGX Station · GB300",
+    "model": "glm53",
+    "speed": [
+      19.452777143768042,
+      40.312614211321645
+    ],
+    "display": "19–40",
+    "estimate": true,
+    "note": "Estimate, IQ4_XS split HBM/CPU, DFlash2",
+    "diagnosis": "Unprofiled",
+    "weight_gb_per_pass": null,
+    "bandwidth_gbps": null,
+    "scenario": "station_glm53"
+  }
+}

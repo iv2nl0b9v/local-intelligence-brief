@@ -1,0 +1,33 @@
+{
+  "model": "primitive-ai/Qwen3.8-Flash-Next-NVFP4",
+  "revision": "e1b0da67618c246d4eccc6dc4cc9f9a1c2f94355",
+  "captured": "2026-10-10",
+  "note": "JSON safetensors headers only, no weight payload. Expert layer 0 extrapolated across 48 layers. Historical benchmark revision unpinned.",
+  "files": [
+    {
+      "file": "experts-layer00.safetensors.header.json",
+      "sha256": "f1d7496db25038bc06325b3a3d5b9eaa5d91e4b43f874bddefb7db3f15ca66ef",
+      "url": "https://huggingface.co/primitive-ai/Qwen3.8-Flash-Next-NVFP4/resolve/e1b0da67618c246d4eccc6dc4cc9f9a1c2f94355/experts-layer00.safetensors"
+    },
+    {
+      "file": "model-bf16-00001.safetensors.header.json",
+      "sha256": "f2ef8d50f420a105c49ebe1fa8b6935480967a1a8f8852a42ac484b70fc2b0c5",
+      "url": "https://huggingface.co/primitive-ai/Qwen3.8-Flash-Next-NVFP4/resolve/e1b0da67618c246d4eccc6dc4cc9f9a1c2f94355/model-bf16-00001.safetensors"
+    },
+    {
+      "file": "model-bf16-00010.safetensors.header.json",
+      "sha256": "69632a1ba46d6168d5b03eba4c5d5c5e367a90b05d51766562b6b7ad16481bc2",
+      "url": "https://huggingface.co/primitive-ai/Qwen3.8-Flash-Next-NVFP4/resolve/e1b0da67618c246d4eccc6dc4cc9f9a1c2f94355/model-bf16-00010.safetensors"
+    },
+    {
+      "file": "model-bf16-00011.safetensors.header.json",
+      "sha256": "bca599c0d2aad73e98a76e5c00f3124eab917514875e6d8f009c495edc213f0c",
+      "url": "https://huggingface.co/primitive-ai/Qwen3.8-Flash-Next-NVFP4/resolve/e1b0da67618c246d4eccc6dc4cc9f9a1c2f94355/model-bf16-00011.safetensors"
+    },
+    {
+      "file": "model-bf16-00012.safetensors.header.json",
+      "sha256": "6207cfd48895fef0fff71ac29bffba1aae5f47af7b475a800fdfdab699eafc52",
+      "url": "https://huggingface.co/primitive-ai/Qwen3.8-Flash-Next-NVFP4/resolve/e1b0da67618c246d4eccc6dc4cc9f9a1c2f94355/model-bf16-00012.safetensors"
+    }
+  ]
+}

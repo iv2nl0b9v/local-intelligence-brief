@@ -1,0 +1,321 @@
+{
+  "revision": "e1b0da67618c246d4eccc6dc4cc9f9a1c2f94355",
+  "method": "Four BF16 shard headers plus layer-0 expert header; layer-0 expert allocation extrapolated to 48 identically shaped layers and 10/512 selected experts. Excludes full input embeddings, vision, MTP, host n-gram lookup table; includes small PLE-side projections. Parameter reads, not measured DRAM transactions.",
+  "category_bytes": {
+    "ple_side_projection": 65679640,
+    "target_dense_and_output": 8558319360,
+    "vision_excluded": 897862112,
+    "mtp_excluded": 5214301696,
+    "input_embedding_excluded_full_table": 1271398400,
+    "routed_one_layer_all_experts": 1415589888
+  },
+  "active_routed_bytes_per_pass": 1327115520.0,
+  "estimated_target_weight_bytes_per_pass": 9951114520.0,
+  "example_tensors": {
+    "ple_side_projection": [
+      {
+        "name": "model.language_model.layers.1.ple.ple_embedding.layer_multipliers",
+        "shape": [
+          3
+        ],
+        "dtype": "I64",
+        "bytes": 24
+      },
+      {
+        "name": "model.language_model.layers.1.ple.key_proj.weight",
+        "shape": [
+          10240,
+          2560
+        ],
+        "dtype": "BF16",
+        "bytes": 52428800
+      },
+      {
+        "name": "model.language_model.layers.1.ple.norm_conv.weight",
+        "shape": [
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 20480
+      },
+      {
+        "name": "model.language_model.layers.1.ple.norm_key.weight",
+        "shape": [
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 20480
+      },
+      {
+        "name": "model.language_model.layers.1.ple.norm_query.weight",
+        "shape": [
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 20480
+      },
+      {
+        "name": "model.language_model.layers.1.ple.ple_embedding.ngram_heads_offsets",
+        "shape": [
+          16
+        ],
+        "dtype": "I64",
+        "bytes": 128
+      },
+      {
+        "name": "model.language_model.layers.1.ple.ple_embedding.ngram_heads_vocab_sizes",
+        "shape": [
+          16
+        ],
+        "dtype": "I64",
+        "bytes": 128
+      }
+    ],
+    "target_dense_and_output": [
+      {
+        "name": "model.language_model.hyper_connection_mixer.hc_norm.weight",
+        "shape": [
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 20480
+      },
+      {
+        "name": "model.language_model.hyper_connection_mixer.input_mix_weight_down.weight",
+        "shape": [
+          320,
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 6553600
+      },
+      {
+        "name": "model.language_model.hyper_connection_mixer.input_mix_weight_up.weight",
+        "shape": [
+          10240,
+          320
+        ],
+        "dtype": "BF16",
+        "bytes": 6553600
+      },
+      {
+        "name": "model.language_model.layers.0.attn_hyper_connection.block_inject_weight.weight",
+        "shape": [
+          4,
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 81920
+      },
+      {
+        "name": "model.language_model.layers.0.attn_hyper_connection.hc_norm.weight",
+        "shape": [
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 20480
+      },
+      {
+        "name": "model.language_model.layers.0.attn_hyper_connection.input_mix_weight_down.weight",
+        "shape": [
+          320,
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 6553600
+      },
+      {
+        "name": "model.language_model.layers.0.attn_hyper_connection.input_mix_weight_up.weight",
+        "shape": [
+          10240,
+          320
+        ],
+        "dtype": "BF16",
+        "bytes": 6553600
+      }
+    ],
+    "vision_excluded": [
+      {
+        "name": "model.visual.blocks.0.attn.proj.bias",
+        "shape": [
+          1152
+        ],
+        "dtype": "BF16",
+        "bytes": 2304
+      },
+      {
+        "name": "model.visual.blocks.0.attn.proj.weight",
+        "shape": [
+          1152,
+          1152
+        ],
+        "dtype": "BF16",
+        "bytes": 2654208
+      },
+      {
+        "name": "model.visual.blocks.0.attn.qkv.bias",
+        "shape": [
+          3456
+        ],
+        "dtype": "BF16",
+        "bytes": 6912
+      },
+      {
+        "name": "model.visual.blocks.0.attn.qkv.weight",
+        "shape": [
+          3456,
+          1152
+        ],
+        "dtype": "BF16",
+        "bytes": 7962624
+      },
+      {
+        "name": "model.visual.blocks.0.mlp.linear_fc1.bias",
+        "shape": [
+          4304
+        ],
+        "dtype": "BF16",
+        "bytes": 8608
+      },
+      {
+        "name": "model.visual.blocks.0.mlp.linear_fc1.weight",
+        "shape": [
+          4304,
+          1152
+        ],
+        "dtype": "BF16",
+        "bytes": 9916416
+      },
+      {
+        "name": "model.visual.blocks.0.mlp.linear_fc2.bias",
+        "shape": [
+          1152
+        ],
+        "dtype": "BF16",
+        "bytes": 2304
+      }
+    ],
+    "mtp_excluded": [
+      {
+        "name": "mtp.hyper_connection_mixer.hc_norm.weight",
+        "shape": [
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 20480
+      },
+      {
+        "name": "mtp.hyper_connection_mixer.input_mix_weight_down.weight",
+        "shape": [
+          320,
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 6553600
+      },
+      {
+        "name": "mtp.hyper_connection_mixer.input_mix_weight_up.weight",
+        "shape": [
+          10240,
+          320
+        ],
+        "dtype": "BF16",
+        "bytes": 6553600
+      },
+      {
+        "name": "mtp.layers.0.attn_hyper_connection.block_inject_weight.weight",
+        "shape": [
+          4,
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 81920
+      },
+      {
+        "name": "mtp.layers.0.attn_hyper_connection.hc_norm.weight",
+        "shape": [
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 20480
+      },
+      {
+        "name": "mtp.layers.0.attn_hyper_connection.input_mix_weight_down.weight",
+        "shape": [
+          320,
+          10240
+        ],
+        "dtype": "BF16",
+        "bytes": 6553600
+      },
+      {
+        "name": "mtp.layers.0.attn_hyper_connection.input_mix_weight_up.weight",
+        "shape": [
+          10240,
+          320
+        ],
+        "dtype": "BF16",
+        "bytes": 6553600
+      }
+    ],
+    "input_embedding_excluded_full_table": [
+      {
+        "name": "model.language_model.embed_tokens.weight",
+        "shape": [
+          248320,
+          2560
+        ],
+        "dtype": "BF16",
+        "bytes": 1271398400
+      }
+    ],
+    "routed_one_layer_all_experts": [
+      {
+        "name": "model.language_model.layers.0.mlp.experts.0.down_proj.input_scale",
+        "shape": [],
+        "dtype": "F32",
+        "bytes": 4
+      },
+      {
+        "name": "model.language_model.layers.0.mlp.experts.0.down_proj.weight_scale_2",
+        "shape": [],
+        "dtype": "F32",
+        "bytes": 4
+      },
+      {
+        "name": "model.language_model.layers.0.mlp.experts.0.gate_proj.input_scale",
+        "shape": [],
+        "dtype": "F32",
+        "bytes": 4
+      },
+      {
+        "name": "model.language_model.layers.0.mlp.experts.0.gate_proj.weight_scale_2",
+        "shape": [],
+        "dtype": "F32",
+        "bytes": 4
+      },
+      {
+        "name": "model.language_model.layers.0.mlp.experts.0.up_proj.input_scale",
+        "shape": [],
+        "dtype": "F32",
+        "bytes": 4
+      },
+      {
+        "name": "model.language_model.layers.0.mlp.experts.0.up_proj.weight_scale_2",
+        "shape": [],
+        "dtype": "F32",
+        "bytes": 4
+      },
+      {
+        "name": "model.language_model.layers.0.mlp.experts.1.down_proj.input_scale",
+        "shape": [],
+        "dtype": "F32",
+        "bytes": 4
+      }
+    ]
+  },
+  "bandwidth_attainment_at_81_88": [
+    0.4497992612276786,
+    0.4886708023214286
+  ]
+}

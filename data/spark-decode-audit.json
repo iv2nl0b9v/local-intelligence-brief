@@ -1,0 +1,541 @@
+{
+  "upstream": "https://github.com/yuyuyUuuuuuuuuuuu/glm-5.3-flash-dgx-spark-vllm-optimization",
+  "revision": "00f9e65ed056d55105f9674b9e209ce7a976dd26",
+  "method": "Selected numeric fields from original raw logs; no independent hardware reproduction.",
+  "workloads": [
+    {
+      "name": "prose",
+      "path": "raw/bench/vtrim-prod_prose.json",
+      "sha256": "5f509c8a56e9c01314ea79af21560fd81c37adfa9c1f2f4b0d9d6d8936b0e38e",
+      "runs": [
+        {
+          "ttft_s": 0.2095078289275989,
+          "wall_s": 4.597626572940499,
+          "decode_s": 4.3881187440129,
+          "tok_s": 45.34972994327316,
+          "delivered_tok_s": 43.50070559821178,
+          "completion_tokens": 200,
+          "prompt_tokens": 33,
+          "spec": {
+            "drafts": 64,
+            "draft_tokens": 299,
+            "accepted": 136,
+            "accept_ratio": 0.4548,
+            "accepted_per_step": 2.125,
+            "mean_draft_tokens_per_step": 4.672,
+            "pos": [
+              0.7969,
+              0.5625,
+              0.3906,
+              0.2344,
+              0.0781,
+              0.0312,
+              0.0312
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.24142500199377537,
+          "wall_s": 4.563942803069949,
+          "decode_s": 4.322517801076174,
+          "tok_s": 46.037982758672534,
+          "delivered_tok_s": 43.82175864812973,
+          "completion_tokens": 200,
+          "prompt_tokens": 33,
+          "spec": {
+            "drafts": 64,
+            "draft_tokens": 303,
+            "accepted": 137,
+            "accept_ratio": 0.4521,
+            "accepted_per_step": 2.141,
+            "mean_draft_tokens_per_step": 4.734,
+            "pos": [
+              0.75,
+              0.5312,
+              0.3906,
+              0.2969,
+              0.125,
+              0.0312,
+              0.0156
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.23486188100650907,
+          "wall_s": 4.766375923994929,
+          "decode_s": 4.5315140429884195,
+          "tok_s": 43.91468240243265,
+          "delivered_tok_s": 41.960601343498396,
+          "completion_tokens": 200,
+          "prompt_tokens": 33,
+          "spec": {
+            "drafts": 67,
+            "draft_tokens": 314,
+            "accepted": 136,
+            "accept_ratio": 0.4331,
+            "accepted_per_step": 2.03,
+            "mean_draft_tokens_per_step": 4.687,
+            "pos": [
+              0.7015,
+              0.4776,
+              0.3731,
+              0.3284,
+              0.1045,
+              0.0299,
+              0.0149
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.23271712195128202,
+          "wall_s": 5.053444072953425,
+          "decode_s": 4.820726951002143,
+          "tok_s": 41.28008120406642,
+          "delivered_tok_s": 39.57696911506777,
+          "completion_tokens": 200,
+          "prompt_tokens": 33,
+          "spec": {
+            "drafts": 72,
+            "draft_tokens": 323,
+            "accepted": 129,
+            "accept_ratio": 0.3994,
+            "accepted_per_step": 1.792,
+            "mean_draft_tokens_per_step": 4.486,
+            "pos": [
+              0.6944,
+              0.4861,
+              0.3056,
+              0.2083,
+              0.0556,
+              0.0278,
+              0.0139
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.19529233290813863,
+          "wall_s": 4.418736244901083,
+          "decode_s": 4.223443911992945,
+          "tok_s": 47.11794548399639,
+          "delivered_tok_s": 45.26180991924698,
+          "completion_tokens": 200,
+          "prompt_tokens": 33,
+          "spec": {
+            "drafts": 63,
+            "draft_tokens": 296,
+            "accepted": 138,
+            "accept_ratio": 0.4662,
+            "accepted_per_step": 2.19,
+            "mean_draft_tokens_per_step": 4.698,
+            "pos": [
+              0.7778,
+              0.5714,
+              0.4127,
+              0.3016,
+              0.0635,
+              0.0317,
+              0.0317
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.24429755902383476,
+          "wall_s": 4.448094362975098,
+          "decode_s": 4.203796803951263,
+          "tok_s": 47.33815864100626,
+          "delivered_tok_s": 44.96307489893952,
+          "completion_tokens": 200,
+          "prompt_tokens": 33,
+          "spec": {
+            "drafts": 61,
+            "draft_tokens": 287,
+            "accepted": 139,
+            "accept_ratio": 0.4843,
+            "accepted_per_step": 2.279,
+            "mean_draft_tokens_per_step": 4.705,
+            "pos": [
+              0.8033,
+              0.5574,
+              0.4426,
+              0.2787,
+              0.1311,
+              0.0328,
+              0.0328
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.22801182395778596,
+          "wall_s": 4.957205151906237,
+          "decode_s": 4.729193327948451,
+          "tok_s": 42.07905792811546,
+          "delivered_tok_s": 40.345314319519794,
+          "completion_tokens": 200,
+          "prompt_tokens": 33,
+          "spec": {
+            "drafts": 73,
+            "draft_tokens": 324,
+            "accepted": 127,
+            "accept_ratio": 0.392,
+            "accepted_per_step": 1.74,
+            "mean_draft_tokens_per_step": 4.438,
+            "pos": [
+              0.6986,
+              0.4384,
+              0.3151,
+              0.1781,
+              0.0548,
+              0.0274,
+              0.0274
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.18743535003159195,
+          "wall_s": 4.302771960035898,
+          "decode_s": 4.115336610004306,
+          "tok_s": 48.35570424937653,
+          "delivered_tok_s": 46.48166388030739,
+          "completion_tokens": 200,
+          "prompt_tokens": 33,
+          "spec": {
+            "drafts": 60,
+            "draft_tokens": 287,
+            "accepted": 144,
+            "accept_ratio": 0.5017,
+            "accepted_per_step": 2.4,
+            "mean_draft_tokens_per_step": 4.783,
+            "pos": [
+              0.8167,
+              0.6167,
+              0.45,
+              0.3333,
+              0.1,
+              0.05,
+              0.0333
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.1883825659751892,
+          "wall_s": 4.404557467903942,
+          "decode_s": 4.216174901928753,
+          "tok_s": 47.199180448838696,
+          "delivered_tok_s": 45.40751289031921,
+          "completion_tokens": 200,
+          "prompt_tokens": 33,
+          "spec": {
+            "drafts": 62,
+            "draft_tokens": 297,
+            "accepted": 139,
+            "accept_ratio": 0.468,
+            "accepted_per_step": 2.242,
+            "mean_draft_tokens_per_step": 4.79,
+            "pos": [
+              0.8226,
+              0.5323,
+              0.4516,
+              0.3065,
+              0.0806,
+              0.0323,
+              0.0161
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.1868154259864241,
+          "wall_s": 4.334282926050946,
+          "decode_s": 4.147467500064522,
+          "tok_s": 47.98108725310184,
+          "delivered_tok_s": 46.143734364434785,
+          "completion_tokens": 200,
+          "prompt_tokens": 33,
+          "spec": {
+            "drafts": 60,
+            "draft_tokens": 294,
+            "accepted": 140,
+            "accept_ratio": 0.4762,
+            "accepted_per_step": 2.333,
+            "mean_draft_tokens_per_step": 4.9,
+            "pos": [
+              0.8,
+              0.5833,
+              0.4,
+              0.3667,
+              0.1333,
+              0.0333,
+              0.0167
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "coding",
+      "path": "raw/bench/vtrim-prod_coding.json",
+      "sha256": "7e2cabfb446f1947e0cde60bbe214e54a3a12c214f36d40802de94d624c810c4",
+      "runs": [
+        {
+          "ttft_s": 0.2749457419849932,
+          "wall_s": 3.4573758400510997,
+          "decode_s": 3.1824300980661064,
+          "tok_s": 62.530831430021976,
+          "delivered_tok_s": 57.847341235844354,
+          "completion_tokens": 200,
+          "prompt_tokens": 42,
+          "spec": {
+            "drafts": 41,
+            "draft_tokens": 249,
+            "accepted": 158,
+            "accept_ratio": 0.6345,
+            "accepted_per_step": 3.854,
+            "mean_draft_tokens_per_step": 6.073,
+            "pos": [
+              0.9512,
+              0.7805,
+              0.6341,
+              0.5854,
+              0.5366,
+              0.2195,
+              0.1463
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.26136315194889903,
+          "wall_s": 3.322246146039106,
+          "decode_s": 3.060882994090207,
+          "tok_s": 65.01391931159041,
+          "delivered_tok_s": 60.20023538546256,
+          "completion_tokens": 200,
+          "prompt_tokens": 42,
+          "spec": {
+            "drafts": 39,
+            "draft_tokens": 245,
+            "accepted": 161,
+            "accept_ratio": 0.6571,
+            "accepted_per_step": 4.128,
+            "mean_draft_tokens_per_step": 6.282,
+            "pos": [
+              0.9231,
+              0.7949,
+              0.6667,
+              0.6154,
+              0.5385,
+              0.3333,
+              0.2564
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.25869711209088564,
+          "wall_s": 3.365684501011856,
+          "decode_s": 3.1069873889209703,
+          "tok_s": 64.04918176031316,
+          "delivered_tok_s": 59.423276287445304,
+          "completion_tokens": 200,
+          "prompt_tokens": 42,
+          "spec": {
+            "drafts": 39,
+            "draft_tokens": 243,
+            "accepted": 160,
+            "accept_ratio": 0.6584,
+            "accepted_per_step": 4.103,
+            "mean_draft_tokens_per_step": 6.231,
+            "pos": [
+              0.9487,
+              0.7949,
+              0.6667,
+              0.6154,
+              0.5385,
+              0.3077,
+              0.2308
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.2654308679047972,
+          "wall_s": 3.4607090909266844,
+          "decode_s": 3.1952782230218872,
+          "tok_s": 62.27939669422548,
+          "delivered_tok_s": 57.79162441719289,
+          "completion_tokens": 200,
+          "prompt_tokens": 42,
+          "spec": {
+            "drafts": 41,
+            "draft_tokens": 245,
+            "accepted": 158,
+            "accept_ratio": 0.6449,
+            "accepted_per_step": 3.854,
+            "mean_draft_tokens_per_step": 5.976,
+            "pos": [
+              0.9756,
+              0.8293,
+              0.6829,
+              0.5854,
+              0.5366,
+              0.1463,
+              0.0976
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.25543231796473265,
+          "wall_s": 3.727377232047729,
+          "decode_s": 3.4719449140829965,
+          "tok_s": 57.316577573800444,
+          "delivered_tok_s": 53.6570321566634,
+          "completion_tokens": 200,
+          "prompt_tokens": 42,
+          "spec": {
+            "drafts": 41,
+            "draft_tokens": 250,
+            "accepted": 158,
+            "accept_ratio": 0.632,
+            "accepted_per_step": 3.854,
+            "mean_draft_tokens_per_step": 6.098,
+            "pos": [
+              0.9268,
+              0.7805,
+              0.6341,
+              0.5854,
+              0.4878,
+              0.2439,
+              0.1951
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.26983412192203104,
+          "wall_s": 3.444511634996161,
+          "decode_s": 3.17467751307413,
+          "tok_s": 62.68353216365044,
+          "delivered_tok_s": 58.06338349042125,
+          "completion_tokens": 200,
+          "prompt_tokens": 42,
+          "spec": {
+            "drafts": 41,
+            "draft_tokens": 249,
+            "accepted": 159,
+            "accept_ratio": 0.6386,
+            "accepted_per_step": 3.878,
+            "mean_draft_tokens_per_step": 6.073,
+            "pos": [
+              0.9268,
+              0.7805,
+              0.6585,
+              0.6098,
+              0.5122,
+              0.2195,
+              0.1707
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.2598854920361191,
+          "wall_s": 3.2970747040817514,
+          "decode_s": 3.0371892120456323,
+          "tok_s": 65.52110721675055,
+          "delivered_tok_s": 60.65983271546794,
+          "completion_tokens": 200,
+          "prompt_tokens": 42,
+          "spec": {
+            "drafts": 39,
+            "draft_tokens": 245,
+            "accepted": 162,
+            "accept_ratio": 0.6612,
+            "accepted_per_step": 4.154,
+            "mean_draft_tokens_per_step": 6.282,
+            "pos": [
+              0.8974,
+              0.8205,
+              0.7179,
+              0.641,
+              0.5385,
+              0.3077,
+              0.2308
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.2571901249466464,
+          "wall_s": 3.4848391939885914,
+          "decode_s": 3.227649069041945,
+          "tok_s": 61.65478208542314,
+          "delivered_tok_s": 57.39145735763174,
+          "completion_tokens": 200,
+          "prompt_tokens": 42,
+          "spec": {
+            "drafts": 42,
+            "draft_tokens": 253,
+            "accepted": 157,
+            "accept_ratio": 0.6206,
+            "accepted_per_step": 3.738,
+            "mean_draft_tokens_per_step": 6.024,
+            "pos": [
+              0.9048,
+              0.7619,
+              0.6429,
+              0.5952,
+              0.5,
+              0.1905,
+              0.1429
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.25900670303963125,
+          "wall_s": 3.3017472960054874,
+          "decode_s": 3.042740592965856,
+          "tok_s": 53.570127002222925,
+          "delivered_tok_s": 49.67066988997314,
+          "completion_tokens": 164,
+          "prompt_tokens": 42,
+          "spec": {
+            "drafts": 41,
+            "draft_tokens": 218,
+            "accepted": 123,
+            "accept_ratio": 0.5642,
+            "accepted_per_step": 3.0,
+            "mean_draft_tokens_per_step": 5.317,
+            "pos": [
+              0.8049,
+              0.7317,
+              0.561,
+              0.4634,
+              0.2927,
+              0.0976,
+              0.0488
+            ]
+          }
+        },
+        {
+          "ttft_s": 0.2433041729964316,
+          "wall_s": 3.3920290740206838,
+          "decode_s": 3.148724901024252,
+          "tok_s": 63.20018618815098,
+          "delivered_tok_s": 58.96175876904658,
+          "completion_tokens": 200,
+          "prompt_tokens": 42,
+          "spec": {
+            "drafts": 40,
+            "draft_tokens": 240,
+            "accepted": 160,
+            "accept_ratio": 0.6667,
+            "accepted_per_step": 4.0,
+            "mean_draft_tokens_per_step": 6.0,
+            "pos": [
+              0.975,
+              0.825,
+              0.675,
+              0.625,
+              0.575,
+              0.2,
+              0.125
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

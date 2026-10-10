@@ -78,33 +78,28 @@ results = {
     },
     'deepseek41_storage_gb': {'resident_weights': 294.15 * 2**30 / GB, 'ssd_engram': 188.83 * 2**30 / GB},
 }
-# GLM-5.3 on split or Apple memory: no-drafting roofline, then the smallest measured DFlash2 gain on
-# a GLM MoE (oMLX, GLM-5.3-Flash on M5 Ultra: 32.9 -> 44.0 at 4K, 38.8 -> 62.4 at 200 tokens).
-# The smallest gain is used because these systems are the most bandwidth-limited.
-DFLASH2_GAIN = [44.0 / 32.9, 62.4 / 38.8]
+# Conditional transfer scenario, not a measured bound: B17 includes 38.7 -> 47.3 at 1K,
+# 32.9 -> 44.0 at 4K, and 38.8 -> 62.4 at 200 tokens. Full-model support is unverified.
+DFLASH2_GAIN = [47.3 / 38.7, 62.4 / 38.8]
 baseline = [split_memory(24, x, u, h) for x, u, h in [(.42, .5, .008), (.38, .7, .004)]]
 results['station_glm53'] = {
     'baseline_no_drafting': baseline, 'dflash2_gain': DFLASH2_GAIN,
-    'endpoints': [baseline[0] * DFLASH2_GAIN[0], baseline[1] * DFLASH2_GAIN[1]], 'displayed': [21, 40],
+    'endpoints': [baseline[0] * DFLASH2_GAIN[0], baseline[1] * DFLASH2_GAIN[1]], 'displayed': [19, 40],
 }
 ultra = [1200 * .3 / 24, 1200 * .5 / 24]
 results['ultra512_glm53'] = {
     'baseline_no_drafting': ultra, 'dflash2_gain': DFLASH2_GAIN,
-    'endpoints': [ultra[0] * DFLASH2_GAIN[0], ultra[1] * DFLASH2_GAIN[1]], 'displayed': [20, 40],
+    'endpoints': [ultra[0] * DFLASH2_GAIN[0], ultra[1] * DFLASH2_GAIN[1]], 'displayed': [18, 40],
     'cross_check_m3_ultra_glm52_oq4_scaled_to_1200': 14.5 * 1200 / 819,
 }
 mimo = [split_memory(23, x, u, h) for x, u, h in [(.63, .5, .008), (.60, .7, .004)]]
 results['station_mimo_v26_pro_rejected'] = {
     'weights_gb': 566, 'cpu_resident_gb': [566 - 228, 566 - 212], 'cpu_traffic_fraction': [.60, .63],
     'baseline_no_drafting': mimo, 'endpoints': [mimo[0] * DFLASH2_GAIN[0], mimo[1] * DFLASH2_GAIN[1]],
-    'displayed': [16, 29],
+    'displayed': [15, 29],
 }
 
-# Decode bottleneck analysis lives in scripts/roofline.py (data/roofline.json).
-results['moe_drafting_read_bound'] = {
-    'two_spark_glmflash_structured_tps': 99.44, 'tokens_per_step': 8, 'step_ms': 80.05,
-    'max_step_reads_over_single_token_reads': 546 * 0.08005 / 9.5,
-}
+# These scenarios do not diagnose bottlenecks. See scripts/roofline.py for evidence.
 out = ROOT / 'data'
 out.mkdir(exist_ok=True)
 (out / 'calculations.json').write_text(json.dumps(results, indent=2) + '\n', encoding='utf-8', newline='\n')
