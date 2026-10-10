@@ -31,17 +31,19 @@
         85.76780867083171,
         88.90327249575867
       ],
-      "attainment": [
+      "memory_time_share": [
         0.5946286933333333,
         0.6692667022222223
       ],
-      "kind": "bw",
-      "label": "Bandwidth-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.20081043232160806,
         0.22675438279396987
-      ]
+      ],
+      "other_time_share": [
+        0.40537130666666665,
+        0.3307332977777777
+      ],
+      "binding_roof": "bandwidth"
     },
     "m5pro": {
       "device": "MacBook Pro · M5 Pro",
@@ -74,17 +76,19 @@
         46.58942292372781,
         46.58942292372781
       ],
-      "attainment": [
+      "memory_time_share": [
         0.4507460853159609,
         0.9444203692334419
       ],
-      "kind": "bw",
-      "label": "Bandwidth-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.22745523962311107,
         0.47657288301985173
-      ]
+      ],
+      "other_time_share": [
+        0.5492539146840392,
+        0.05557963076655814
+      ],
+      "binding_roof": "bandwidth"
     },
     "rtx4090": {
       "device": "GeForce RTX 4090",
@@ -117,17 +121,19 @@
         45.415701071191165,
         55.4808366653891
       ],
-      "attainment": [
+      "memory_time_share": [
         0.8457427518247618,
         0.8319989887390474
       ],
-      "kind": "bw",
-      "label": "Bandwidth-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.07243484458881548,
         0.0735489816452029
-      ]
+      ],
+      "other_time_share": [
+        0.15425724817523823,
+        0.16800101126095257
+      ],
+      "binding_roof": "bandwidth"
     },
     "r9700": {
       "device": "Radeon AI PRO R9700",
@@ -160,17 +166,19 @@
         90.04732037112002,
         90.04732037112002
       ],
-      "attainment": [
+      "memory_time_share": [
         0.5752530978879999,
         0.5752530978879999
       ],
-      "kind": "bw",
-      "label": "Bandwidth-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.10352710643660586,
         0.10352710643660586
-      ]
+      ],
+      "other_time_share": [
+        0.42474690211200006,
+        0.42474690211200006
+      ],
+      "binding_roof": "bandwidth"
     },
     "rtx5090": {
       "device": "GeForce RTX 5090",
@@ -203,17 +211,19 @@
         100.11631943061388,
         100.11631943061388
       ],
-      "attainment": [
+      "memory_time_share": [
         0.5893145127142857,
         0.5893145127142857
       ],
-      "kind": "bw",
-      "label": "Bandwidth-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.07453539733496184,
         0.07453539733496184
-      ]
+      ],
+      "other_time_share": [
+        0.4106854872857143,
+        0.4106854872857143
+      ],
+      "binding_roof": "bandwidth"
     },
     "halo": {
       "device": "Ryzen AI Max+ 395 / Halo",
@@ -246,17 +256,19 @@
         99.12302293183382,
         138.77223210456734
       ],
-      "attainment": [
+      "memory_time_share": [
         0.31980461311999997,
         0.3394050761142857
       ],
-      "kind": "lat",
-      "label": "Latency-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.0848359674188108,
         0.09003546790054055
-      ]
+      ],
+      "other_time_share": [
+        0.68019538688,
+        0.6605949238857143
+      ],
+      "binding_roof": "bandwidth"
     },
     "spark": {
       "device": "1 × DGX Spark",
@@ -289,17 +301,19 @@
         104.61679267715745,
         104.61679267715745
       ],
-      "attainment": [
+      "memory_time_share": [
         0.35204673224551686,
         0.4373102905303393
       ],
-      "kind": "lat",
-      "label": "Latency-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.0427271392239105,
         0.053075390157314835
-      ]
+      ],
+      "other_time_share": [
+        0.6479532677544831,
+        0.5626897094696607
+      ],
+      "binding_roof": "bandwidth"
     },
     "m5max": {
       "device": "MacBook Pro · M5 Max",
@@ -332,17 +346,19 @@
         226.83621905069884,
         226.83621905069884
       ],
-      "attainment": [
+      "memory_time_share": [
         0.2799376583939952,
         0.2799376583939952
       ],
-      "kind": "lat",
-      "label": "Latency-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.1256439822005797,
         0.1256439822005797
-      ]
+      ],
+      "other_time_share": [
+        0.7200623416060048,
+        0.7200623416060048
+      ],
+      "binding_roof": "bandwidth"
     },
     "pro6000": {
       "device": "RTX PRO 6000 Blackwell",
@@ -375,17 +391,19 @@
         523.0662502262262,
         523.0662502262262
       ],
-      "attainment": [
+      "memory_time_share": [
         0.15485610085714285,
         0.16823872685714283
       ],
-      "kind": "lat",
-      "label": "Latency-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.019635689447424002,
         0.021332600881152002
-      ]
+      ],
+      "other_time_share": [
+        0.8451438991428571,
+        0.8317612731428572
+      ],
+      "binding_roof": "bandwidth"
     },
     "spark2": {
       "device": "2 × DGX Spark",
@@ -418,17 +436,19 @@
         70.12227977601272,
         97.570143574052
       ],
-      "attainment": [
+      "memory_time_share": [
         0.6642681919182837,
         0.641692199135501
       ],
-      "kind": "bw",
-      "label": "Bandwidth-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.10005243439290311,
         0.09665202614780702
-      ]
+      ],
+      "other_time_share": [
+        0.3357318080817163,
+        0.358307800864499
+      ],
+      "binding_roof": "bandwidth"
     },
     "m5ultra": {
       "device": "Mac Studio · M5 Ultra",
@@ -461,17 +481,19 @@
         125.33272007569205,
         224.81039595767905
       ],
-      "attainment": [
+      "memory_time_share": [
         0.3510655475555555,
         0.2775672349767442
       ],
-      "kind": "lat",
-      "label": "Latency-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.18146131480888888,
         0.13678752565581395
-      ]
+      ],
+      "other_time_share": [
+        0.6489344524444445,
+        0.7224327650232558
+      ],
+      "binding_roof": "bandwidth"
     },
     "pro2": {
       "device": "2 × RTX PRO 6000 Blackwell",
@@ -504,17 +526,19 @@
         165.48408586827372,
         165.48408586827372
       ],
-      "attainment": [
+      "memory_time_share": [
         0.24775796285714285,
         0.42300139999999997
       ],
-      "kind": "lat",
-      "label": "Latency-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.030549047320576,
         0.05215691005952
-      ]
+      ],
+      "other_time_share": [
+        0.7522420371428571,
+        0.5769986
+      ],
+      "binding_roof": "bandwidth"
     },
     "m5ultra512": {
       "device": "M5 Ultra · 512 GB",
@@ -547,17 +571,19 @@
         73.05316934224071,
         73.05316934224071
       ],
-      "attainment": [
+      "memory_time_share": [
         0.2737732008080808,
         0.5475464016161616
       ],
-      "kind": "mix",
-      "label": "Mixed",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.1487339276929293,
         0.2974678553858586
-      ]
+      ],
+      "other_time_share": [
+        0.7262267991919191,
+        0.45245359838383836
+      ],
+      "binding_roof": "bandwidth"
     },
     "station": {
       "device": "DGX Station · GB300",
@@ -590,17 +616,19 @@
         55.64216398234001,
         55.64216398234001
       ],
-      "attainment": [
+      "memory_time_share": [
         0.37741163349910484,
         0.7188793019030568
       ],
-      "kind": "mix",
-      "label": "Mixed",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.07027678083490911,
         0.1338605349236364
-      ]
+      ],
+      "other_time_share": [
+        0.6225883665008951,
+        0.2811206980969432
+      ],
+      "binding_roof": "bandwidth"
     }
   },
   "references": {
@@ -635,17 +663,19 @@
         78.6090351338366,
         78.6090351338366
       ],
-      "attainment": [
+      "memory_time_share": [
         0.2137158912,
         0.2137158912
       ],
-      "kind": "lat",
-      "label": "Latency-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.03473965271870271,
         0.03473965271870271
-      ]
+      ],
+      "other_time_share": [
+        0.7862841088,
+        0.7862841088
+      ],
+      "binding_roof": "bandwidth"
     },
     "spark2_nospec": {
       "device": "2 × DGX Spark",
@@ -678,17 +708,19 @@
         54.999327855833286,
         54.999327855833286
       ],
-      "attainment": [
+      "memory_time_share": [
         0.3272767268571429,
         0.3272767268571429
       ],
-      "kind": "lat",
-      "label": "Latency-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.027304106010684042,
         0.027304106010684042
-      ]
+      ],
+      "other_time_share": [
+        0.6727232731428572,
+        0.6727232731428572
+      ],
+      "binding_roof": "bandwidth"
     },
     "m5ultra_nospec": {
       "device": "Mac Studio · M5 Ultra",
@@ -721,17 +753,19 @@
         117.31540311824969,
         117.61621108942094
       ],
-      "attainment": [
+      "memory_time_share": [
         0.28044058261333327,
         0.3298864981333333
       ],
-      "kind": "lat",
-      "label": "Latency-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.08511717961102222,
         0.09733021041777777
-      ]
+      ],
+      "other_time_share": [
+        0.7195594173866667,
+        0.6701135018666666
+      ],
+      "binding_roof": "bandwidth"
     },
     "station_glmflash": {
       "device": "DGX Station · GB300 (HBM only)",
@@ -764,17 +798,19 @@
         701.0688007545375,
         701.0688007545375
       ],
-      "attainment": [
+      "memory_time_share": [
         0.19541591332056335,
         0.19541591332056335
       ],
-      "kind": "lat",
-      "label": "Latency-bound",
-      "binding_roof": "bandwidth",
-      "compute_share_of_vector_peak": [
+      "compute_time_share": [
         0.1594976937088,
         0.1594976937088
-      ]
+      ],
+      "other_time_share": [
+        0.8045840866794367,
+        0.8045840866794367
+      ],
+      "binding_roof": "bandwidth"
     }
   },
   "prefill": {

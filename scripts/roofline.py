@@ -12,7 +12,9 @@ Model of one decode step (k drafted tokens verified, a tokens emitted on average
   ops per emitted token   = (2N(k+1) + 3 x weights read [dequantization] + attention x (k+1)) / a
       attention per token = 4 x full-attention layers x heads x head dim x attended context
   arithmetic intensity = ops / bytes; ridge point = vector compute peak / bandwidth
-  roof = min(bandwidth / bytes, vector peak / ops) tokens/s; attainment = speed / roof
+  roof = min(bandwidth / bytes, vector peak / ops) tokens/s
+  token-time shares: memory = speed x bytes / bandwidth, compute = speed x ops / vector peak,
+      other = 1 - max(memory, compute) (memory and compute overlap on a GPU, so they do not add)
 Vector (non-tensor) FP32 peaks are used for decode because batch-1 matrix-vector work does not
 run efficiently on tensor/matrix units; FP32 is also the lower, more conservative ceiling.
 """
@@ -91,8 +93,7 @@ PREFILL = [
 PREFILL_CHUNK = 2048
 MODEL_NAMES = {'qwen36': 'Qwen3.6-35B-A3B', 'qwen27': 'Qwen3.8-27B', 'flashnext': 'Qwen3.8-Flash-Next',
                'glmflash': 'GLM-5.3-Flash', 'glm53': 'GLM-5.3'}
-ATTAINMENT_BANDS = ((0.55, 'bw', 'Bandwidth-bound'), (0.40, 'mix', 'Mixed'), (0.0, 'lat', 'Latency-bound'))
-COLORS = {'bw': '#2a78d6', 'mix': '#eb6834', 'lat': '#1baf7a'}  # validated categorical slots 1-3
+DECODE_COLOR = '#2a78d6'  # one series; estimates are hollow, prompt processing gray
 
 
 def attended(model, ctx):
@@ -118,14 +119,16 @@ def analyse(row):
     key, device, model, d, speed, ctx, moe, k, a, estimate, note = row
     ends = [step(device, model, d, c, moe, k, aa) for c, aa in zip(ctx, a)]
     roofs = [min(e['bandwidth_roof'], e['compute_roof']) for e in ends]
-    attain = [s / r for s, r in zip(speed, roofs)]
-    mean = sum(attain) / 2
-    kind, label = next((k_, l_) for t, k_, l_ in ATTAINMENT_BANDS if mean >= t)
+    # Shares of the measured time per token: memory = reads at peak bandwidth, compute = arithmetic at
+    # peak vector compute. The two overlap on a GPU, so other = whatever the larger one leaves unexplained.
+    memory = [s / e['bandwidth_roof'] for s, e in zip(speed, ends)]
+    compute = [s / e['compute_roof'] for s, e in zip(speed, ends)]
+    other = [max(0.0, 1 - max(m, c)) for m, c in zip(memory, compute)]
     return {
         'device': DEVICES[device][0], 'model': model, 'estimate': estimate, 'note': note, 'speed': list(speed),
-        'endpoints': ends, 'roof': roofs, 'attainment': attain, 'kind': kind, 'label': label,
+        'endpoints': ends, 'roof': roofs, 'memory_time_share': memory, 'compute_time_share': compute,
+        'other_time_share': other,
         'binding_roof': 'bandwidth' if all(e['bandwidth_roof'] <= e['compute_roof'] for e in ends) else 'compute',
-        'compute_share_of_vector_peak': [s / e['compute_roof'] for s, e in zip(speed, ends)],
     }
 
 
@@ -155,12 +158,15 @@ def tps(x):
     return f'{x:.0f}'
 
 
+def shares(r):
+    return (rng(r['memory_time_share'], pct), rng(r['compute_time_share'], pct), rng(r['other_time_share'], pct))
+
+
 def cell(r):
+    memory, compute, other = shares(r)
     est = ' (E)' if r['estimate'] else ''
-    hollow = ' hollow' if r['estimate'] else ''
     return (f'<a href="#roofline" onclick="document.getElementById(\'research-details\').open=true">'
-            f'<strong><i class="rf-dot{hollow}" style="--c:{COLORS[r["kind"]]}"></i>{r["label"].split("-")[0]}{est}</strong>'
-            f'<span class="sub">{rng(r["attainment"], pct)} of {rng(r["roof"], tps)} tok/s roof</span></a>')
+            f'<strong>Memory {memory}{est}</strong><span class="sub">Compute {compute} · Other {other}</span></a>')
 
 
 def chart(rows, refs, pre):
@@ -203,24 +209,25 @@ def chart(rows, refs, pre):
         xi = sum(x['intensity'] / x['ridge'] for x in e) / 2
         yi = sum(s * x['gops_per_token'] / (DEVICES_BY_LABEL[r['device']][2] * 1e3) for s, x in zip(r['speed'], e)) / 2
         x, y = px(xi), py(yi)
-        fill = 'none' if r['estimate'] else COLORS[r['kind']]
-        out.append(f'<g class="rf-pt"><circle cx="{x:.1f}" cy="{y:.1f}" r="8" class="rf-ring"/><circle cx="{x:.1f}" cy="{y:.1f}" r="5.5" fill="{fill}" stroke="{COLORS[r["kind"]]}" class="rf-dot-mark"/>'
-                   f'<title>{r["device"]}: {rng(r["speed"], lambda v: f"{v:g}")} tok/s = {rng(r["attainment"], pct)} of the '
-                   f'{rng(r["roof"], tps)} tok/s bandwidth roof; compute {rng(r["compute_share_of_vector_peak"], pct)} of vector peak '
-                   f'({r["note"]})</title></g>')
+        fill = 'none' if r['estimate'] else DECODE_COLOR
+        memory, compute, other = shares(r)
+        out.append(f'<g class="rf-pt"><circle cx="{x:.1f}" cy="{y:.1f}" r="8" class="rf-ring"/><circle cx="{x:.1f}" cy="{y:.1f}" r="5.5" fill="{fill}" stroke="{DECODE_COLOR}" class="rf-dot-mark"/>'
+                   f'<title>{r["device"]} · {MODEL_NAMES[r["model"]]}: {rng(r["speed"], lambda v: f"{v:g}")} tok/s. Of each token’s time, '
+                   f'memory reads at peak take {memory}, arithmetic at peak {compute}, other {other} ({r["note"]})</title></g>')
         if key in labels:
             text, anchor = labels[key]
             dx = 11 if anchor == 'start' else -14
             out.append(f'<text class="rf-label" x="{x + dx:.1f}" y="{y + 4:.1f}" text-anchor="{anchor}">{text}</text>')
     out.append(f'<text class="rf-label" x="{px(30):.1f}" y="{py(0.08):.1f}" text-anchor="middle">prompt processing</text></svg>')
-    legend = ''.join(f'<span><i class="rf-dot" style="--c:{COLORS[k]}"></i>{l}</span>' for _, k, l in ATTAINMENT_BANDS)
-    legend += '<span><i class="rf-dot hollow" style="--c:#596765"></i>Estimate</span><span><i class="rf-diamond"></i>Prompt processing</span>'
+    legend = (f'<span><i class="rf-dot" style="--c:{DECODE_COLOR}"></i>Decode, measured</span>'
+              f'<span><i class="rf-dot hollow" style="--c:{DECODE_COLOR}"></i>Decode, estimate</span>'
+              '<span><i class="rf-diamond"></i>Prompt processing</span>')
     return f'<div class="rf-legend">{legend}</div>' + ''.join(out)
 
 
 def table(rows, refs, pre):
     head = ('<table class="method-table rf-table"><thead><tr><th>Pairing</th><th>GB / token</th><th>Ops / token (G)</th>'
-            '<th>Intensity · ridge (ops/byte)</th><th>Bandwidth roof</th><th>Compute roof</th><th>Speed</th><th>Attainment</th></tr></thead><tbody>')
+            '<th>Intensity · ridge (ops/byte)</th><th>Bandwidth roof</th><th>Compute roof</th><th>Speed</th><th>Token time: memory · compute · other</th></tr></thead><tbody>')
     body = []
     for r in list(rows.values()) + list(refs.values()):
         e = r['endpoints']
@@ -231,7 +238,7 @@ def table(rows, refs, pre):
                     f'<td>{rng([x["bandwidth_roof"] for x in e], tps)}</td>'
                     f'<td>{rng([x["compute_roof"] for x in e], tps)}</td>'
                     f'<td>{rng(r["speed"], lambda v: f"{v:g}")}</td>'
-                    f'<td>{rng(r["attainment"], pct)} · {r["label"]}</td></tr>')
+                    f'<td>{" · ".join(shares(r))}</td></tr>')
     for p in pre.values():
         body.append(f'<tr><td>{p["device"]} · prompt processing<br><span class="sub">{p["note"]}</span></td><td colspan="2">'
                     f'{PREFILL_CHUNK}-token chunks share each weight read</td><td>{p["intensity"]:,.0f} · {p["ridge"]:.0f}</td>'
