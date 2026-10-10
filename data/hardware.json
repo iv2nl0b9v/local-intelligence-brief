@@ -4,7 +4,7 @@
     "Approx. USD": "$2.5k System",
     "Memory installed": "32 GB Unified",
     "Bandwidth GB/s": "153",
-    "AI compute TOPS / TFLOPS": "~30 TOPS INT8 GPU ~16 TFLOPS FP16 GPU · E",
+    "AI compute Peak throughput": "~16 TFLOPS FP16 GPU · E",
     "Best-fit shortlist model / precision": "Qwen3.6-35B-A3B · 4-bit MLX oMLX 0.3.6 · ~20 GB peak",
     "Decode tokens / sec": "51–60 M 1K–4K · two runs · B12"
   },
@@ -13,7 +13,7 @@
     "Approx. USD": "$3.7k System",
     "Memory installed": "64 GB Unified",
     "Bandwidth GB/s": "307",
-    "AI compute TOPS / TFLOPS": "~67 TOPS INT8 GPU ~36 TFLOPS FP16 GPU · E",
+    "AI compute Peak throughput": "~36 TFLOPS FP16 GPU · E",
     "Best-fit shortlist model / precision": "Qwen3.8-27B · dynamic Q4 MTPLX · native MTP drafting",
     "Decode tokens / sec": "21–44 E Upper end: repetitive editing"
   },
@@ -22,7 +22,7 @@
     "Approx. USD": "$2–2.5k Card est.",
     "Memory installed": "24 GB",
     "Bandwidth GB/s": "1,008",
-    "AI compute TOPS / TFLOPS": "661 TOPS INT8 661 TFLOPS FP8",
+    "AI compute Peak throughput": "661 TFLOPS FP8",
     "Best-fit shortlist model / precision": "Qwen3.8-27B · Q4_K_S llama.cpp · no MTP",
     "Decode tokens / sec": "38–46 M 64K → 4K · B10"
   },
@@ -31,7 +31,7 @@
     "Approx. USD": "$1.7k Card",
     "Memory installed": "32 GB",
     "Bandwidth GB/s": "640",
-    "AI compute TOPS / TFLOPS": "766 TOPS INT4 383 TFLOPS FP8",
+    "AI compute Peak throughput": "383 TFLOPS FP8",
     "Best-fit shortlist model / precision": "Qwen3.8-27B · Q4-class + MTP llama.cpp Vulkan · MTP=2",
     "Decode tokens / sec": "51.8 M AMD vendor · preliminary · B8"
   },
@@ -40,7 +40,7 @@
     "Approx. USD": "$6.4–7.4k Card est.",
     "Memory installed": "32 GB",
     "Bandwidth GB/s": "1,792",
-    "AI compute TOPS / TFLOPS": "838 TOPS INT8 1,676 TFLOPS FP4",
+    "AI compute Peak throughput": "1,676 TFLOPS FP4",
     "Best-fit shortlist model / precision": "Qwen3.8-27B · Q4_K_M LM Studio / CUDA",
     "Decode tokens / sec": "59 M 6.1K · no MTP · B3"
   },
@@ -49,7 +49,7 @@
     "Approx. USD": "$2–4k System est.",
     "Memory installed": "128 GB GPU share varies",
     "Bandwidth GB/s": "256 LPDDR5X-8000",
-    "AI compute TOPS / TFLOPS": "50 TOPS INT8 NPU ~14.8 TFLOPS FP32 GPU · E",
+    "AI compute Peak throughput": "110 T ops/s Mixed peak: GPU + NPU 60 FP16 + 50 INT8",
     "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · UD-IQ4_XS llama.cpp ROCm · MTP + n-gram drafting",
     "Decode tokens / sec": "32–47 M 8K new code → rewrite · B7"
   },
@@ -58,7 +58,7 @@
     "Approx. USD": "$4.7k System",
     "Memory installed": "128 GB",
     "Bandwidth GB/s": "273",
-    "AI compute TOPS / TFLOPS": "INT8 TOPS: — not published 500 TFLOPS FP4",
+    "AI compute Peak throughput": "500 TFLOPS FP4",
     "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 vLLM + MTP3 · table on SSD",
     "Decode tokens / sec": "37–46 M Prose → code · B5"
   },
@@ -67,7 +67,7 @@
     "Approx. USD": "$6k System est.",
     "Memory installed": "128 GB Unified",
     "Bandwidth GB/s": "614",
-    "AI compute TOPS / TFLOPS": "~130 TOPS INT8 GPU ~70 TFLOPS FP16 GPU · E",
+    "AI compute Peak throughput": "~70 TFLOPS FP16 GPU · E",
     "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · dynamic Q4 MTPLX 2.12 + MTP · n-gram table on SSD",
     "Decode tokens / sec": "63.5 M 65.5K prompt · B1"
   },
@@ -76,7 +76,7 @@
     "Approx. USD": "$16–20k Card",
     "Memory installed": "96 GB",
     "Bandwidth GB/s": "1,792",
-    "AI compute TOPS / TFLOPS": "1,008 TOPS INT8 2,015 TFLOPS FP4",
+    "AI compute Peak throughput": "2,015 TFLOPS FP4",
     "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 vLLM · n-gram table in ~100 GB host RAM",
     "Decode tokens / sec": "81–88 M No MTP; 120–173 MTP · B9"
   },
@@ -85,7 +85,7 @@
     "Approx. USD": "$12k System est.",
     "Memory installed": "256 GB",
     "Bandwidth GB/s": "1,200",
-    "AI compute TOPS / TFLOPS": "~260 TOPS INT8 GPU ~140 TFLOPS FP16 GPU · E",
+    "AI compute Peak throughput": "~140 TFLOPS FP16 GPU · E",
     "Best-fit shortlist model / precision": "GLM-5.3-Flash · oQ4e / mixed 4/8-bit oMLX + DFlash2 drafter",
     "Decode tokens / sec": "44–62 M 4K → short prompt · B17"
   },
@@ -94,7 +94,7 @@
     "Approx. USD": "$9.4k Systems",
     "Memory installed": "256 GB 128 GB per node",
     "Bandwidth GB/s": "2 × 273 Distributed",
-    "AI compute TOPS / TFLOPS": "INT8 TOPS: — not published 1,000 TFLOPS FP4 · 2 devices",
+    "AI compute Peak throughput": "1,000 TFLOPS FP4 · 2 devices",
     "Best-fit shortlist model / precision": "GLM-5.3-Flash · EXL3 4-bit TP2 · DFlash2 drafter · 200G RoCE",
     "Decode tokens / sec": "47–63 M Prose → code · B16"
   },
@@ -103,7 +103,7 @@
     "Approx. USD": "$32–40k Cards est.",
     "Memory installed": "192 GB 96 GB per GPU",
     "Bandwidth GB/s": "2 × 1,792 Not shared",
-    "AI compute TOPS / TFLOPS": "2,015 TOPS INT8 · 2 GPUs 4,030 TFLOPS FP4 · 2 GPUs",
+    "AI compute Peak throughput": "4,030 TFLOPS FP4 · 2 GPUs",
     "Best-fit shortlist model / precision": "GLM-5.3-Flash · IQ4_XS Layer split · ~157 GB weights · fit projected",
     "Decode tokens / sec": "41–70 E Best ~55 · B13 anchor"
   },
@@ -112,7 +112,7 @@
     "Approx. USD": "$15–18k System est.",
     "Memory installed": "512 GB",
     "Bandwidth GB/s": "1,200",
-    "AI compute TOPS / TFLOPS": "~260 TOPS INT8 GPU ~140 TFLOPS FP16 GPU · E",
+    "AI compute Peak throughput": "~140 TFLOPS FP16 GPU · E",
     "Best-fit shortlist model / precision": "GLM-5.3 · IQ4_XS / oQ4 Needs DFlash2 drafter · ~365–420 GB weights",
     "Decode tokens / sec": "18–40 E Drafting · 15–25 without"
   },
@@ -121,7 +121,7 @@
     "Approx. USD": "$99–189k System",
     "Memory installed": "748 GB 252 HBM + 496",
     "Bandwidth GB/s": "7,100 / 396 HBM / LPDDR5X",
-    "AI compute TOPS / TFLOPS": "165 TOPS INT8 · derived 15,000 TFLOPS FP4",
+    "AI compute Peak throughput": "15,000 TFLOPS FP4",
     "Best-fit shortlist model / precision": "GLM-5.3 · IQ4_XS, split HBM / CPU Needs DFlash2 drafter + split-memory backend",
     "Decode tokens / sec": "19–40 E Drafting · 16–25 without"
   }

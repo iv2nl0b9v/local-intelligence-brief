@@ -18,7 +18,7 @@ Choose the highest-scoring fitting model **within the report's shortlist** whose
 
 Intelligence uses Artificial Analysis Intelligence Index v4.3.2. Scores describe the tested model and reasoning setting, not a fresh evaluation of the local quantization. Four Claude Opus releases (4.6 → 4.8 → 5 → 5.5: 32* → 42 → 51 → 58, February to September 2026; *AA estimate) mark the frontier trajectory. They are proprietary references, not local deployment options. The best local-fitting model, GLM-5.3 (45), sits between Opus 4.8 and Opus 5.
 
-Decode is one active request, warm model, with workload/context differences recorded per source. Model-memory budgets use **131,072 total cached tokens**, concurrency one, decimal GB, and separately list SSD lookup tables and runtime allowances. Speed estimates are not 128K speed forecasts. Every model row includes a linked release date for that version; GLM-5.3 is explicitly labelled with its API release-note date. AI compute lists integer TOPS and floating-point TFLOPS separately, with precision and accelerator labels; they are not summed. Missing published integer ratings are shown with a dash.
+Decode is one active request, warm model, with workload/context differences recorded per source. Model-memory budgets use **131,072 total cached tokens**, concurrency one, decimal GB, and separately list SSD lookup tables and runtime allowances. Speed estimates are not 128K speed forecasts. Every model row includes a linked release date for that version; GLM-5.3 is explicitly labelled with its API release-note date. AI compute shows GPU TFLOPS at the labelled precision. Halo shows a theoretical mixed-operation sum of separate GPU and NPU ratings: 60 FP16 TFLOPS + 50 INT8 TOPS = 110 trillion operations/s. Concurrent engines share power and memory; this is not measured combined LLM throughput. CPU compute and unverified Apple Neural Engine ratings are excluded.
 
 ## Re-evaluate the report
 
@@ -39,7 +39,7 @@ Decode is one active request, warm model, with workload/context differences reco
 
 - The single RTX PRO 6000 Flash-Next result (81–88 tok/s without MTP) keeps the 51B n-gram table in about 100 GB of host RAM. The card-only price excludes that host.
 - Compressed MLA versus expanded per-head KV changes GLM-Flash's 128K cache dramatically. The selected memory budget requires the compressed-cache backend scenario.
-- Apple compute figures are third-party estimates for the matrix units in each M5 GPU core (FP16/INT8), scaled from A19 microbenchmarks; Apple publishes none. They are peak values that mainly affect prefill. These figures cannot establish a bottleneck without profiling the exact runtime and workload.
+- Apple compute figures are third-party estimates for the matrix units in each M5 GPU core (FP16), scaled from A19 microbenchmarks; Apple publishes none. They are peak values that mainly affect prefill. These figures cannot establish a bottleneck without profiling the exact runtime and workload.
 - Prices are approximate and hardware availability is snapshot-specific.
 
 These limitations and all other assumptions are detailed in the research drawer. No in-house hardware benchmark was performed for this report. No raw third-party benchmark logs are represented as our own measurements.
