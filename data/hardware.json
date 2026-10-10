@@ -4,7 +4,7 @@
     "Approx. USD": "$2.5k System",
     "Memory installed": "32 GB Unified",
     "Bandwidth GB/s": "153",
-    "AI compute TFLOPS / TOPS": "~40 TOPS E Neural Engine · est.",
+    "AI compute TFLOPS / TOPS": "~16 TFLOPS E FP16 · INT8 ~30 TOPS · GPU accel.",
     "Best-fit shortlist model / precision": "Qwen3.6-35B-A3B · 4-bit MLX oMLX 0.3.6 · ~20 GB peak",
     "Decode tokens / sec": "51–60 M 1K–4K · two runs · B12"
   },
@@ -13,7 +13,7 @@
     "Approx. USD": "$3.7k System",
     "Memory installed": "64 GB Unified",
     "Bandwidth GB/s": "307",
-    "AI compute TFLOPS / TOPS": "~40 TOPS E Neural Engine · est.",
+    "AI compute TFLOPS / TOPS": "~36 TFLOPS E FP16 · INT8 ~67 TOPS · GPU accel.",
     "Best-fit shortlist model / precision": "Qwen3.8-27B · dynamic Q4 MTPLX · native MTP drafting",
     "Decode tokens / sec": "21–44 E Upper end: repetitive editing"
   },
@@ -68,15 +68,15 @@
     "Memory installed": "256 GB 128 GB per node",
     "Bandwidth GB/s": "2 × 273 Distributed memory",
     "AI compute TFLOPS / TOPS": "1,000 TFLOPS FP4 · summed",
-    "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 Fits one node · GLM-5.3-Flash fails gate",
-    "Decode tokens / sec": "37–46 M One-node result · B5, B11"
+    "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 TP2 over 200G RoCE · MTP3 · GLM-5.3-Flash fails gate",
+    "Decode tokens / sec": "42–52 M SGLang soak → vLLM median · B14"
   },
   {
     "Device / configuration": "MacBook Pro · M5 MaxH1 40-core GPU",
     "Approx. USD": "$6k System est.",
     "Memory installed": "128 GB Unified",
     "Bandwidth GB/s": "614",
-    "AI compute TFLOPS / TOPS": "~40 TOPS E Neural Engine · est.",
+    "AI compute TFLOPS / TOPS": "~70 TFLOPS E FP16 · INT8 ~130 TOPS · GPU accel.",
     "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · dynamic Q4 MTPLX 2.12 + MTP · n-gram table on SSD",
     "Decode tokens / sec": "63.5 M 65.5K prompt · B1"
   },
@@ -94,18 +94,9 @@
     "Approx. USD": "$12k System est.",
     "Memory installed": "256 GB",
     "Bandwidth GB/s": "1,200",
-    "AI compute TFLOPS / TOPS": "~80 TOPS E Neural Engine · est.",
+    "AI compute TFLOPS / TOPS": "~140 TFLOPS E FP16 · INT8 ~260 TOPS · GPU accel.",
     "Best-fit shortlist model / precision": "GLM-5.3-Flash · mixed 4/8-bit oMLX",
     "Decode tokens / sec": "28–41 M 61K → short · B3"
-  },
-  {
-    "Device / configuration": "M5 Ultra · 512 GBH8 Unavailable · expected late October",
-    "Approx. USD": "$15–18k System est.",
-    "Memory installed": "512 GB",
-    "Bandwidth GB/s": "1,200",
-    "AI compute TFLOPS / TOPS": "~80 TOPS E Neural Engine · est.",
-    "Best-fit shortlist model / precision": "GLM-5.3-Flash · mixed 4/8-bit Same-chip 256 GB result extrapolated",
-    "Decode tokens / sec": "28–41 E Same bandwidth · more headroom"
   },
   {
     "Device / configuration": "2 × RTX PRO 6000 BlackwellH6",

@@ -31,15 +31,16 @@ Decode is one active request, warm model, with workload/context differences reco
 ### Important unresolved evidence
 
 - Measured rows are third-party or vendor results, labelled **M**, not this report's replication. The R9700's **51.8 tok/s** is AMD's preliminary vendor number (Vulkan, MTP=2, quantization unstated). Halo's **32–47** comes from one community llama.cpp thread whose same-build runs varied 25–36 tok/s across days.
-- Four rows remain estimates:
+- Three rows remain estimates:
   - **M5 Pro / Qwen3.8-27B: 21–44.** The upper end extrapolates favorable repetitive editing. An independent 2.33× MTP multiplier verified on M5 Pro supports roughly 40, but there is no direct measurement.
-  - **M5 Ultra 512 GB:** extrapolated from the measured 256 GB system; the hardware is not yet shipping.
   - **2 × RTX PRO 6000 / GLM-5.3-Flash IQ4_XS: 41–70, best ~55.** Assumes llama.cpp's sequential layer split. Four cards measured 63.7 tok/s with NVFP4, which does not fit on two.
   - **DGX Station / GLM-5.3: 22–45.** Assumes drafting gains on split HBM/CPU memory.
-- Dual Spark no longer pairs with GLM-5.3-Flash: measured single-request speed is 14.6–30.8 tok/s, which fails the gate. It now runs Flash-Next, which fits on one node.
+- Dual Spark no longer pairs with GLM-5.3-Flash: measured single-request speed is 14.6–30.8 tok/s, which fails the gate. It now runs Flash-Next split across both nodes (TP2), measured at 42–52 tok/s against 37–46 on one Spark.
+- The 512 GB M5 Ultra is not listed. It has the same chip and bandwidth as the 256 GB model and would get the same pairing at the same speed. The only model its extra memory unlocks, GLM-5.3, fails the gate there (15–25 tok/s estimated).
 - The single RTX PRO 6000 Flash-Next result (81–88 tok/s without MTP) keeps the 51B n-gram table in about 100 GB of host RAM. The card-only price excludes that host.
 - Compressed MLA versus expanded per-head KV changes GLM-Flash's 128K cache dramatically. The selected memory budget requires the compressed-cache backend scenario.
-- Prices are approximate, hardware availability is snapshot-specific, and Apple Neural Engine TOPS are explicitly rough estimates rather than official whole-chip ratings.
+- Apple compute figures are third-party estimates for the matrix units in each M5 GPU core (FP16/INT8), scaled from A19 microbenchmarks; Apple publishes none. They are peak values that mainly affect prefill. Single-user decode on the Macs is limited by memory bandwidth, which is why they decode well despite lower peaks.
+- Prices are approximate and hardware availability is snapshot-specific.
 
 These limitations and all other assumptions are detailed in the research drawer. No in-house hardware benchmark was performed for this report. No raw third-party benchmark logs are represented as our own measurements.
 
