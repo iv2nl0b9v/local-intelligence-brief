@@ -1,0 +1,56 @@
+[
+  {
+    "Model / tested setting": "Claude Opus 5.5 Max · default fallback · cloud",
+    "AA score": "58",
+    "Parameters / type": "Undisclosed Architecture undisclosed",
+    "Memory estimate · 128K context · 1 active request": "Cloud only · weights and serving memory undisclosed"
+  },
+  {
+    "Model / tested setting": "GPT-6 Astra Max · cloud ceiling",
+    "AA score": "53",
+    "Parameters / type": "Undisclosed Architecture undisclosed",
+    "Memory estimate · 128K context · 1 active request": "Cloud only · weights and serving memory undisclosed"
+  },
+  {
+    "Model / tested setting": "GLM-5.3 Max",
+    "AA score": "45",
+    "Parameters / type": "~753B · MoE ~40B active",
+    "Memory estimate · 128K context · 1 active request": "365 GB weights + ~13 GB cache ≈ 378 GB resident IQ4_XS · compressed MLA, 16-bit cache · SSD tables: none · runtime: +8–16 GB"
+  },
+  {
+    "Model / tested setting": "GLM-5.3-Flash Reasoning",
+    "AA score": "42",
+    "Parameters / type": "320B · MoE 18B active",
+    "Memory estimate · 128K context · 1 active request": "157–200 GB weights + ~2 GB cache ≈ 159–202 GB resident Q4-class · compressed MLA, 16-bit cache · SSD tables: none · runtime: +8–16 GB Expanded-KV backends need ~95–105 GB cache instead."
+  },
+  {
+    "Model / tested setting": "Qwen3.8-Flash-Next Reasoning",
+    "AA score": "40",
+    "Parameters / type": "~180B · MoE + lookup 125B backbone · 6B active",
+    "Memory estimate · 128K context · 1 active request": "~83 GB weights + ~4 GB cache ≈ 87 GB resident MTPLX dynamic Q4 · 16-bit cache · +32 GB lookup tables on SSD · runtime: +4–8 GB"
+  },
+  {
+    "Model / tested setting": "DeepSeek V4.1 Flash Max",
+    "AA score": "39",
+    "Parameters / type": "~763B · MoE + Engram 552B backbone · 16B active decode",
+    "Memory estimate · 128K context · 1 active request": "~316 GB weights + ~0.2–0.6 GB cache ≈ 317 GB resident DwarfStar Q4 · packed FP4–BF16 cache scenarios · +203 GB Engram on SSD · runtime: +8–16 GB"
+  },
+  {
+    "Model / tested setting": "Qwen3.8-27B Xhigh",
+    "AA score": "34",
+    "Parameters / type": "27B · Dense 27B active",
+    "Memory estimate · 128K context · 1 active request": "20.4 GB weights + ~9.3 GB cache ≈ 30 GB resident MTPLX dynamic Q4 · 16-bit cache · SSD tables: none · runtime: +4–8 GB"
+  },
+  {
+    "Model / tested setting": "DeepSeek V4 Flash / 0731 Max · text model",
+    "AA score": "34",
+    "Parameters / type": "284B · MoE 13B active",
+    "Memory estimate · 128K context · 1 active request": "~155 GB weights + ~1 GB cache ≈ 156 GB resident Q4_K_XL · compressed attention, BF16 cache · SSD tables: none · runtime: +8–16 GB"
+  },
+  {
+    "Model / tested setting": "Qwen3.6-35B-A3B Reasoning · fallback",
+    "AA score": "18",
+    "Parameters / type": "35B · MoE ~3B active",
+    "Memory estimate · 128K context · 1 active request": "~22 GB weights + ~3 GB cache ≈ 25 GB resident Q4 · 16-bit cache · runtime: +4–8 GB"
+  }
+]

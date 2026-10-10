@@ -1,0 +1,185 @@
+Open the research drawer — sources, exact benchmark conditions, fit decisions & estimates
+
+Research cutoff: 10 October 2026. Live vendor specifications, official model cards and identifiable community benchmarks were checked. No hardware was benchmarked during this research. “M” is reported measurement, not independent replication by this report. The single-page PDF is the concise brief; this drawer is its audit trail.
+
+Hardware pricing · approximate USD, 10 October 2026
+
+Prices cover the installed memory and GPU configurations in the main table. “System” includes the computer; “card” excludes a host, PSU, cooling and chassis. Tax, shipping, monitors, support and extra storage are excluded. Paired-device prices are simple multiples, excluding interconnect accessories. Retail asking prices are not completed-sale averages. Estimates are rounded budget allowances rather than checkout quotes.
+
+Apple laptops: approximately $2,499 for M5 32 GB / 1 TB and $3,699 for M5 Pro 20-core GPU / 64 GB / 1 TB from Apple’s US store and its 64 GB configuration. M5 Max 40-core GPU / 128 GB: allow roughly $6,000; an exact current configured checkout price was not confirmed. Screen size and SSD change the total.
+
+Ryzen AI Max+ 395 / 128 GB: $2,000–4,000 system allowance spans mini-PC and workstation builds. Engadget reports Ryzen AI Halo at $3,999 and DGX Spark at $4,699. The lower end is an indicative mini-PC budget, not a Halo quote. Two Sparks: about $9,400.
+
+Discrete GPUs: RTX 4090 $2,000–2,500 is a low-confidence used/remaining-stock budget, not a verified current offer. R9700 approximately $1,700 from US price tracking. RTX 5090 allowance $6,400–7,400 includes a $7,350 asking price on VideoCardPrices; its $1,999 launch MSRP is not the current street-price basis.
+
+RTX PRO 6000 Blackwell: budget $16,000–20,000 per Workstation card ($32,000–40,000 for two). Thunder Compute cites $16,000 on NVIDIA’s marketplace; VideoCardPrices lists $17,986.96. These are card-only prices.
+
+M5 Ultra Studio: roughly $12,000 for 256 GB / 80-core GPU; $15,000–18,000 for the announced 512 GB tier. These are low-confidence budget estimates informed by reported configuration pricing, not verified Apple checkout quotes. The 512 GB configuration is expected late October. The MacStories performance review does not confirm these prices.
+
+DGX Station: approximately $99,000–124,000 system budget from Pi3g’s September vendor pricing, net of VAT. Actual OEM configuration, region and support contract affect the quote.
+
+One common model score
+
+The shortlist now uses the Artificial Analysis Intelligence Index v4.3.2 throughout. It weights agents 30% (AA-Briefcase v1.1 15%, GDPval-AA v2.1 10%, AutomationBench-AA 5%), coding 20% (Terminal-Bench 4.0 10%, SciCode 10%), scientific reasoning 20% and general capability 30%. This is a broad independent composite, not a pure coding-agent score or a percentage success rate. No ad hoc average of vendor benchmarks is used.
+
+Verified scores: GLM-5.3 Max 45; GLM-5.3-Flash 42; DeepSeek V4.1 Flash Max 39; Qwen3.8-27B Xhigh 34; Qwen3.8-Flash-Next reasoning 40; DeepSeek V4 Flash 0731 Max 34. Use the stated reasoning configurations: this is a shared evaluation methodology, not an equal-compute comparison. Scores do not establish quality retention in any local quantization. The 0731 text model is distinct from its vision variant.
+
+The AA Coding Agent Index v1.5 is more coding-specific (DeepSWE v1.1, Terminal-Bench 4.0 and SWE-Atlas-QnA), but complete public results for all six models could not be verified. Vendor-specific results below remain background evidence and are no longer mixed in the visible comparison.
+
+Hardware sources and precision normalization
+
+Arithmetic units: the main table spans GPU dense peaks and NPU/Neural Engine throughput where labeled: R9700’s dense INT4 matrix peak, NVIDIA FP4/FP8 peaks, Halo’s separate 50-TOPS INT8 NPU, and Apple Neural Engine scale estimates. The latter are not rated peaks. These figures do not claim that each recommended runtime executes its quantized weights in that arithmetic; Q4 weight storage does not imply INT4 execution.
+
+Apple scale estimates: Apple reported 38 TOPS for M4’s Neural Engine in its M4 announcement; M5 describes a faster 16-core Neural Engine in its announcement. M5 Pro and Max also have 16-core Neural Engines (Apple support specifications); M5 Ultra has 32 cores (Mac Studio specifications). The table’s ~40 TOPS for 16 cores and ~80 TOPS for 32 are low-confidence, order-of-magnitude extrapolations from the older M4 figure and newer faster engine, not verified rated peaks. Exact M5 throughput precision and sparsity conventions are unconfirmed, so these are not labeled dense INT8. They are not total CPU+GPU+NPU compute and do not explain local tokens/sec.
+
+H1 · Apple laptops. Apple technical specifications: M5 153 GB/s / 32 GB max, M5 Pro 307 / 64, full M5 Max 614 / 128. The 32-core M5 Max has only 460 GB/s. Apple’s GPU developer talk confirms neural accelerators and INT4/INT8 tensor APIs, but supplies no comparable absolute dense FP4/FP8 GPU peak. An unpublished value is not zero performance.
+
+H2 · AMD unified-memory systems. Ryzen AI Halo specifications; Max+ 395 specifications. 128 GB, 256-bit LPDDR5X-8000 = 256 GB/s. OEM settings affect GPU allocation; faster-memory variants can differ. The separate 50-TOPS NPU is INT8 and is not the accelerator used for most of these LLM measurements.
+
+H3 · RTX 4090. NVIDIA product specifications and Ada announcement: 24 GB, 1,008 GB/s, ~1,321 sparse FP8 TFLOPS, divided by two for ~661 dense. Quantized 4-bit weights can run without native FP4 arithmetic.
+
+H4 · R9700. AMD specifications (32 GB / 640 GB/s), Sapphire precision brochure, p. 1: explicitly “FP8 Matrix Dense — 383 TFLOPS” and “INT4 Matrix Dense — 766 TOPS.” INT4 operations are not floating-point operations.
+
+H5 · RTX 5090. Product page; NVIDIA Blackwell architecture whitepaper: dense / sparse FP4 1,676 / 3,352 TFLOPS. Dense FP8 is half dense FP4 (838). 32 GB, 1,792 GB/s.
+
+H6 · RTX PRO 6000. NVIDIA PRO architecture whitepaper, pp. 45–47: Workstation FP4 2,015.2 / 4,030.4 TFLOPS and FP8 1,007.6 / 2,015.2 (dense / sparse). 96 GB ECC, 1,792 GB/s. The 300 W Max-Q has different compute; the two-card row sums full-power Workstation-class peaks and does not imply linear inference scaling.
+
+H7 · Spark. NVIDIA specs and PNY’s explicit footnote, “Theoretical FP4 TOPS performance using sparsity feature.” 1,000 sparse TFLOPS / 2 = 500 dense FP4; FP8 is half-rate, 250. This is a theoretical normalization, not measured GEMM. Two Sparks require sharding and communication; 256 GB is not one bus at 546 GB/s.
+
+H8 · Mac Studio. Apple specs list 96/256/512 GB M5 Ultra, 1.2 TB/s. 21 September review explicitly says 512 GB is due late October. All direct M5 Ultra measurements cited here used 256 GB. M5 Max Studio has the same stated 614 GB/s maximum as the full Max laptop; thermals and runtime can change speed.
+
+H9 · DGX Station. Current NVIDIA datasheet, p. 3: 252 GB HBM3e at 7.1 TB/s plus 496 GB LPDDR5X at 396 GB/s; 900 GB/s NVLink-C2C, 1,600 W system / 20 A circuit. FP4 reads “20 | 15³ PFLOPS”; footnote 3 is “Without sparsity.” Thus 15 PFLOPS is the explicitly specified dense FP4, not 10 derived from a generic halving rule. FP8’s 10 PFLOPS is sparse; dense 5 PFLOPS is derived. This shipping/OEM spec supersedes the earlier 784 GB / 8 TB/s announcement. Optional RTX graphics is not counted.
+
+Measured-speed ledger
+
+These are heterogeneous, externally reported system results, not a chip leaderboard. MTP / speculative decoding is retained where used by the cited setup. A configured maximum context is not the actual prompt length.
+
+Source	Exact useful measurement	Conditions / limits	
+
+B1 · MTPLX	M5 Max 128 GB, Flash-Next Optimized Speed: 63.5 decode tok/s, 1,094 prefill tok/s, TTFT 60.1 s.	MTPLX 2.12.0, 65,502-token prompt, 512 generated, thinking off, MTP; fans at maximum. Pack: 115.1 GB download incl. 32 GB SSD n-gram table; ~83 GB resident, catalog peak ~87 GiB. Developer-reported, not this report’s replication. Other logged results: 79.3 tok/s at 9K; 50.3 at 200K. Older oMLX 0.6.3 result: 28.5 tok/s at 1K on M5 Max 40c/128 GB, oQ4e-mtp; illustrates runtime dependence.	
+
+B2 · Strix Halo	Qwen3.8-27B ROCmFP4_FAST: 30.56–36.04 tok/s with near-greedy MTP; ~14 without speculation.	Ryzen AI Max+395 128 GB. The 36.04 peak uses a 512-token structured/code prompt; 4K results are 30.56–32.24. Source documents a Vulkan MTP regression in v1.7.0. The range qualifies under the upper-bound rule, not as a sustained 35 tok/s guarantee. “ROCmFP4” is a storage/kernel layout, not evidence of native RDNA 3.5 FP4 tensor units.	
+
+B3 · MacStories	RTX 5090 Qwen27 Q4_K_M: 59 tok/s at 6,091 prompt tokens, no MTP. M5 Ultra 256 GB: GLM-5.3-Flash 41 tok/s short prose/code, 28 at 61,434-token retrieval; Flash-Next 108 tok/s prose, 143 code.	RTX: Windows, LM Studio CUDA 12, full GPU offload. Mac: oMLX 0.7.0.dev2 / macOS 27, pipenetwork GLM mixed-4_8bit and Jundot Flash-Next-oQ4e-mtp. Short rates are native runtime medians of three passes. GLM rate includes reasoning tokens (low effort). Flash-Next fixed-512 output at 4K/16K/64K/128K/256K: 90.7/87.8/83.8/60.6/74.7 tok/s, one run each. Do not read 108 as a full-context guarantee. GLM ran out of memory at 256K in the 256 GB system.	
+
+B4 · Kubesimplify	2× RTX PRO 6000, Flash-Next FP8: 81.45 tok/s single stream, vLLM TP2.	1,024 synthetic input / 512 output tokens, max context 32,768; checkpoint 172.8 GiB. Four GPUs were slower without MTP (64.61), showing communication costs. A single PRO 6000 NVFP4 load did not yield a serving benchmark. Separate Spark UD-IQ1_S GGUF: 67.55 GiB, tg128 34.54 ±0.18 tok/s; not the NVFP4 Spark setup in the main table.	
+
+B5 · Madeye	1× Spark, Flash-Next NVIDIA NVFP4: 36.83 prose / 45.75 code tok/s. Prefill 1,606.5 at 8,215 tokens; 1,824.95 at 32,791.	10 September; vLLM nightly 8a728663, TP1, MTP3, FP8 KV, staged disk PLE (FP8 table 47.68 GiB), maximum 262,144 context. Decode: median of three 384-token generations after warmup; exact short prompt size not specified in the extracted report. Excludes TTFT. This is an offloaded-table fit, not all weights resident in 128 GB.	
+
+B6 · Dual Spark	DeepSeek V4 Flash original checkpoint, vLLM TP2: ~41 tok/s short, 40 at 8K/100K, 38 at 200K, 32 at 500K.	Official checkpoint described by tester as “FP8”; official model uses mixed FP4/FP8. 200 Gb/s direct QSFP56 RoCE. 100K prefill ~1,900 tok/s, TTFT ~52 s. The ~350 tok/s headline elsewhere is 32-stream aggregate and is deliberately not used here. This predates the 0731 update; the speed is not evidence for V4.1.	
+
+How the estimates were made
+
+Decode scope: one active request, warm model, short prompts; PRO and small-MoE analytical scenarios target roughly 2–8K. M5 Pro spans fresh coding through favorable repetitive editing; Halo’s qualifying peak uses 512 tokens. Measured rows retain their stated contexts. The separate memory comparison budgets 128K context. M5 Pro and Halo use MTP; R9700, dual Spark and Station assume conditional drafting. PRO and small-MoE estimates add no speculative multiplier. Ranges are planning scenarios, not statistical confidence intervals.
+
+M5 / M5 Pro with drafting: Qwen3.8-27B MTPLX Optimized Speed (dynamic Q4, 20.4 GB weights), native MTP head, tuned draft depth 1–3, single stream, approximately 2–8K prompt, thinking off or medium reasoning. MTPLX reports 52.6 tok/s on M5 Max at 4,061 prompt tokens / 512 output; its model card reports 58.7 tok/s on a fresh medium-reasoning coding task, official sampling temperature 1.0 / top-p .95 / top-k 20. Both already include MTP; no extra speculative multiplier is applied.
+
+Cross-laptop extrapolation: take that 52.6–58.7 tok/s M5 Max reference at 614 GB/s, multiply by the laptop’s bandwidth ratio and a scenario factor of 0.8–1.0 for verification, runtime and thermal differences: speed ≈ reference × (bandwidth / 614) × 0.8…1.0. M5: 10.5–14.6, rounded to 10–15 tok/s; M5 Pro: 21.0–29.4, rounded to 21–30 tok/s. These are low-confidence drafting-enabled estimates, not measurements on those laptops. Verification compute need not scale with bandwidth, so real results can fall outside the range.
+
+Draft acceptance and fit: the model-card coding run reports acceptance by depth of .95 / .88 / .80 and a 50–53 ms verifier round on M5 Max. The estimates assume similarly favorable coding, not guaranteed acceptance on arbitrary tasks. MTPLX uses the model’s own head, not a second full draft model; its catalog reports roughly 25 GiB serving peak for this pack, so 32 GB needs a light application load and short context. Tune depth on the target Mac. Long xhigh reasoning was only 35.1–37.3 tok/s on M5 Max in the same card and is outside this faster planning scenario.
+
+Qwen27 Q4 without drafting (reference): approximate streamed weight payload 16 GB. Use 60–80% of advertised bandwidth: tokens/s ≈ bandwidth_GBps × 0.60…0.80 / 16. Rounded: M5 6–8; M5 Pro 12–16; RTX 4090 38–50; R9700 24–32. Only the 4090 retains this headline estimate; M5 changes model, while Pro and R9700 use drafting-enabled scenarios. These plain-Q4 payload assumptions differ from dynamic Q4, so this is not a controlled drafting comparison.
+
+RTX PRO 6000, previous Qwen27 Q8 alternative: ~29.4 GB payload at 58–80% bandwidth gives ~35–49 tok/s. Retained as an alternative, not the capability-first headline pairing.
+
+M5 Ultra 512 GB, GLM-5.3 IQ4_XS: ~40B active parameters × ~0.60 bytes ≈ 24 GB of active-weight traffic per token; 1,200 GB/s / 24 ≈ 50 tok/s idealized. Use 30–50% effective utilization for MoE routing / attention / runtime → 15–25 tok/s. Low confidence: forthcoming configuration, no matched test, active parameter arithmetic omits some lookup and attention traffic. This is not a forecast for DeepSeek V4.1.
+
+DGX Station / GLM-5.3 IQ4_XS: 22–45 tok/s with drafting, conditional estimate. Start with 365.3 GB weights and 252 GB HBM; reserve 24–40 GB HBM for runtime, cache and verification buffers. Approximately 212–228 GB weights stay in HBM and 137–153 GB in CPU memory. Assume balanced expert placement makes the CPU-served share of active-weight traffic about 38–42%, rather than treating all 748 GB as HBM.
+
+Station bandwidth calculation: use the same approximate 24 GB active-weight traffic per token as the Ultra estimate. At CPU fraction x, effective bandwidth fraction u, and non-weight overhead h, t ≈ 24×(1−x)/(7100×u) + 24×x/(396×u) + h seconds/token. With x=.38–.42, u=.50–.70 and h=.004–.008 s, this gives approximately 16–25 tok/s without drafting. The idealized weight-only ceiling is about 36–40 tok/s. The 900 GB/s NVLink-C2C link does not eliminate the slower 396 GB/s CPU-memory supply; bandwidths are not added.
+
+Station drafting assumption: assume a net 1.4–1.8× gain after draft generation, verification, rejection and synchronization overhead, yielding approximately 22.28–45.12 tok/s, displayed as 22–45. This is a scenario assumption, not a measured GLM-5.3 speedup. It requires a compatible drafter or MTP implementation and an optimized split-memory backend for the exact quantization. GLM5Next MTP support in llama.cpp PR #29928 does not establish this full GLM-5.3 configuration on Station. Without working drafting, use the 16–25 baseline. CPU expert execution, poor placement, paging or low acceptance can be slower. Confidence is low; neither end is a guaranteed bound.
+
+Capacity-first pairings and projected speeds
+
+Consistent selection rule: choose the highest AA-scoring model in the expanded local shortlist whose Q4-class or higher-precision weights fit with short-context serving headroom and whose displayed decode upper bound reaches 35 tok/s. Cloud ceiling models are excluded from hardware matching. SSD lookup-table offload is allowed; bulk expert weights remain in accelerator-accessible memory (Station uses its coherent CPU tier). Extremely compressed Q1/Q2 fits are excluded. Projected allocations, runtime support and drafting remain conditional.
+
+Two Sparks → GLM-5.3-Flash, score 42: the 156.82 GB IQ4_XS artifact leaves about 99 GB nominal aggregate headroom in 256 GB. Balanced sharding is roughly 78.4 GB weights per 128 GB node. This higher-scoring fit replaces DeepSeek V4 Flash (34), rather than penalizing two Sparks for an arbitrary smaller capability choice. The old 32–41 tok/s measurement remains in B6 for DeepSeek only; it is not reused for GLM.
+
+Two RTX PRO 6000s → GLM-5.3-Flash, score 42: the same 156.82 GB quant leaves about 35 GB nominal aggregate headroom in 192 GB, roughly 17.6 GB per card with balanced sharding. Short context and a compatible IQ4_XS distributed backend are required. The previous 81.5 tok/s FP8 Flash-Next result remains in B4 as an alternative, not a GLM measurement.
+
+Dual-Spark GLM scenario: use 18B active parameters × 0.60 bytes ≈ 10.8 GB active-weight traffic/token. 546 GB/s aggregate × .30–.50 assumed effective utilization × 1.3–1.5 assumed net drafting gain / 10.8 ≈ 20–38, displayed as 20–40 tok/s. Utilization accounts for sharding, communication, routing and kernel overhead; no matched GLM throughput test or validated drafting recipe was found. This is a low-confidence scenario. The former dual-PRO bandwidth-only estimate has been withdrawn in favor of the benchmark anchor below.
+
+Halo 128 GB → Qwen3.8-27B, score 34: Flash-Next’s former 15–30 projection fails the 35 tok/s gate. ROCmFP4_FAST with near-greedy MTP reports 30.56–36.04 tok/s, so this Q4-class deployment qualifies under the requested upper-bound rule. The qualifying peak is a short 512-token structured/code workload; sustained speed and 2K+ prompts can stay below 35. The source also records version-dependent regressions, so this is not a universal 35 tok/s expectation. Its custom 13.55 GiB artifact differs from the model table’s larger MTPLX memory example.
+
+Single PRO 6000 → Flash-Next, score 40: NVFP4 plus SSD lookup-table staging is the projected 96 GB fit, using the single-Spark staged-table recipe as architectural evidence, not as a PRO benchmark. Assume roughly 80–90 GB resident including the quantized backbone and core allocations, leaving limited context space. Exact memory and backend compatibility on the discrete card are unverified; without working lookup-table offload this pairing is not established.
+
+Rejected Halo Flash-Next scenario: 256 GB/s × .40–.60 utilization × 1.2–1.5 assumed drafting gain / 8 GB active traffic ≈15–29 tok/s. Its former 15–30 range fails the threshold and is retained here only to explain the switch.
+
+RTX PRO: roofline plus measured latency anchor
+
+Verified anchor: Kubesimplify reports 81.45 tok/s on two RTX PRO 6000s with Flash-Next FP8, tensor parallelism 2, one request, 1,024 input / 512 output tokens, no MTP. Four cards achieved only 64.61 tok/s. This is direct evidence against scaling decode from summed peak bandwidth alone. Single-card FP8 did not fit; there is no matched single-card NVFP4 serving measurement, and no matched dual-card GLM-5.3-Flash IQ4_XS measurement.
+
+Compute and bandwidth roofs: R ≤ min(F / C, B / D), where F is FLOP/s, C FLOP/token, B bytes/s and D bytes/token. PRO/Spark ratios are 2,015/500 ≈4.0× FP4 compute and 1,792/273 ≈6.6× bandwidth. Flash-Next’s ~6B active backbone gives a lower-bound ~12 GFLOP/token; PRO’s ideal compute roof is ~168,000 tok/s, versus only 224–448 tok/s for 4–8 GB traffic/token. Arithmetic intensity is ~1.5–3 FLOP/byte versus a ~1,124 FLOP/byte hardware ridge point: strongly bandwidth-side. For dual-PRO GLM Flash, ~36 GFLOP/token and 10.8–13 GB traffic give a nominal bandwidth roof ~276–332 tok/s versus ~112,000 compute-roof tok/s. IQ4_XS is not native FP4 tensor math; that compute roof is only a generous bound, not attainable kernel throughput. Batch-one small GEMVs, dequantization and launches can dominate despite enormous peak FLOPS.
+
+Latency model: t ≈ max(C/F_effective, D/(B×u)) + h, with effective streaming utilization u and remaining per-token overhead h. Attention traffic, routing, quantization, launch gaps, sampling, lookup staging and collectives matter. Use short-context single-stream operation with warm lookup caches; no bulk weight paging. The 81.45 tok/s FP8 anchor is 12.28 ms/token. Assuming 6–10 GB FP8 traffic and 60% aggregate streaming utilization consumes 2.79–4.65 ms in weight reads, leaving 7.63–9.49 ms residual overhead. This calibrates the order of magnitude, but one observation cannot identify traffic, utilization and overhead separately. Four cards at 15.48 ms/token reinforce the communication/launch floor.
+
+Single PRO / Flash-Next NVFP4: best ~95 tok/s; 65–125 scenario range. Assume 5–7 GB/token including quantization metadata and short-context traffic, u=.50–.70 and h=4–7 ms. The central case 6/(1792×.60)+.005 = .01058 s gives 94.5 tok/s. Endpoints give 65.9–125.2, rounded to 65–125. Removing TP communication and reducing FP8 traffic make this faster than the former 30–60 estimate; the modest fixed-latency budget is still an assumption. Requires a working NVFP4 backend and staged lookup-table fit in 96 GB. SSD misses or CPU staging bottlenecks can push it below this range.
+
+Dual PRO / GLM-5.3-Flash IQ4_XS: best ~80 tok/s; 60–110 scenario range. Assume 10.8–13 GB/token, u=.50–.65 and h=5–10 ms including communication and non-weight work. Central 12/(3584×.60)+.007 = .01258 s gives 79.5 tok/s; endpoints are 58.0–103.8, rounded to a broad 60–110 planning range. This is larger-model traffic on two memory engines, not twice the single-card model’s speed. Aggregate bandwidth requires balanced tensor/expert work with overlapping reads; serial layer splitting, PCIe topology or slow IQ4 kernels can invalidate this estimate.
+
+Drafting and Spark cross-check: Spark’s 36.83–45.75 tok/s already includes MTP3, so multiplying it by 6.6 would mix memory scaling with verification and acceptance effects. The single-PRO central estimate is ~2.1–2.6× that measured Spark speed, not 6.6×: a fixed latency floor remains as memory reads get faster. Neither PRO estimate adds a speculative multiplier. A measured, supported MTP recipe may raise throughput, but its gain should not be invented. These are useful best-effort engineering forecasts, not matched benchmark results or guaranteed bounds.
+
+Confidence: low in exact throughput and unverified runtime fit; stronger confidence in the conclusion that memory/runtime overhead dominates peak FLOPS. These estimates replace the overly pessimistic direct parameter-scaling calculation as well as the earlier unsupported drafting uplift. The benchmark anchors ground the latency scale, while the explicit traffic/overhead assumptions determine the forecast. A matched run is still needed to narrow the ranges.
+
+Lighter models that pass the speed gate
+
+Base M5 → Qwen3.6-35B-A3B: AA score 18, with downloadable weights and an existing Apple runtime pack. This is a ~3B-active MoE, not the older 27B dense model. No verified Qwen3.8 replacement in this small-active MoE class was found. For Q4, assume 2.0–2.5 GB/token including metadata and short-context traffic, and t = D/(B×u)+h. B=153, u=.60–.80, h=4–8 ms gives 29.3–49.2 tok/s →30–50. Low-confidence estimate, no assumed MTP gain. Even the favorable Qwen3.8-27B editing reference below scales to only ~22 tok/s on base M5, so the MoE remains the useful-speed choice.
+
+M5 Pro → Qwen3.8-27B: use same-generation evidence rather than declaring 3.6 faster from unmatched tests. The 3.8 dynamic-Q4 pack reports 52.6–58.7 tok/s for fresh coding/short-prompt work on M5 Max, and 87.6 for rewriting a file it just wrote. Scale each by 307/614 and .8–1.0: ~21–29 for fresh coding, ~35–44 for repetitive editing. The headline 21–44 spans those workloads and meets the user's upper-bound rule, not a general 35 tok/s floor. It is an estimate on M5 Pro; the 87.6 source is a favorable MTPLX 2.10.0 result, not a matched cross-device measurement. The 3.6/3.8 configs share core dimensions, but quantization payload, learned draft acceptance and kernels still affect speed. The older 3.6-27B recommendation is removed.
+
+R9700 → Qwen3.8-27B Q4 + MTP: a conditional higher-capability pairing replaces the small MoE. Start from the existing 24–32 tok/s bandwidth estimate and assume a modest net 1.25–1.6× drafting gain →30–51, rounded to 30–50. Same-model AMD Halo measurements demonstrate that Q4-class MTP can work and exceed 2× on favorable near-greedy tasks; they do not establish R9700 performance. The reduced assumed gain allows for discrete-GPU verification, acceptance and backend differences. A compatible AMD runtime and successful native-MTP load are required; this is low-confidence and not a matched R9700 benchmark. Without working drafting, 24–32 fails the gate and Qwen3.6-35B-A3B Q4 (65–110 estimated) is the fallback. That fallback uses 2.0–2.5 GB traffic, 640 GB/s × .40–.60 utilization and 4–6 ms overhead, without drafting. This applies the same conditional-drafting eligibility already used for dual Spark and Station.
+
+Fallback memory budget: Qwen3.6-35B-A3B Q4 weights are budgeted at ~22 GB (quantization-dependent planning value). Its config has 10 full-attention layers with 2 KV heads of dimension 256: 128K 16-bit K/V is 2.68 GB; allow one MTP attention layer and FP32 recurrent state →~3 GB. Total ~25 GB plus 4–8 GB runtime, with no SSD tables. This is a memory example, not a 128K fit guarantee on base M5 after adding OS memory.
+
+Cloud ceilings: the current AA model pages for Claude Opus 5.5 (Max, Default Fallback), 58 and GPT-6 Astra (max), 53 explicitly identify Intelligence Index v4.3.2, matching the local rows. Both are proprietary references; no downloadable weights or disclosed local-serving memory budget is assumed. These are comparison ceilings, not hardware recommendations.
+
+128K single-user memory budget
+
+Common basis: 131,072 total cached tokens (prompt plus generated output), one active request, no extra prefix-cache copies or concurrent sessions. All displayed memory is decimal GB (10⁹ bytes), including converted GiB sources. Resident memory means weights plus persistent attention/recurrent/MTP state; SSD lookup tables are listed separately. Runtime allowances are planning reserves for scratch buffers, graph/workspace and allocator overhead, not measured peaks. Add roughly 6–10 GB for the OS and applications on unified-memory machines. Chunked prefill is assumed; unchunked long-prompt processing can require much more memory.
+
+Qwen3.8-27B: official config has 16 full-attention layers, 4 KV heads and 256-dimensional heads. With 16-bit K/V: 131072 × 16 × 2 × 4 × 256 × 2 = 8.59 GB. Allow one full-attention MTP layer (~0.54 GB) plus 48 FP32 recurrent states (~0.15 GB) → ~9.3 GB. With 20.4 GB dynamic-Q4 weights, resident total is ~30 GB; add 4–8 GB runtime. Thus the earlier 32 GB laptop fit is for short context, not this 128K budget. Cache quantization can reduce demand if the chosen runtime supports it.
+
+Flash-Next: official config has 12 full-attention layers, 2 KV heads, dimension 256, plus one MTP attention layer. Their 16-bit KV is ~3.49 GB. Add ~0.10 GB sparse-indexer keys (4× compression) and ~0.11 GB FP32 recurrent state → ~3.7 GB, rounded to 4. The selected MTPLX pack keeps ~83 GB weights resident and ~32 GB lookup tables on SSD: ~87 GB resident before 4–8 GB runtime. Different NVFP4 or all-resident packs have different weight budgets.
+
+GLM-5.3: official config has 78 layers, MLA latent rank 512 and rotary key dimension 64. With one MTP layer and compressed 16-bit latent cache: 131072 × 79 × (512+64) × 2 ≈ 11.93 GB. Budget ~0.74 GB for 22 sparse-indexer key sets → ~12.7 GB, rounded to 13. IQ4_XS weights 365.3 GB + cache ≈378 GB; runtime reserve 8–16 GB. This assumes a backend that stores compressed MLA, not expanded per-head K/V.
+
+GLM-5.3-Flash: official config has 11 sparse-attention layers with latent rank 512 and no rotary-key component, plus 34 recurrent layers. Budget one extra MLA layer for MTP: ~1.61 GB latent KV, ~0.10 GB 4×-pooled indexer keys and ~0.14 GB FP32 recurrent state → ~1.85 GB, rounded to 2. Depending on Q4 artifact, 156.82–199.71 GB weights + cache ≈159–202 GB; runtime reserve 8–16 GB. Backend distinction matters: expanded 64-head K/V instead of compressed MLA can consume ~95 GB for the 11 attention layers alone (~103 GB including one MTP layer), making the 128K fit much larger. The table is the compressed-cache scenario, not a claim that every oMLX/GGUF backend uses it.
+
+DeepSeek V4 Flash 0731: 0731 config uses 21 attention layers compressed 4× and 20 compressed 128×, 512-dimensional shared KV, 128-dimensional index keys and a 128-token local window. Following the reference implementation’s BF16 cache layout, main compressed KV plus index keys and local windows total ~0.91 GB at 128K; reserve ~1 GB including small compressor state. About 155.1 GB Q4 weights + cache ≈156 GB; add 8–16 GB runtime. Three 0731 draft layers add small local windows, not three full context copies.
+
+DeepSeek V4.1 Flash: DwarfStar Q4 main weights 294.15 GiB =315.84 GB; SSD Engram tables 188.83 GiB =202.75 GB. The model card’s packed FP4 global cache is 890 bytes/token, or 0.117 GB at 128K, plus local state. A BF16 reference-layout calculation from the shared KV/index source layers and implementation gives ~0.56 GB including local windows. Budget ~0.2–0.6 GB persistent cache; displayed resident total rounds up to ~317 GB, plus 8–16 GB runtime. These cache formats are alternative backend scenarios, not verified DwarfStar allocations. Optional vision weights add ~0.97 GB.
+
+35 tok/s selection and ordering
+
+Eligibility requires a measured value or range upper bound ≥35 tok/s, not a midpoint ≥35 and not a guaranteed floor. Choose the highest-scoring eligible model, then order devices by AA score and decode midpoint ascending. The speed gate uses each row’s stated short-context measurement/scenario; the separate 128K memory budget does not imply that speed at 128K. Station (22–45), dual Spark (20–40) and Ultra 256 (28–41) qualify despite lower endpoints below 35. Ultra 512 switches from GLM-5.3 (15–25, fails) to GLM-5.3-Flash (28–41 estimated from the measured 256 GB system with the same chip and bandwidth). Extra capacity buys headroom, not automatically more decode speed. Scores describe evaluated model settings, not verified local quantization quality.
+
+Parameter counts and architecture
+
+B = billion parameters; active = per-token backbone work, not resident memory. Dense Qwen27 uses essentially its whole language backbone; MoE models select experts, but all resident experts still consume memory. GLM-5.3: 753B / 40B active; GLM Flash: 320B / 18B; DeepSeek V4 Flash: 284B / 13B; Qwen3.8-27B: 27B dense; Qwen3.6-35B-A3B: 35B / 3B. Counts follow vendor conventions and do not always separately itemize vision or draft heads. Flash-Next’s ~180B sum is 125B backbone +51B lookup embeddings +4B MTP, with 6B active backbone. DeepSeek V4.1’s ~763B full checkpoint includes a 552B backbone and 196B Engram tables plus auxiliary components; 16B active is decode (prefill: 8B). Sparse table lookups and draft verification are additional work, so these active counts alone are not FLOP or bandwidth budgets. The cloud models’ parameter counts and Dense/MoE architecture are undisclosed.
+
+Model storage, fit and selection notes
+
+Model size is not serving memory. GB = 10⁹ bytes; GiB = 2³⁰ bytes. Vendor installed capacities are retained as advertised. Quantization sources use their displayed units. Plan for runtime allocations, KV cache, vision, MTP and the operating system; native 1M context does not promise a 1M deployment on each device.
+
+Qwen3.8-27B. Official model card; concrete 16.0/20.4 GB Q4 and 29.4 GB Q8 packs. Its 61.7 SWE-bench Pro used Qwen’s corrected tasks, Claude Code, temperature 1 / top-p .95 and 256K context. It also reports 73.0 Terminal-Bench 2.1 (Terminus). A 24 GB GPU can fit compact Q4 at modest context; the high-quality dynamic Q4 plus long KV may not. Base M5 recommendation assumes the 32 GB configuration, not 16 GB.
+
+Flash-Next. Official card: 125B backbone + 51B n-gram embeddings + 4B MTP (~180B total); 6B active backbone. Do not size this as only 125B. Q4_K_XL shards total ~111.4 GB, separate MTP Q8 4.14 GB, vision ~0.9 GB. 128 GB all-resident is marginal; the selected M5 Max and Spark recipes explicitly offload lookup tables. MTPLX uses dynamic Q4 with sparse-attention projections at Q8. GGUF, NVFP4 and oQ4e are not interchangeable.
+
+96 GB alternatives. Flash-Next UD-IQ1_S is ~67.55 GiB (effective 3.28 bits/weight), so it fits a PRO 6000 with serving headroom; its low-bit experts have unverified agentic quality here. The Spark measurement for this quant is not a PRO 6000 measurement. A PRO 6000 DeepSeek V4 Flash ds4.c result reports 46.9 tok/s, using more compressed weights than the dual-Spark reference. The main map instead projects a higher-precision Flash-Next fit with SSD lookup-table staging; Qwen27 Q8 remains the simpler high-fidelity fallback.
+
+DeepSeek V4 Flash. Official original card; 0731 Q4_K_XL shards ~155.1 GB. The 54.4 DeepSWE figure comes from the Qwen Flash-Next comparison explicitly labeling 0731. Original-release benchmarks (e.g. SWE-bench Verified 79.0 / Pro 52.6 and Terminal-Bench 2.0 56.9) are different versions/protocols and not substituted for newer scores.
+
+GLM-5.3-Flash. Official card and quantization guide: IQ4_XS 156.82 GB, Q4_K_XL 199.71 GB; the measured Mac uses a separate mixed-4/8 MLX artifact. 84.3 Terminal-Bench 2.1 uses Claude Code 2.1.207, while 63.4 DeepSWE uses mini-SWE at 400K / six hours. 128 GB can squeeze lower-bit variants, but this guide prefers useful precision and headroom. Token-level agreement percentages are not task success rates.
+
+DeepSeek V4.1 Flash (‡). Official card: 552B backbone + 196B Engram (HF total ~763B including other components), 8B prefill / 16B decode active; vision; 1M context; 890 bytes/token global KV claim. DwarfStar-specific quant card: Q4 482.98 GiB file = 294.15 GiB main weights + 188.83 GiB native FP8 Engram. Lookup rows stream from SSD, not all tables into RAM. Main Q4 weights ~316 GB plus buffers fit the 512 GB tier. Q2 main 151.77 GiB can fit 256 GB, but has greater compression; neither inherits the full model’s scores. Source checkpoint df42c109f1defefcbfcedbe7d905718a12266e40. Runtime support is branch-specific; no matched speed is verified here. 74.2 DeepSWE uses mini-SWE / effort 100 / 1M; 90.6 Terminal-Bench 2.1 is DeepSeek Harness Minimal. This is not a controlled comparison to GLM’s 400K harness.
+
+GLM-5.3. Official card; actual quantization table. IQ4_XS 365.3 GB leaves much more headroom on 512 GB than Q4_K_XL 467.3 GB. ~753B total / 40B active from AA (some guides use 744B backbone). GLM-5.3 on Station fits the total coherent capacity, not the 252 GB HBM alone. GLM-5.3-Flash Q4 is the smaller all-HBM alternative, conditional on runtime allocations.
+
+Broader capability and alternative hardware
+
+Artificial Analysis’s current open-weight index ranks MiMo-V2.6-Pro, GLM-5.3, Kimi K3, then GLM-5.3-Flash in broad intelligence. Scores shown are v4.3.2 (not the earlier index that gave Qwen27 ~52). AA’s hosted-provider tokens/sec is deliberately not used as local hardware speed. Qwen3.8-Max and proprietary frontier models are not assumed to have downloadable weights. “Open weight” does not mean every license is identical: Flash-Next uses Qwen Community terms; GLM-5.3 has its own license; Flash variants from DeepSeek and GLM-5.3-Flash list MIT.
+
+Tenstorrent QuietBox 2: four Blackhole chips on two p300c cards; 128 GB accelerator GDDR6 (32/chip), 1,024 GB/s per card / 2,048 GB/s aggregate; separate 256 GB host DDR5. The guide’s supported models include Qwen3-32B, Gemma 4 31B and Llama 70B; gpt-oss-120B and Qwen3.6-27B are experimental. A comparable verified dense FP4/FP8 figure and current target-model speeds were not established here. It is a specialist-stack alternative, not a drop-in CUDA/MLX equivalent. Rack GPUs (B200/B300/MI350) require server infrastructure and are outside this desk/laptop brief; DGX Station is the enterprise upper bound.
+
+Purchase takeaway: For one practical machine today, the M5 Ultra 256 GB has strong measured large-model options; M5 Max 128 GB is the portable alternative; Spark is attractive for CUDA development and expandable model capacity. An RTX 5090 is a responsive compact-model accelerator, not a replacement for a 256 GB memory pool. The best end-to-end agent is the one that completes the task correctly with fewer retries—not necessarily the highest decode number.

@@ -1,0 +1,72 @@
+[
+  {
+    "repo": "Qwen/Qwen3.8-27B",
+    "url": "https://huggingface.co/Qwen/Qwen3.8-27B/resolve/main/config.json",
+    "captured_at_utc": "2026-10-10T15:47:09.675150+00:00",
+    "resolved_url": "https://huggingface.co/api/resolve-cache/models/Qwen/Qwen3.8-27B/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json?%2FQwen%2FQwen3.8-27B%2Fresolve%2Fmain%2Fconfig.json=&etag=%22706cebd746c4b6f2b1d1f892630867acfdfd3df8%22",
+    "upstream_commit": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "path": "data/configs/Qwen--Qwen3.8-27B.json",
+    "sha256": "191e0af232104ed8b65258cf3fb2b842e288008baca7633c11b82a1ac7203aab",
+    "status": "captured"
+  },
+  {
+    "repo": "Qwen/Qwen3.8-Flash-Next",
+    "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/resolve/main/config.json",
+    "captured_at_utc": "2026-10-10T15:47:09.675949+00:00",
+    "resolved_url": "https://huggingface.co/api/resolve-cache/models/Qwen/Qwen3.8-Flash-Next/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json?%2FQwen%2FQwen3.8-Flash-Next%2Fresolve%2Fmain%2Fconfig.json=&etag=%22491017e9980e44ef01afa2c4782f5c7e169b9b26%22",
+    "upstream_commit": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+    "path": "data/configs/Qwen--Qwen3.8-Flash-Next.json",
+    "sha256": "889658f2508e8c61d409b02e70e0d78d8d4452ec65aaafbe129805d213d2e74b",
+    "status": "captured"
+  },
+  {
+    "repo": "Qwen/Qwen3.6-35B-A3B",
+    "url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/resolve/main/config.json",
+    "captured_at_utc": "2026-10-10T15:47:09.676418+00:00",
+    "resolved_url": "https://huggingface.co/api/resolve-cache/models/Qwen/Qwen3.6-35B-A3B/995ad96eacd98c81ed38be0c5b274b04031597b0/config.json?%2FQwen%2FQwen3.6-35B-A3B%2Fresolve%2Fmain%2Fconfig.json=&etag=%229c2aacf8e27267fadb4f6bf8209e7f3c26f5dd66%22",
+    "upstream_commit": "995ad96eacd98c81ed38be0c5b274b04031597b0",
+    "path": "data/configs/Qwen--Qwen3.6-35B-A3B.json",
+    "sha256": "93a4693fa9d8392fbfccd4b3c9873f4bfdcb14fdede978b123d07d19675efe99",
+    "status": "captured"
+  },
+  {
+    "repo": "zai-org/GLM-5.3",
+    "url": "https://huggingface.co/zai-org/GLM-5.3/resolve/main/config.json",
+    "captured_at_utc": "2026-10-10T15:47:09.676919+00:00",
+    "resolved_url": "https://huggingface.co/api/resolve-cache/models/zai-org/GLM-5.3/aca966e4e02791568aa6a4ced368624b3d897f42/config.json?%2Fzai-org%2FGLM-5.3%2Fresolve%2Fmain%2Fconfig.json=&etag=%22f4dd8fe8be2a6fee923d5ecc8de0a14892631b61%22",
+    "upstream_commit": "aca966e4e02791568aa6a4ced368624b3d897f42",
+    "path": "data/configs/zai-org--GLM-5.3.json",
+    "sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
+    "status": "captured"
+  },
+  {
+    "repo": "zai-org/GLM-5.3-Flash",
+    "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/resolve/main/config.json",
+    "captured_at_utc": "2026-10-10T15:47:09.996633+00:00",
+    "resolved_url": "https://huggingface.co/api/resolve-cache/models/zai-org/GLM-5.3-Flash/eb9eb208eb0d988989d07a6a12d0fdeb5f52574a/config.json?%2Fzai-org%2FGLM-5.3-Flash%2Fresolve%2Fmain%2Fconfig.json=&etag=%22f93128cf7f31ca2b22e367cd63676c320c4164a7%22",
+    "upstream_commit": "eb9eb208eb0d988989d07a6a12d0fdeb5f52574a",
+    "path": "data/configs/zai-org--GLM-5.3-Flash.json",
+    "sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
+    "status": "captured"
+  },
+  {
+    "repo": "deepseek-ai/DeepSeek-V4-Flash-0731",
+    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/resolve/main/config.json",
+    "captured_at_utc": "2026-10-10T15:47:10.000716+00:00",
+    "resolved_url": "https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-V4-Flash-0731/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json?%2Fdeepseek-ai%2FDeepSeek-V4-Flash-0731%2Fresolve%2Fmain%2Fconfig.json=&etag=%225f2da9100036b39e26ebe5ab493c5e8d4004d8a1%22",
+    "upstream_commit": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+    "path": "data/configs/deepseek-ai--DeepSeek-V4-Flash-0731.json",
+    "sha256": "6c8f3d2d3b48707541b88f32f22ef3f0f8a6b57d8523281e2b8d3cdb0ae9a023",
+    "status": "captured"
+  },
+  {
+    "repo": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/resolve/main/config.json",
+    "captured_at_utc": "2026-10-10T15:47:10.009766+00:00",
+    "resolved_url": "https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-V4.1-Flash/2cba9e42aa026125f3ed06c6d98c1db82f7ca027/config.json?%2Fdeepseek-ai%2FDeepSeek-V4.1-Flash%2Fresolve%2Fmain%2Fconfig.json=&etag=%2209917a9139b22d5bf8be52132787f435147b1020%22",
+    "upstream_commit": "2cba9e42aa026125f3ed06c6d98c1db82f7ca027",
+    "path": "data/configs/deepseek-ai--DeepSeek-V4.1-Flash.json",
+    "sha256": "8be45ce0476004a3f529fd896115a4a2e800a129ad2d3ec05b16050f52e21879",
+    "status": "captured"
+  }
+]
