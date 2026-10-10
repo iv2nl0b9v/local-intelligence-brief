@@ -83,7 +83,7 @@ def main():
     parser = ReportParser()
     parser.feed((ROOT / 'index.html').read_text(encoding='utf-8'))
     hardware, models = parser.tables[:2]
-    check(all(len(r) == 8 for r in hardware), 'hardware rows must have 8 cells')
+    check(all(len(r) == 10 for r in hardware), 'hardware rows must have 10 cells')
     check(all(len(r) == 4 for r in models), 'model rows must have 4 cells')
     check(len(parser.ids) == len(set(parser.ids)), 'duplicate element IDs')
     check(set(parser.fragments) <= set(parser.ids), 'broken fragment links')

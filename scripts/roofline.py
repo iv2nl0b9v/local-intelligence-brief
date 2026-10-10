@@ -162,11 +162,32 @@ def shares(r):
     return (rng(r['memory_time_share'], pct), rng(r['compute_time_share'], pct), rng(r['other_time_share'], pct))
 
 
-def cell(r):
-    memory, compute, other = shares(r)
-    est = ' (E)' if r['estimate'] else ''
-    return (f'<a href="#roofline" onclick="document.getElementById(\'research-details\').open=true">'
-            f'<strong>Memory {memory}{est}</strong><span class="sub">Compute {compute} · Other {other}</span></a>')
+BOTH_THRESHOLD = 0.5  # compute at least half of memory: real kernels may make compute the limit too
+PARTS = (('mem', 'memory_time_share', 'Memory'), ('cmp', 'compute_time_share', 'Compute'), ('oth', 'other_time_share', 'Other'))
+
+
+def bottleneck(r):
+    """Largest share by range midpoint; memory and compute together when compute is within 2x."""
+    mid = {k: sum(r[field]) / len(r[field]) for k, field, _ in PARTS}
+    top = max(mid, key=mid.get)
+    if top == 'mem' and mid['cmp'] >= BOTH_THRESHOLD * mid['mem']:
+        return ('mem', 'cmp')
+    return (top,)
+
+
+def bottleneck_name(r):
+    names = dict((k, label) for k, _, label in PARTS)
+    return ' + '.join(names[k] for k in bottleneck(r))
+
+
+def cells(key, r):
+    hot = bottleneck(r)
+    out = []
+    for i, (k, field, label) in enumerate(PARTS):
+        attr = f'data-roofline="{key}"' if i == 0 else 'data-roofline-part'
+        cls = f'tt {k}' + (' hot' if k in hot else '')
+        out.append(f'<td {attr} class="{cls}">{rng(r[field], pct)}</td>')
+    return ''.join(out)
 
 
 def chart(rows, refs, pre):
@@ -227,7 +248,7 @@ def chart(rows, refs, pre):
 
 def table(rows, refs, pre):
     head = ('<table class="method-table rf-table"><thead><tr><th>Pairing</th><th>GB / token</th><th>Ops / token (G)</th>'
-            '<th>Intensity · ridge (ops/byte)</th><th>Bandwidth roof</th><th>Compute roof</th><th>Speed</th><th>Token time: memory · compute · other</th></tr></thead><tbody>')
+            '<th>Intensity · ridge (ops/byte)</th><th>Bandwidth roof</th><th>Compute roof</th><th>Speed</th><th>Token time: memory · compute · other</th><th>Bottleneck</th></tr></thead><tbody>')
     body = []
     for r in list(rows.values()) + list(refs.values()):
         e = r['endpoints']
@@ -238,11 +259,11 @@ def table(rows, refs, pre):
                     f'<td>{rng([x["bandwidth_roof"] for x in e], tps)}</td>'
                     f'<td>{rng([x["compute_roof"] for x in e], tps)}</td>'
                     f'<td>{rng(r["speed"], lambda v: f"{v:g}")}</td>'
-                    f'<td>{" · ".join(shares(r))}</td></tr>')
+                    f'<td>{" · ".join(shares(r))}</td><td>{bottleneck_name(r)}</td></tr>')
     for p in pre.values():
         body.append(f'<tr><td>{p["device"]} · prompt processing<br><span class="sub">{p["note"]}</span></td><td colspan="2">'
                     f'{PREFILL_CHUNK}-token chunks share each weight read</td><td>{p["intensity"]:,.0f} · {p["ridge"]:.0f}</td>'
-                    f'<td colspan="3">{p["speed"]:,.0f} tok/s; compute-bound</td><td>{pct(p["share_of_matrix_peak"])} of matrix peak</td></tr>')
+                    f'<td colspan="3">{p["speed"]:,.0f} tok/s</td><td>{pct(p["share_of_matrix_peak"])} of matrix peak</td><td>Compute</td></tr>')
     inputs = ''.join(f'<tr><td>{v[0]}</td><td>{v[1]:,}</td><td>{v[2]:g}</td><td>{v[3]:g}</td><td>{v[4]}</td></tr>'
                      for k, v in DEVICES.items())
     return (head + ''.join(body) + '</tbody></table>'
@@ -264,9 +285,9 @@ def render(html, rows, refs, pre):
     block = chart(rows, refs, pre) + table(rows, refs, pre)
     html = re.sub(r'(<!-- roofline:start -->).*?(<!-- roofline:end -->)', lambda m: m[1] + block + m[2], html, flags=re.S)
     for key, r in rows.items():
-        pattern = rf'(<td data-roofline="{key}">).*?(</td>)'
-        html, count = re.subn(pattern, lambda m: m[1] + cell(r) + m[2], html, flags=re.S)
-        assert count == 1, f'missing bottleneck cell for {key}'
+        pattern = rf'<td data-roofline="{key}"[^>]*>.*?</td>(?:<td data-roofline-part[^>]*>.*?</td>)*'
+        html, count = re.subn(pattern, lambda m: cells(key, r), html, flags=re.S)
+        assert count == 1, f'missing token-time cells for {key}'
     return html
 
 
