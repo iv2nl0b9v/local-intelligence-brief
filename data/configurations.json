@@ -67,7 +67,7 @@
     "note": "B7, UD-IQ4_XS, MTP + n-gram"
   },
   "spark": {
-    "device": "1 × DGX Spark",
+    "device": "DGX Spark",
     "model": "flashnext",
     "speed": [
       36.83,
