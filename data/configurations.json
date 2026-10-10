@@ -92,12 +92,12 @@
     "device": "RTX PRO 6000 Blackwell",
     "model": "flashnext",
     "speed": [
-      81,
-      88
+      120,
+      173
     ],
-    "display": "81–88",
+    "display": "120–173",
     "estimate": false,
-    "note": "B9, NVFP4, no MTP"
+    "note": "B9, NVFP4, vLLM + MTP, real workloads; ~100 GB spare host RAM; 200K max context"
   },
   "spark2": {
     "device": "2 × DGX Spark",
@@ -125,13 +125,12 @@
     "device": "2 × RTX PRO 6000 Blackwell",
     "model": "glmflash",
     "speed": [
-      40.80145719489982,
-      70.06737247353223
+      164.8,
+      164.8
     ],
-    "display": "41–70",
+    "display": "165",
     "estimate": true,
-    "note": "Estimate, IQ4_XS",
-    "scenario": "pro_dual_glmflash_layer_split"
+    "note": "B19 Server Edition to Workstation transfer estimate, expert NVFP4 / FP8-WO, SGLang TP2 + adaptive EAGLE; not measured on Workstation"
   },
   "m5ultra512": {
     "device": "M5 Ultra · 512 GB",

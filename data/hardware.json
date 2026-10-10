@@ -77,8 +77,8 @@
     "Memory installed": "96 GB",
     "Bandwidth GB/s": "1,792",
     "AI compute Dense peak": "2,015 TFLOPS FP4",
-    "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 vLLM · n-gram table in ~100 GB host RAM",
-    "Decode tokens / sec": "81–88 M No MTP; 120–173 MTP · B9"
+    "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 vLLM + MTP · n-gram table in ~100 GB host RAM",
+    "Decode tokens / sec": "120–173 M MTP · real workloads · B9"
   },
   {
     "Device / configuration": "Mac Studio · M5 UltraH8 80-core GPU",
@@ -104,8 +104,8 @@
     "Memory installed": "192 GB 96 GB per GPU",
     "Bandwidth GB/s": "2 × 1,792 Link: ≤63 GB/s PCIe 5.0 ×16*",
     "AI compute Dense peak": "4,030 TFLOPS FP4 · 2 GPUs",
-    "Best-fit shortlist model / precision": "GLM-5.3-Flash · IQ4_XS Layer split · ~157 GB weights · fit projected",
-    "Decode tokens / sec": "41–70 E Best ~55 · B13 anchor"
+    "Best-fit shortlist model / precision": "GLM-5.3-Flash · expert NVFP4 / FP8-WO SGLang TP2 · adaptive EAGLE · fit projected",
+    "Decode tokens / sec": "165 E Projected · Server measured 164.8 · B19"
   },
   {
     "Device / configuration": "M5 Ultra · 512 GBH8 Ships late October",
