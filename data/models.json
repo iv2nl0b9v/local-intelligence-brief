@@ -1,21 +1,27 @@
 [
   {
-    "Model / tested setting": "Claude Opus 5.5 Max · default fallback · cloud",
+    "Model / tested setting": "Claude Opus 5.5 Max · Sep 2026 · cloud ceiling",
     "AA score": "58",
     "Parameters / type": "Undisclosed Architecture undisclosed",
     "Memory estimate · 128K context · 1 active request": "Cloud only · weights and serving memory undisclosed"
   },
   {
-    "Model / tested setting": "GPT-6 Astra Max · cloud ceiling",
-    "AA score": "53",
+    "Model / tested setting": "Claude Opus 5 Max · Jul 2026 · cloud reference",
+    "AA score": "51",
     "Parameters / type": "Undisclosed Architecture undisclosed",
-    "Memory estimate · 128K context · 1 active request": "Cloud only · weights and serving memory undisclosed"
+    "Memory estimate · 128K context · 1 active request": "Cloud only · frontier trajectory reference"
   },
   {
     "Model / tested setting": "GLM-5.3 Max",
     "AA score": "45",
     "Parameters / type": "~753B · MoE ~40B active",
     "Memory estimate · 128K context · 1 active request": "365 GB weights + ~13 GB cache ≈ 378 GB resident IQ4_XS · compressed MLA, 16-bit cache · SSD tables: none · runtime: +8–16 GB"
+  },
+  {
+    "Model / tested setting": "Claude Opus 4.8 Max · May 2026 · cloud reference",
+    "AA score": "42",
+    "Parameters / type": "Undisclosed Architecture undisclosed",
+    "Memory estimate · 128K context · 1 active request": "Cloud only · frontier trajectory reference"
   },
   {
     "Model / tested setting": "GLM-5.3-Flash Reasoning",
@@ -46,6 +52,12 @@
     "AA score": "34",
     "Parameters / type": "284B · MoE 13B active",
     "Memory estimate · 128K context · 1 active request": "~155 GB weights + ~1 GB cache ≈ 156 GB resident Q4_K_XL · compressed attention, BF16 cache · SSD tables: none · runtime: +8–16 GB"
+  },
+  {
+    "Model / tested setting": "Claude Opus 4.6 Max · Feb 2026 · AA estimate",
+    "AA score": "32",
+    "Parameters / type": "Undisclosed Architecture undisclosed",
+    "Memory estimate · 128K context · 1 active request": "Cloud only · frontier trajectory reference AA marks 32 as estimated; independent evaluation forthcoming."
   },
   {
     "Model / tested setting": "Qwen3.6-35B-A3B Reasoning · fallback",

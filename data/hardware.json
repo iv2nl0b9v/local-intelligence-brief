@@ -5,8 +5,8 @@
     "Memory installed": "32 GB Unified",
     "Bandwidth GB/s": "153",
     "AI compute TFLOPS / TOPS": "~40 TOPS E Neural Engine · est.",
-    "Best-fit shortlist model / precision": "Qwen3.6-35B-A3B · Q4 Short context · roofline estimate",
-    "Decode tokens / sec": "30–50 E Short context · roofline estimate"
+    "Best-fit shortlist model / precision": "Qwen3.6-35B-A3B · 4-bit MLX oMLX 0.3.6 · ~20 GB peak",
+    "Decode tokens / sec": "51–60 M 1K–4K · two runs · B12"
   },
   {
     "Device / configuration": "MacBook Pro · M5 ProH1 20-core GPU",
@@ -18,13 +18,13 @@
     "Decode tokens / sec": "21–44 E Upper end: repetitive editing"
   },
   {
-    "Device / configuration": "Ryzen AI Max+ 395 / HaloH2 Radeon 8060S",
-    "Approx. USD": "$2–4k System est.",
-    "Memory installed": "128 GB GPU allocation varies",
-    "Bandwidth GB/s": "256 LPDDR5X-8000",
-    "AI compute TFLOPS / TOPS": "50 TOPS NPU · INT8",
-    "Best-fit shortlist model / precision": "Qwen3.8-27B · ROCmFP4_FAST Near-greedy MTP · short prompt",
-    "Decode tokens / sec": "30–36 M 512-token peak · B2"
+    "Device / configuration": "GeForce RTX 4090H3",
+    "Approx. USD": "$2–2.5k Card est.",
+    "Memory installed": "24 GB",
+    "Bandwidth GB/s": "1,008",
+    "AI compute TFLOPS / TOPS": "661 TFLOPS FP8",
+    "Best-fit shortlist model / precision": "Qwen3.8-27B · Q4_K_S llama.cpp · no MTP",
+    "Decode tokens / sec": "38–46 M 64K → 4K · B10"
   },
   {
     "Device / configuration": "Radeon AI PRO R9700H4",
@@ -32,17 +32,8 @@
     "Memory installed": "32 GB",
     "Bandwidth GB/s": "640",
     "AI compute TFLOPS / TOPS": "766 TOPS INT4 · 383 TFLOPS FP8",
-    "Best-fit shortlist model / precision": "Qwen3.8-27B · Q4 + MTP Compatible AMD drafting backend required",
-    "Decode tokens / sec": "30–50 E Conditional drafting · low confidence"
-  },
-  {
-    "Device / configuration": "GeForce RTX 4090H3",
-    "Approx. USD": "$2–2.5k Card est.",
-    "Memory installed": "24 GB",
-    "Bandwidth GB/s": "1,008",
-    "AI compute TFLOPS / TOPS": "661 TFLOPS FP8",
-    "Best-fit shortlist model / precision": "Qwen3.8-27B · Q4 Short context",
-    "Decode tokens / sec": "38–50 E No speculation"
+    "Best-fit shortlist model / precision": "Qwen3.8-27B · Q4-class + MTP llama.cpp Vulkan · MTP=2",
+    "Decode tokens / sec": "51.8 M AMD vendor · preliminary · B8"
   },
   {
     "Device / configuration": "GeForce RTX 5090H5",
@@ -54,6 +45,15 @@
     "Decode tokens / sec": "59 M 6.1K · no MTP · B3"
   },
   {
+    "Device / configuration": "Ryzen AI Max+ 395 / HaloH2 Radeon 8060S",
+    "Approx. USD": "$2–4k System est.",
+    "Memory installed": "128 GB GPU allocation varies",
+    "Bandwidth GB/s": "256 LPDDR5X-8000",
+    "AI compute TFLOPS / TOPS": "50 TOPS NPU · INT8",
+    "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · UD-IQ4_XS llama.cpp ROCm · MTP + n-gram drafting",
+    "Decode tokens / sec": "32–47 M 8K new code → rewrite · B7"
+  },
+  {
     "Device / configuration": "1 × DGX SparkH7 Single NVIDIA GB10 system",
     "Approx. USD": "$4.7k System",
     "Memory installed": "128 GB",
@@ -61,6 +61,15 @@
     "AI compute TFLOPS / TOPS": "500 TFLOPS FP4",
     "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 vLLM + MTP3 · table on SSD",
     "Decode tokens / sec": "37–46 M Prose → code · B5"
+  },
+  {
+    "Device / configuration": "2 × DGX SparkH7",
+    "Approx. USD": "$9.4k Systems",
+    "Memory installed": "256 GB 128 GB per node",
+    "Bandwidth GB/s": "2 × 273 Distributed memory",
+    "AI compute TFLOPS / TOPS": "1,000 TFLOPS FP4 · summed",
+    "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 Fits one node · GLM-5.3-Flash fails gate",
+    "Decode tokens / sec": "37–46 M One-node result · B5, B11"
   },
   {
     "Device / configuration": "MacBook Pro · M5 MaxH1 40-core GPU",
@@ -77,17 +86,8 @@
     "Memory installed": "96 GB",
     "Bandwidth GB/s": "1,792",
     "AI compute TFLOPS / TOPS": "2,015 TFLOPS FP4",
-    "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 SSD lookup table · fit projected",
-    "Decode tokens / sec": "65–125 E Best ~95 · roofline estimate"
-  },
-  {
-    "Device / configuration": "2 × DGX SparkH7",
-    "Approx. USD": "$9.4k Systems",
-    "Memory installed": "256 GB 128 GB per node",
-    "Bandwidth GB/s": "2 × 273 Distributed memory",
-    "AI compute TFLOPS / TOPS": "1,000 TFLOPS FP4 · summed",
-    "Best-fit shortlist model / precision": "GLM-5.3-Flash · IQ4_XS TP2 · ~157 GB weights · fit projected",
-    "Decode tokens / sec": "20–40 E Drafting scenario · low confidence"
+    "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 vLLM · n-gram table in ~100 GB host RAM",
+    "Decode tokens / sec": "81–88 M No MTP · 120–173 with MTP · B9"
   },
   {
     "Device / configuration": "Mac Studio · M5 UltraH8 80-core GPU",
@@ -113,8 +113,8 @@
     "Memory installed": "192 GB 96 GB per GPU",
     "Bandwidth GB/s": "2 × 1,792 Not one shared bus",
     "AI compute TFLOPS / TOPS": "4,030 TFLOPS FP4 · summed",
-    "Best-fit shortlist model / precision": "GLM-5.3-Flash · IQ4_XS TP2 · ~157 GB weights · fit projected",
-    "Decode tokens / sec": "60–110 E Best ~80 · roofline estimate"
+    "Best-fit shortlist model / precision": "GLM-5.3-Flash · IQ4_XS Layer split · ~157 GB weights · fit projected",
+    "Decode tokens / sec": "41–70 E Best ~55 · 4× PRO measured 64"
   },
   {
     "Device / configuration": "DGX Station · GB300H9 OEM order · deskside",

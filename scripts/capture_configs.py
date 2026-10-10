@@ -31,10 +31,18 @@ def capture(repo):
 
 if __name__ == '__main__':
     (ROOT / 'data/configs').mkdir(parents=True, exist_ok=True)
+    manifest = ROOT / 'data/config-manifest.json'
+    previous = {r['repo']: r for r in json.loads(manifest.read_text(encoding='utf-8'))} if manifest.exists() else {}
     with ThreadPoolExecutor(max_workers=4) as pool:
         records = list(pool.map(capture, REPOS))
-    (ROOT / 'data/config-manifest.json').write_text(json.dumps(records, indent=2) + '\n', encoding='utf-8')
+    # A failed refresh leaves the old snapshot on disk, so keep the record that describes it.
+    for i, record in enumerate(records):
+        old = previous.get(record['repo'])
+        if record['status'] != 'captured' and old and old.get('status') == 'captured':
+            records[i] = {**old, 'last_refresh_error': record['error'],
+                          'last_refresh_attempt_utc': record['captured_at_utc']}
+    manifest.write_text(json.dumps(records, indent=2) + '\n', encoding='utf-8', newline='\n')
     for record in records:
-        print(record['repo'], record['status'])
-    if any(record['status'] != 'captured' for record in records):
+        print(record['repo'], 'refresh failed; kept previous snapshot' if 'last_refresh_error' in record else record['status'])
+    if any(record['status'] != 'captured' or 'last_refresh_error' in record for record in records):
         raise SystemExit('Some configs could not be captured; see manifest.')

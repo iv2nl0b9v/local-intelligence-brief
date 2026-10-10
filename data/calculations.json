@@ -6,7 +6,7 @@
     "concurrency": 1
   },
   "warning": "Assumed traffic, utilization, overhead and drafting factors; not measurements or confidence intervals.",
-  "pro_single_flashnext": {
+  "pro_single_flashnext_superseded": {
     "traffic_gb": [
       5,
       7
@@ -25,13 +25,43 @@
       67.51054852320675,
       125.21961348027473
     ],
-    "displayed": [
-      65,
-      125
+    "measured_no_mtp": [
+      81,
+      88
     ],
+    "measured_with_mtp": [
+      120,
+      173
+    ],
+    "measurement": "B9",
     "ideal_compute_roof": 167916.66666666666
   },
-  "pro_dual_glmflash": {
+  "pro_dual_glmflash_layer_split": {
+    "traffic_gb": [
+      10.8,
+      13
+    ],
+    "bandwidth_gbps": 1792,
+    "utilization": [
+      0.5,
+      0.65
+    ],
+    "overhead_ms": [
+      5,
+      10
+    ],
+    "central": 55.063913470993114,
+    "endpoints": [
+      40.80145719489982,
+      70.06737247353223
+    ],
+    "displayed": [
+      41,
+      70
+    ],
+    "anchor_4x_pro_tp4_nvfp4_measured": 63.7
+  },
+  "pro_dual_glmflash_tensor_parallel_upside": {
     "traffic_gb": [
       10.8,
       13
@@ -50,10 +80,6 @@
       57.95601552393273,
       103.77761938702778
     ],
-    "displayed": [
-      60,
-      110
-    ],
     "ideal_fp4_compute_roof_not_iq4_kernel_performance": 111944.44444444444
   },
   "pro_anchor": {
@@ -65,15 +91,17 @@
       7.627173221959133
     ]
   },
-  "m5_qwen35_moe": {
+  "m5_qwen35_moe_superseded": {
     "endpoints": [
       28.3823893148652,
       49.164524421593825
     ],
-    "displayed": [
-      30,
-      50
-    ]
+    "measured": [
+      51.0,
+      59.5
+    ],
+    "measurement": "B12",
+    "max_traffic_gb_at_measured_peak_no_overhead": 2.5714285714285716
   },
   "m5pro_qwen38": {
     "fresh_coding": [
@@ -84,12 +112,20 @@
       35.04,
       43.8
     ],
+    "endpoints": [
+      21.040000000000003,
+      43.8
+    ],
     "displayed": [
       21,
       44
+    ],
+    "cross_check_2_33x_times_17_to_18_baseline": [
+      39.61,
+      41.94
     ]
   },
-  "r9700_qwen38": {
+  "r9700_qwen38_superseded": {
     "baseline": [
       24,
       32
@@ -102,40 +138,42 @@
       30.0,
       51.2
     ],
-    "displayed": [
-      30,
-      50
-    ]
+    "measured_vendor": 51.8,
+    "measurement": "B8"
   },
-  "r9700_moe_fallback": {
-    "endpoints": [
-      63.42913776015858,
-      108.59728506787332
-    ],
-    "displayed": [
-      65,
-      110
-    ]
-  },
-  "dual_spark_glmflash": {
+  "dual_spark_glmflash_rejected": {
     "endpoints": [
       19.716666666666665,
       37.916666666666664
     ],
-    "displayed": [
-      20,
-      40
-    ]
+    "measured_single_request": [
+      14.6,
+      30.84
+    ],
+    "measurement": "B11"
   },
-  "rtx4090_qwen27": {
+  "halo_flashnext_rejected_projection": {
+    "endpoints": [
+      15.36,
+      28.799999999999997
+    ],
+    "measured": [
+      31.7,
+      47.1
+    ],
+    "measurement": "B7"
+  },
+  "rtx4090_qwen27_superseded": {
     "endpoints": [
       37.8,
       50.400000000000006
     ],
-    "displayed": [
-      38,
-      50
-    ]
+    "measured": [
+      38.41,
+      46.16
+    ],
+    "measurement": "B10",
+    "rtx5090_measured_utilization_at_16GB": 0.5267857142857143
   },
   "ultra512_rejected_glm53": {
     "endpoints": [
@@ -167,13 +205,36 @@
       15.915908572173855,
       25.066176785244867
     ],
-    "conditional_drafting": [
+    "endpoints": [
       22.282272001043395,
       45.119118213440764
     ],
     "displayed": [
       22,
       45
+    ]
+  },
+  "station_mimo_v26_pro_rejected": {
+    "weights_gb": 566,
+    "cpu_resident_gb": [
+      338,
+      354
+    ],
+    "cpu_traffic_fraction": [
+      0.6,
+      0.63
+    ],
+    "baseline": [
+      11.964727798612643,
+      17.974407757456735
+    ],
+    "endpoints": [
+      16.7506189180577,
+      32.35393396342212
+    ],
+    "displayed": [
+      17,
+      32
     ]
   }
 }

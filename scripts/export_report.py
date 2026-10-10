@@ -12,6 +12,7 @@ class ReportParser(HTMLParser):
         super().__init__()
         self.tables, self.links, self.ids, self.fragments = [], [], [], []
         self.table = self.row = self.cell = None
+        self.names, self.strong = [], None  # first <strong> text per table, used as each row's name
         self.evidence = False
         self.notes = []
 
@@ -27,8 +28,11 @@ class ReportParser(HTMLParser):
                 self.fragments.append(href[1:])
         if tag == 'aside':
             self.evidence = True
+        if tag == 'strong' and self.row is not None and not self.row:
+            self.strong = []
         if tag == 'table':
             self.table = []
+            self.names.append([])
         elif tag == 'tr':
             self.row = []
         elif tag in ('td', 'th'):
@@ -37,6 +41,9 @@ class ReportParser(HTMLParser):
             self.cell.append(' ')
 
     def handle_endtag(self, tag):
+        if tag == 'strong' and self.strong is not None:
+            self.names[-1].append(''.join(self.strong).strip())
+            self.strong = None
         if self.evidence and tag in ('td', 'th'):
             self.notes.append('\t')
         if tag in ('td', 'th') and self.cell is not None:
@@ -54,42 +61,77 @@ class ReportParser(HTMLParser):
             self.evidence = False
 
     def handle_data(self, data):
+        if self.strong is not None:
+            self.strong.append(data)
         if self.cell is not None:
             self.cell.append(data)
         if self.evidence:
             self.notes.append(data)
 
 
+def check(condition, message):
+    # Explicit checks rather than assert, so validation still runs under python -O.
+    if not condition:
+        raise SystemExit(f'Validation failed: {message}')
+
+
+def parse_score(cell):
+    return int(re.match(r'\d+', cell)[0])
+
+
 def main():
     parser = ReportParser()
     parser.feed((ROOT / 'index.html').read_text(encoding='utf-8'))
     hardware, models = parser.tables[:2]
-    assert len(hardware) == 15 and all(len(r) == 7 for r in hardware)
-    assert len(models) == 10 and all(len(r) == 4 for r in models)
-    assert len(parser.ids) == len(set(parser.ids)), 'Duplicate element IDs'
-    assert set(parser.fragments) <= set(parser.ids), 'Broken fragment links'
-    scores = {'Qwen3.6-35B-A3B': 18, 'Qwen3.8-27B': 34,
-              'Qwen3.8-Flash-Next': 40, 'GLM-5.3-Flash': 42, 'GLM-5.3': 45}
+    check(all(len(r) == 7 for r in hardware), 'hardware rows must have 7 cells')
+    check(all(len(r) == 4 for r in models), 'model rows must have 4 cells')
+    check(len(parser.ids) == len(set(parser.ids)), 'duplicate element IDs')
+    check(set(parser.fragments) <= set(parser.ids), 'broken fragment links')
+    model_scores = [parse_score(row[1]) for row in models[1:]]
+    check(model_scores == sorted(model_scores, reverse=True), 'model table is not sorted by score')
+
+    # Hardware pairings may only use local models; cloud rows are trajectory references.
+    model_names = parser.names[1]
+    check(len(model_names) == len(models) - 1, 'every model row needs a <strong> name')
+    scores = {name: parse_score(row[1]) for name, row in zip(model_names, models[1:])
+              if 'cloud' not in row[0].lower()}
+    check(len(scores) == sum('cloud' not in row[0].lower() for row in models[1:]), 'duplicate model names')
     keys = []
     for row in hardware[1:]:
-        model = next(m for m in scores if row[5].startswith(m))
+        # Longest prefix, so 'GLM-5.3-Flash' is never scored as 'GLM-5.3'.
+        names = [m for m in scores if row[5].startswith(m)]
+        check(names, f'no shortlist model matches pairing: {row[5]}')
+        model = max(names, key=len)
         speed = re.match(r'(\d+(?:\.\d+)?)(?:–(\d+(?:\.\d+)?))?', row[6])
+        check(speed, f'unparseable speed: {row[6]}')
         lo = float(speed[1])
         hi = float(speed[2]) if speed[2] else lo
-        assert hi >= 35, f'Speed gate failed: {row[0]}'
+        check(hi >= 35, f'speed gate failed: {row[0]}')
         keys.append((scores[model], (lo + hi) / 2))
-    assert keys == sorted(keys), 'Hardware ordering is incorrect'
-    model_scores = [int(re.match(r'\d+', row[1])[0]) for row in models[1:]]
-    assert model_scores == sorted(model_scores, reverse=True)
+    check(keys == sorted(keys), 'hardware ordering is incorrect')
+
+    # Displayed estimate ranges must be the computed endpoints rounded to the nearest integer.
+    calculations = json.loads((ROOT / 'data' / 'calculations.json').read_text(encoding='utf-8'))
+    for name, scenario in calculations.items():
+        if isinstance(scenario, dict) and 'displayed' in scenario:
+            computed = [round(x) for x in scenario['endpoints']]
+            check(scenario['displayed'] == computed,
+                  f'{name}: displayed {scenario["displayed"]} != rounded endpoints {computed}')
+
     out = ROOT / 'data'
     out.mkdir(exist_ok=True)
+
+    def write(name, text):
+        (out / name).write_text(text, encoding='utf-8', newline='\n')
+
     for name, table in [('hardware', hardware), ('models', models)]:
         records = [dict(zip(table[0], row)) for row in table[1:]]
-        (out / f'{name}.json').write_text(json.dumps(records, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    (out / 'sources.json').write_text(json.dumps(sorted(set(parser.links)), indent=2) + '\n', encoding='utf-8')
+        write(f'{name}.json', json.dumps(records, ensure_ascii=False, indent=2) + '\n')
+    write('sources.json', json.dumps(sorted(set(parser.links)), indent=2) + '\n')
     notes = re.sub(r'\n{3,}', '\n\n', ''.join(parser.notes)).strip()
-    (out / 'research-notes.txt').write_text(notes + '\n', encoding='utf-8')
-    print('Validated 14 devices, 9 models, score/speed ordering, upper-bound gate and internal links. Exported data/.')
+    write('research-notes.txt', notes + '\n')
+    print(f'Validated {len(hardware) - 1} devices, {len(models) - 1} model rows, score/speed ordering, '
+          'upper-bound gate, estimate rounding and internal links. Exported data/.')
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ Hosted with GitHub Pages from the root of `main`. Pushing updates to that branch
 
 Choose the highest-scoring fitting model **within the report's shortlist** whose measured or estimated decode **upper bound reaches 35 tokens/second**. Sort devices by model intelligence, then speed-range midpoint, ascending. This is not a guaranteed 35 tok/s minimum or an exhaustive model search.
 
-Intelligence uses Artificial Analysis Intelligence Index v4.3.2. Scores describe the tested model and reasoning setting, not a fresh evaluation of the local quantization. Opus 5.5 and GPT-6 Astra are proprietary comparison ceilings, not local deployment options.
+Intelligence uses Artificial Analysis Intelligence Index v4.3.2. Scores describe the tested model and reasoning setting, not a fresh evaluation of the local quantization. Four Claude Opus releases (4.6 → 4.8 → 5 → 5.5: 32* → 42 → 51 → 58, February to September 2026; *AA estimate) mark the frontier trajectory. They are proprietary references, not local deployment options. The best local-fitting model, GLM-5.3 (45), sits between Opus 4.8 and Opus 5.
 
 Decode is one active request, warm model, with workload/context differences recorded per source. Model-memory budgets use **131,072 total cached tokens**, concurrency one, decimal GB, and separately list SSD lookup tables and runtime allowances. Speed estimates are not 128K speed forecasts.
 
@@ -26,15 +26,18 @@ Decode is one active request, warm model, with workload/context differences reco
 2. Check the linked original benchmark logs, runtime versions, model artifacts and quantization. Do not transfer a result between models or GPU counts as if it were measured.
 3. Consult `data/configs/` for captured model architecture configurations and `data/config-manifest.json` for URLs, UTC capture times and SHA-256 hashes. These snapshots support cache calculations; they do not pin the full weight artifacts or runtime code.
 4. Change assumptions in the report and, where relevant, `scripts/calculations.py`. Keep both consistent. Regenerate the derived data and PDF.
-5. Validate the 35 tok/s upper-bound rule, ordering, table structure and links with `python scripts/export_report.py`.
+5. Validate the 35 tok/s upper-bound rule, ordering, table structure, links, and that every displayed estimate range equals its computed endpoints rounded to the nearest integer, with `python scripts/export_report.py`.
 
 ### Important unresolved evidence
 
-- Single RTX PRO 6000 / Flash-Next NVFP4: **~95 tok/s, 65–125 scenario range**. Dual PRO / GLM-Flash IQ4_XS: **~80, 60–110**. Both are low-confidence roofline-plus-overhead forecasts; exact serving fits are unverified. The matched hardware anchor is **two PRO cards running a different deployment, Flash-Next FP8, at 81.45 tok/s**. Four cards reached 64.61. Neither is a direct measurement of the headline pairing.
-- M5 Pro / Qwen3.8-27B: **21–44 estimated**. The upper end extrapolates a favorable repetitive-editing workload; fresh coding extrapolates to roughly 21–29. It does not establish a general 35 tok/s floor.
-- R9700 / Qwen3.8-27B: **30–50 conditional on working AMD MTP**, not a matched R9700 measurement. Without drafting, the 24–32 baseline fails; the smaller-active Qwen3.6 MoE is the fallback.
-- Halo's qualifying 36 tok/s peak is near-greedy, short-prompt and version-sensitive. Longer prompts can remain below 35.
-- Dual Spark and Station include assumed drafting gains. Their exact GLM deployments and gains are unverified. The forthcoming 512 GB Ultra is a projection.
+- Measured rows are third-party or vendor results, labelled **M**, not this report's replication. The R9700's **51.8 tok/s** is AMD's preliminary vendor number (Vulkan, MTP=2, quantization unstated). Halo's **32–47** comes from one community llama.cpp thread whose same-build runs varied 25–36 tok/s across days.
+- Four rows remain estimates:
+  - **M5 Pro / Qwen3.8-27B: 21–44.** The upper end extrapolates favorable repetitive editing. An independent 2.33× MTP multiplier verified on M5 Pro supports roughly 40, but there is no direct measurement.
+  - **M5 Ultra 512 GB:** extrapolated from the measured 256 GB system; the hardware is not yet shipping.
+  - **2 × RTX PRO 6000 / GLM-5.3-Flash IQ4_XS: 41–70, best ~55.** Assumes llama.cpp's sequential layer split. Four cards measured 63.7 tok/s with NVFP4, which does not fit on two.
+  - **DGX Station / GLM-5.3: 22–45.** Assumes drafting gains on split HBM/CPU memory.
+- Dual Spark no longer pairs with GLM-5.3-Flash: measured single-request speed is 14.6–30.8 tok/s, which fails the gate. It now runs Flash-Next, which fits on one node.
+- The single RTX PRO 6000 Flash-Next result (81–88 tok/s without MTP) keeps the 51B n-gram table in about 100 GB of host RAM. The card-only price excludes that host.
 - Compressed MLA versus expanded per-head KV changes GLM-Flash's 128K cache dramatically. The selected memory budget requires the compressed-cache backend scenario.
 - Prices are approximate, hardware availability is snapshot-specific, and Apple Neural Engine TOPS are explicitly rough estimates rather than official whole-chip ratings.
 
