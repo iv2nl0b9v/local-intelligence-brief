@@ -99,7 +99,7 @@ results['station_mimo_v26_pro_rejected'] = {
     'displayed': [15, 29],
 }
 
-# These scenarios do not diagnose bottlenecks. See scripts/roofline.py for evidence.
+# These scenarios estimate speed; they do not diagnose bottlenecks.
 out = ROOT / 'data'
 out.mkdir(exist_ok=True)
 (out / 'calculations.json').write_text(json.dumps(results, indent=2) + '\n', encoding='utf-8', newline='\n')

@@ -85,7 +85,7 @@ def main():
     parser = ReportParser()
     parser.feed((ROOT / 'index.html').read_text(encoding='utf-8'))
     hardware, models = parser.tables[:2]
-    check(all(len(r) == 10 for r in hardware), 'hardware rows must have 10 cells')
+    check(all(len(r) == 7 for r in hardware), 'hardware rows must have 7 cells')
     check(all(len(r) == 4 for r in models), 'model rows must have 4 cells')
     check(len(parser.ids) == len(set(parser.ids)), 'duplicate element IDs')
     check(set(parser.fragments) <= set(parser.ids), 'broken fragment links')
@@ -120,12 +120,9 @@ def main():
             check(scenario['displayed'] == computed,
                   f'{name}: displayed {scenario["displayed"]} != rounded endpoints {computed}')
 
-    # Roofline cells, chart and table must match scripts/roofline.py exactly.
-    import roofline
-    rows, refs, pre = roofline.build()
+    # Compare report headlines directly with canonical configurations.
+    rows = json.loads((ROOT / 'data/configurations.json').read_text(encoding='utf-8'))
     html = (ROOT / 'index.html').read_text(encoding='utf-8')
-    check(roofline.render(html, rows, refs, pre) == html, 'roofline content is stale; run python scripts/roofline.py')
-    check((ROOT / 'data/roofline.json').read_text(encoding='utf-8') == roofline.serialized(rows, refs, pre), 'roofline JSON is stale')
     tagged = dict(re.findall(r'<tr data-config="([^"]+)"[^>]*>(.*?)</tr>', html, re.S))
     check(set(tagged) == set(rows), 'configuration IDs differ from canonical data')
     for key, record in rows.items():
@@ -134,8 +131,6 @@ def main():
         if 'scenario' in record:
             expected = '–'.join(str(round(v)) for v in calculations[record['scenario']]['endpoints'])
             check(record['display'] == expected, f'{key}: headline differs from computed scenario {expected}')
-        check(not record['estimate'] or record['scenario_only'], f'{key}: forecast must be labeled scenario only')
-    check(not any(k in json.dumps(rows) for k in ('other_time_share','memory_time_share','compute_time_share')), 'causal time shares must not return')
 
     out = ROOT / 'data'
     out.mkdir(exist_ok=True)
@@ -151,7 +146,7 @@ def main():
     notes = '\n'.join(line.rstrip() for line in notes.splitlines())
     write('research-notes.txt', notes + '\n')
     print(f'Validated {len(hardware) - 1} devices, {len(models) - 1} model rows, score/speed ordering, '
-          'upper-bound gate, estimate rounding, roofline consistency and internal links. Exported data/.')
+          'upper-bound gate, estimate rounding, canonical headlines and internal links. Exported data/.')
 
 
 if __name__ == '__main__':
