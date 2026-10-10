@@ -2,6 +2,10 @@
 
 A single-page comparison of local AI hardware, model capability, memory, cost and single-user decode speed. Research snapshot: **10 October 2026**.
 
+**[Open the live report →](https://iv2nl0b9v.github.io/local-intelligence-brief/)**
+
+Hosted with GitHub Pages from the root of `main`. Pushing updates to that branch automatically republishes the site; `.nojekyll` serves the files as plain static content.
+
 - [Read the report](index.html) — open locally in a browser; expand **Sources & calculations** for the evidence ledger and methodology.
 - [Download the single-page A3 PDF](local-ai-field-guide.pdf).
 - [Research notes as text](data/research-notes.txt).
