@@ -14,7 +14,7 @@
   {
     "Model / tested setting": "GLM-5.3 Max Released 18 Aug 2026 · API notes",
     "AA score": "45",
-    "Parameters / type": "~753B · MoE ~40B active",
+    "Parameters / type": "~753B total · ~40B active MoE",
     "Memory estimate · 128K context · 1 active request": "365 GB weights + ~13 GB cache ≈ 378 GB resident IQ4_XS · compressed MLA, 16-bit cache · SSD tables: none · runtime: +8–16 GB"
   },
   {
@@ -26,31 +26,31 @@
   {
     "Model / tested setting": "GLM-5.3-Flash Reasoning Released 26 Aug 2026",
     "AA score": "42",
-    "Parameters / type": "320B · MoE 18B active",
+    "Parameters / type": "320B total · 18B active MoE",
     "Memory estimate · 128K context · 1 active request": "157–200 GB weights + ~2 GB cache ≈ 159–202 GB resident Q4-class · compressed MLA, 16-bit cache · SSD tables: none · runtime: +8–16 GB Expanded-KV backends need ~95–105 GB cache instead."
   },
   {
     "Model / tested setting": "Qwen3.8-Flash-Next Reasoning Released 26 Aug 2026",
     "AA score": "40",
-    "Parameters / type": "~180B · MoE + lookup 125B backbone · 6B active",
+    "Parameters / type": "~180B total · 6B active MoE + lookup · 125B backbone",
     "Memory estimate · 128K context · 1 active request": "~83 GB weights + ~4 GB cache ≈ 87 GB resident MTPLX dynamic Q4 · 16-bit cache · +32 GB lookup tables on SSD · runtime: +4–8 GB"
   },
   {
     "Model / tested setting": "DeepSeek V4.1 Flash Max Released 10 Sep 2026",
     "AA score": "39",
-    "Parameters / type": "~763B · MoE + Engram 552B backbone · 16B active decode",
+    "Parameters / type": "~763B total · 16B active MoE + Engram · 552B backbone · decode",
     "Memory estimate · 128K context · 1 active request": "~316 GB weights + ~0.2–0.6 GB cache ≈ 317 GB resident DwarfStar Q4 · packed FP4–BF16 cache scenarios · +203 GB Engram on SSD · runtime: +8–16 GB"
   },
   {
     "Model / tested setting": "Qwen3.8-27B Xhigh Released 14 Aug 2026",
     "AA score": "34",
-    "Parameters / type": "27B · Dense 27B active",
+    "Parameters / type": "27B total · 27B active Dense",
     "Memory estimate · 128K context · 1 active request": "20.4 GB weights + ~9.3 GB cache ≈ 30 GB resident MTPLX dynamic Q4 · 16-bit cache · SSD tables: none · runtime: +4–8 GB"
   },
   {
     "Model / tested setting": "DeepSeek V4 Flash / 0731 Max · text model Released 31 Jul 2026 · checkpoint",
     "AA score": "34",
-    "Parameters / type": "284B · MoE 13B active",
+    "Parameters / type": "284B total · 13B active MoE",
     "Memory estimate · 128K context · 1 active request": "~155 GB weights + ~1 GB cache ≈ 156 GB resident Q4_K_XL · compressed attention, BF16 cache · SSD tables: none · runtime: +8–16 GB"
   },
   {
@@ -62,7 +62,7 @@
   {
     "Model / tested setting": "Qwen3.6-35B-A3B Reasoning · fallback Released 16 Apr 2026",
     "AA score": "18",
-    "Parameters / type": "35B · MoE ~3B active",
+    "Parameters / type": "35B total · ~3B active MoE",
     "Memory estimate · 128K context · 1 active request": "~22 GB weights + ~3 GB cache ≈ 25 GB resident Q4 · 16-bit cache · runtime: +4–8 GB"
   }
 ]
