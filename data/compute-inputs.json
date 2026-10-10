@@ -1,0 +1,305 @@
+{
+  "sources": {
+    "nvidia_pro": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/NVIDIA-RTX-Blackwell-PRO-GPU-Architecture-v1.0.pdf",
+    "nvidia_geforce": "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf",
+    "spark": "https://docs.nvidia.com/dgx/dgx-spark/dgx-spark.pdf",
+    "amd": "https://www.amd.com/en/products/graphics/workstations/radeon-ai-pro/ai-9000-series/amd-radeon-ai-pro-r9700.html",
+    "apple": "https://tzakharko.github.io/apple-neural-accelerators-benchmark/",
+    "mlx": "https://github.com/ml-explore/mlx/issues/4627",
+    "omlx": "https://github.com/jundot/omlx/pull/3979",
+    "dp4a": "https://docs.nvidia.com/cuda/cuda-math-api/cuda_math_api/group__CUDA__MATH__INTRINSIC__INT.html",
+    "station": "https://www.nvidia.com/en-us/products/workstations/dgx-station/"
+  },
+  "devices": {
+    "m5": {
+      "capacity_tops": {
+        "f16_matrix": 16,
+        "f32_simd": 4.0
+      },
+      "note": "FP16 matrix peak estimated from A19 microbenchmark scaled by cores/clock; BF16 parity is an explicit proxy. FP32 SIMD alternative applies only to the source-supported MLX qmv path, which converts operands to float; original run dispatch unpinned.",
+      "source": "https://tzakharko.github.io/apple-neural-accelerators-benchmark/"
+    },
+    "m5pro": {
+      "capacity_tops": {
+        "f16_matrix": 36,
+        "f32_simd": 9.0
+      },
+      "note": "FP16 matrix peak estimated from A19 microbenchmark scaled by cores/clock; BF16 parity is an explicit proxy. FP32 SIMD alternative applies only to the source-supported MLX qmv path, which converts operands to float; original run dispatch unpinned.",
+      "source": "https://tzakharko.github.io/apple-neural-accelerators-benchmark/"
+    },
+    "m5max": {
+      "capacity_tops": {
+        "f16_matrix": 70,
+        "f32_simd": 17.5
+      },
+      "note": "FP16 matrix peak estimated from A19 microbenchmark scaled by cores/clock; BF16 parity is an explicit proxy. FP32 SIMD alternative applies only to the source-supported MLX qmv path, which converts operands to float; original run dispatch unpinned.",
+      "source": "https://tzakharko.github.io/apple-neural-accelerators-benchmark/"
+    },
+    "m5ultra": {
+      "capacity_tops": {
+        "f16_matrix": 140,
+        "f32_simd": 35.0
+      },
+      "note": "FP16 matrix peak estimated from A19 microbenchmark scaled by cores/clock; BF16 parity is an explicit proxy. FP32 SIMD alternative applies only to the source-supported MLX qmv path, which converts operands to float; original run dispatch unpinned.",
+      "source": "https://tzakharko.github.io/apple-neural-accelerators-benchmark/"
+    },
+    "m5ultra512": {
+      "capacity_tops": {
+        "f16_matrix": 140,
+        "f32_simd": 35.0
+      },
+      "note": "FP16 matrix peak estimated from A19 microbenchmark scaled by cores/clock; BF16 parity is an explicit proxy. FP32 SIMD alternative applies only to the source-supported MLX qmv path, which converts operands to float; original run dispatch unpinned.",
+      "source": "https://tzakharko.github.io/apple-neural-accelerators-benchmark/"
+    },
+    "rtx4090": {
+      "capacity_tops": {
+        "f16_matrix": 165.2,
+        "int8_dot": 165.2,
+        "f16_simd": 82.6
+      },
+      "note": "Dense FP16/BF16 tensor, FP32 accumulation. INT8 DP4A scenario assumes 64 dot instructions/SM/clock, 8 operations each (not the tensor INT8 peak); confirm executed instruction rate.",
+      "source": "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf"
+    },
+    "rtx5090": {
+      "capacity_tops": {
+        "f16_matrix": 209.5,
+        "int8_dot": 209.5,
+        "f16_simd": 104.8
+      },
+      "note": "Dense FP16/BF16 tensor with FP32 accumulation. INT8 DP4A capacity is a 64 instructions/SM/clock scenario, not a measured kernel ceiling.",
+      "source": "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf"
+    },
+    "r9700": {
+      "capacity_tops": {
+        "f16_matrix": 191,
+        "f16_simd": 47.8,
+        "int8_matrix": 383
+      },
+      "note": "Current AMD page lists FP16 vector 47.8, FP16 matrix 191, INT8 matrix 383; no structured-sparsity multiplier. Original Vulkan kernel path unreported.",
+      "source": "https://www.amd.com/en/products/graphics/workstations/radeon-ai-pro/ai-9000-series/amd-radeon-ai-pro-r9700.html"
+    },
+    "halo": {
+      "capacity_tops": {
+        "f16_matrix": 59.4,
+        "f16_simd": 29.7
+      },
+      "note": "GPU only; 40 RDNA3.5 CUs at up to 2.9 GHz. 29.7 packed-FP16 / 59.4 matrix scenario; exact clocks and kernel dispatch unverified. NPU TOPS excluded.",
+      "source": "https://www.amd.com/en/products/processors/laptop/ryzen/ai-300-series/amd-ryzen-ai-max-plus-395.html"
+    },
+    "spark": {
+      "capacity_tops": {
+        "f16_matrix": 125,
+        "fp4_matrix": 500
+      },
+      "note": "BF16/FP16 dense 125 per GB10 is inferred from 1,000 sparse FP4 /2 sparsity /4 precision ratio; not a vendor BF16 measurement. Two ranks assume balanced tensor parallelism.",
+      "source": "https://docs.nvidia.com/dgx/dgx-spark/dgx-spark.pdf"
+    },
+    "spark2": {
+      "capacity_tops": {
+        "f16_matrix": 250,
+        "fp4_matrix": 1000
+      },
+      "note": "BF16/FP16 dense 125 per GB10 is inferred from 1,000 sparse FP4 /2 sparsity /4 precision ratio; not a vendor BF16 measurement. Two ranks assume balanced tensor parallelism.",
+      "source": "https://docs.nvidia.com/dgx/dgx-spark/dgx-spark.pdf"
+    },
+    "pro6000": {
+      "capacity_tops": {
+        "f16_matrix": 503.8,
+        "fp4_matrix": 2015.2,
+        "int8_dot": 250,
+        "f16_simd": 125
+      },
+      "note": "Dense values; pro2 is sequential layer split, so do not double capacity. INT8 DP4A 250 TOPS is a 64 instructions/SM/clock scenario.",
+      "source": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/NVIDIA-RTX-Blackwell-PRO-GPU-Architecture-v1.0.pdf"
+    },
+    "pro2": {
+      "capacity_tops": {
+        "f16_matrix": 503.8,
+        "fp4_matrix": 2015.2,
+        "int8_dot": 250,
+        "f16_simd": 125
+      },
+      "note": "Dense values; pro2 is sequential layer split, so do not double capacity. INT8 DP4A 250 TOPS is a 64 instructions/SM/clock scenario.",
+      "source": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/NVIDIA-RTX-Blackwell-PRO-GPU-Architecture-v1.0.pdf"
+    },
+    "station": {
+      "capacity_tops": {
+        "f16_matrix": 2500,
+        "fp4_matrix": 15000,
+        "int8_dot": 320,
+        "f16_simd": 80
+      },
+      "note": "Official Station table: BF16 5 PFLOPS with sparsity -> dense 2.5; FP4 15 PFLOPS explicitly without sparsity. GPU computes CPU-resident weights after transfer. INT8-dot 320 is an unverified instruction-throughput scenario.",
+      "source": "https://www.nvidia.com/en-us/products/workstations/dgx-station/"
+    },
+    "station_hbm": {
+      "capacity_tops": {
+        "f16_matrix": 2500,
+        "fp4_matrix": 15000,
+        "int8_dot": 320,
+        "f16_simd": 80
+      },
+      "note": "Official Station table: BF16 5 PFLOPS with sparsity -> dense 2.5; FP4 15 PFLOPS explicitly without sparsity. GPU computes CPU-resident weights after transfer. INT8-dot 320 is an unverified instruction-throughput scenario.",
+      "source": "https://www.nvidia.com/en-us/products/workstations/dgx-station/"
+    }
+  },
+  "configurations": {
+    "m5": {
+      "draft_kind": "none",
+      "paths": [
+        "f16_matrix",
+        "f32_simd"
+      ],
+      "note": "Q4 storage does not imply INT4 arithmetic. Matrix and SIMD alternatives are explicitly conditional. Captured MLX qmv source explicitly promotes input operands to float; that alternate path uses FP32 SIMD, not an assumed FP16 rate."
+    },
+    "m5pro": {
+      "draft_kind": "mtp",
+      "paths": [
+        "f16_matrix",
+        "f32_simd"
+      ],
+      "note": "Q4 storage does not imply INT4 arithmetic. Matrix and SIMD alternatives are explicitly conditional. Captured MLX qmv source explicitly promotes input operands to float; that alternate path uses FP32 SIMD, not an assumed FP16 rate."
+    },
+    "m5max": {
+      "draft_kind": "mtp",
+      "paths": [
+        "f16_matrix",
+        "f32_simd"
+      ],
+      "note": "Q4 storage does not imply INT4 arithmetic. Matrix and SIMD alternatives are explicitly conditional. Captured MLX qmv source explicitly promotes input operands to float; that alternate path uses FP32 SIMD, not an assumed FP16 rate."
+    },
+    "m5ultra": {
+      "draft_kind": "dflash",
+      "paths": [
+        "f16_matrix"
+      ],
+      "note": "B17 custom NAX matrix kernels, Q4/oQ4 storage dequantized to FP16/BF16 operands. Adaptive blocks 4/8 mean k=3/7; mean k and emitted length are not paired to each endpoint, so enumerate valid combinations of k=3/7 and a=2.4/4.3.",
+      "k_range": [
+        3,
+        7
+      ],
+      "a_range": [
+        2.4,
+        4.3
+      ]
+    },
+    "m5ultra512": {
+      "draft_kind": "dflash",
+      "paths": [
+        "f16_matrix",
+        "f32_simd"
+      ],
+      "note": "Q4 storage does not imply INT4 arithmetic. Matrix and SIMD alternatives are explicitly conditional. Captured MLX qmv source explicitly promotes input operands to float; that alternate path uses FP32 SIMD, not an assumed FP16 rate."
+    },
+    "rtx4090": {
+      "draft_kind": "none",
+      "paths": [
+        "int8_dot",
+        "f16_matrix"
+      ],
+      "note": "GGUF weight-only Q4: CUDA MMVQ uses INT8 dot products with INT32 accumulation and floating scale corrections; tensor-dequantized alternative depends on dispatch. Neither uses native FP4 simply because storage is 4-bit."
+    },
+    "rtx5090": {
+      "draft_kind": "none",
+      "paths": [
+        "int8_dot",
+        "f16_matrix"
+      ],
+      "note": "GGUF weight-only Q4: CUDA MMVQ uses INT8 dot products with INT32 accumulation and floating scale corrections; tensor-dequantized alternative depends on dispatch. Neither uses native FP4 simply because storage is 4-bit."
+    },
+    "pro2": {
+      "draft_kind": "none",
+      "paths": [
+        "int8_dot",
+        "f16_matrix"
+      ],
+      "note": "GGUF weight-only Q4: CUDA MMVQ uses INT8 dot products with INT32 accumulation and floating scale corrections; tensor-dequantized alternative depends on dispatch. Neither uses native FP4 simply because storage is 4-bit."
+    },
+    "r9700": {
+      "draft_kind": "mtp",
+      "paths": [
+        "f16_simd",
+        "f16_matrix",
+        "int8_matrix"
+      ],
+      "note": "Vendor Vulkan benchmark leaves quantization and kernel dispatch unspecified. These are alternative execution scenarios, not a claim of an identified path."
+    },
+    "halo": {
+      "draft_kind": "mtp",
+      "paths": [
+        "f16_simd",
+        "f16_matrix"
+      ],
+      "note": "ROCm GGUF low-bit path not pinned; FP16 vector versus matrix scenarios. N-gram proposals have no neural drafting FLOPs; all-k MTP cost is an upper drafting-work scenario."
+    },
+    "spark": {
+      "draft_kind": "mtp",
+      "paths": [
+        "f16_matrix",
+        "fp4_mixed"
+      ],
+      "note": "NVFP4 can use BF16 Marlin or native FP4 experts; treat backend path as alternatives. Non-expert and attention operations stay 16-bit."
+    },
+    "pro6000": {
+      "draft_kind": "none",
+      "paths": [
+        "f16_matrix",
+        "fp4_mixed"
+      ],
+      "note": "Audited artifact has NVFP4 routed experts, BF16 dense weights. Native FP4 expert versus BF16 dequantization paths are alternatives; original trace absent."
+    },
+    "spark2": {
+      "draft_kind": "dflash",
+      "paths": [
+        "f16_matrix"
+      ],
+      "note": "Pinned kernel source: EXL3 experts use FP16 MMA -> FP32 accumulation; FP8-stored dense/draft weights use BF16 MMA -> FP32 accumulation. Model each with the 16-bit tensor ceiling, not FP4/FP8 or FP32 vector peak. Request counters give nominal verify rows, not per-layer VTRIM live/padded rows. Full-vocabulary drafter head reference; optimized candidate head may differ."
+    },
+    "station": {
+      "draft_kind": "dflash",
+      "paths": [
+        "int8_dot",
+        "f16_matrix"
+      ],
+      "note": "IQ4_XS storage, unimplemented full-model split-memory forecast. INT8-dot and dequantized BF16 tensor alternatives; GPU compute assumed even for CPU-resident weights."
+    },
+    "halo_nospec": {
+      "draft_kind": "none",
+      "paths": [
+        "f16_simd",
+        "f16_matrix"
+      ],
+      "note": "ROCm GGUF low-bit path not pinned; FP16 vector versus matrix scenarios. N-gram proposals have no neural drafting FLOPs; all-k MTP cost is an upper drafting-work scenario."
+    },
+    "spark2_nospec": {
+      "draft_kind": "none",
+      "paths": [
+        "f16_matrix"
+      ],
+      "note": "Pinned kernel source: EXL3 experts use FP16 MMA -> FP32 accumulation; FP8-stored dense/draft weights use BF16 MMA -> FP32 accumulation. Model each with the 16-bit tensor ceiling, not FP4/FP8 or FP32 vector peak."
+    },
+    "m5ultra_nospec": {
+      "draft_kind": "none",
+      "paths": [
+        "f16_matrix",
+        "f32_simd"
+      ],
+      "note": "Q4/oQ4 without drafting. Matrix versus source-supported FP32 qmv alternatives; baseline kernel dispatch unpinned."
+    },
+    "station_glmflash": {
+      "draft_kind": "none",
+      "paths": [
+        "f16_matrix",
+        "fp4_mixed"
+      ],
+      "note": "B15 NVFP4 target fits in HBM; native FP4 experts versus dequantized BF16 tensor alternatives, without speculation."
+    }
+  },
+  "conventions": {
+    "mac": 2,
+    "sparsity": "Dense hardware peaks. MoE routing does not confer 2:4 hardware sparsity.",
+    "omissions": "Dequantization, nonlinear functions, normalization, routing, recurrent updates/rollback, memory and launches need separate instruction or profile accounting. Displayed compute is a modeled arithmetic lower-time bound, not total inference time.",
+    "draft_rows": "DFlash block 8 has 7 parallel query rows; block 4 has 3. Fixed drafter block does not shrink with adaptive target verification. MTP proposes k sequential rows. N-gram has zero neural drafter work.",
+    "aggregate": "Sequential operation costs are summed as operations/capacity for each actual arithmetic path, then divided by emitted tokens."
+  }
+}

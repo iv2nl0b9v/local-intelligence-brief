@@ -24,6 +24,7 @@
   "https://deploy.helix.ml/blog/glm53-flash-tp2-rtx-pro-6000",
   "https://dev.classmethod.jp/en/articles/dgx-spark-2node-glm-5-3-flash-nvfp4-vllm/",
   "https://developer.apple.com/videos/play/tech-talks/111432/",
+  "https://docs.nvidia.com/dgx/dgx-spark/dgx-spark.pdf",
   "https://docs.nvidia.com/nsight-compute/ProfilingGuide/",
   "https://docs.tenstorrent.com/tt-quietbox2-guide/",
   "https://emelia.io/hub/arc-pro-b70-local-llm",
