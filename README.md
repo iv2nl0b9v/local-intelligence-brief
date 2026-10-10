@@ -10,7 +10,7 @@ Hosted with GitHub Pages from the root of `main`. Pushing updates to that branch
 - [Download the single-page A3 PDF](local-ai-field-guide.pdf).
 - [Research notes as text](data/research-notes.txt).
 - [Hardware data](data/hardware.json), [model data](data/models.json), and [source links](data/sources.json).
-- [Reproduced arithmetic](data/calculations.json).
+- [Reproduced arithmetic](data/calculations.json) and [roofline](data/roofline.json).
 
 ## What the ranking means
 
@@ -36,7 +36,7 @@ Decode is one active request, warm model, with workload/context differences reco
   - **2 × RTX PRO 6000 / GLM-5.3-Flash IQ4_XS: 41–70, best ~55.** Assumes llama.cpp's sequential layer split. Four cards measured 63.7 tok/s with NVFP4, which does not fit on two.
   - **M5 Ultra 512 GB / GLM-5.3: 20–40** and **DGX Station / GLM-5.3: 21–40.** Both qualify only with a DFlash2 drafter. The drafter exists for GLM-5.3, but no full-model run on these systems was found. The gain applied (1.34–1.61×) is the smallest measured DFlash2 gain on a GLM MoE (oMLX on M5 Ultra). Without drafting both fall to 15–25 tok/s, and GLM-5.3-Flash is the fallback.
 - Dual Spark runs GLM-5.3-Flash at 28–63 tok/s (prose to coding) with the DFlash2 drafter, which is licensed for non-commercial use only. Without drafting it measures ~14–18 tok/s; the fallback is Flash-Next split across both nodes at 42–52.
-- Each device row includes a decode bottleneck: the share of peak bandwidth and FP16 compute implied by its speed. Compute never exceeds ~8%. Dense models on discrete GPUs are bandwidth-bound; small-active MoE models on fast memory are mostly limited by fixed per-token overhead. The bytes-per-token model for MoE drafting is an assumption calibrated against one two-Spark run.
+- Each device row's bottleneck comes from a roofline (`scripts/roofline.py`): spec-sheet bandwidth and vector-compute peaks plus model sizes give a speed ceiling, and the listed speed's share of it is the attainment. Bandwidth is the binding roof for every decode pairing. Pairings at ≥55% of their roof are bandwidth-bound; those below ~40% are latency-bound (launches, synchronization, host lookups, small kernels). The bytes read per token under MoE drafting are an assumption, bounded by one two-Spark run. Several Apple and Spark compute peaks are derived because the vendors publish none.
 - The single RTX PRO 6000 Flash-Next result (81–88 tok/s without MTP) keeps the 51B n-gram table in about 100 GB of host RAM. The card-only price excludes that host.
 - Compressed MLA versus expanded per-head KV changes GLM-Flash's 128K cache dramatically. The selected memory budget requires the compressed-cache backend scenario.
 - Apple compute figures are third-party estimates for the matrix units in each M5 GPU core (FP16/INT8), scaled from A19 microbenchmarks; Apple publishes none. They are peak values that mainly affect prefill. Single-user decode on the Macs is limited by memory bandwidth, which is why they decode well despite lower peaks.
@@ -48,6 +48,7 @@ These limitations and all other assumptions are detailed in the research drawer.
 
 ```sh
 python scripts/calculations.py
+python scripts/roofline.py
 python scripts/export_report.py
 ```
 

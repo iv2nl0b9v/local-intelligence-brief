@@ -118,6 +118,12 @@ def main():
             check(scenario['displayed'] == computed,
                   f'{name}: displayed {scenario["displayed"]} != rounded endpoints {computed}')
 
+    # Roofline cells, chart and table must match scripts/roofline.py exactly.
+    import roofline
+    rows, refs, pre = roofline.build()
+    html = (ROOT / 'index.html').read_text(encoding='utf-8')
+    check(roofline.render(html, rows, refs, pre) == html, 'roofline content is stale; run python scripts/roofline.py')
+
     out = ROOT / 'data'
     out.mkdir(exist_ok=True)
 
@@ -131,7 +137,7 @@ def main():
     notes = re.sub(r'\n{3,}', '\n\n', ''.join(parser.notes)).strip()
     write('research-notes.txt', notes + '\n')
     print(f'Validated {len(hardware) - 1} devices, {len(models) - 1} model rows, score/speed ordering, '
-          'upper-bound gate, estimate rounding and internal links. Exported data/.')
+          'upper-bound gate, estimate rounding, roofline consistency and internal links. Exported data/.')
 
 
 if __name__ == '__main__':

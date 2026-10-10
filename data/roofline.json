@@ -1,0 +1,921 @@
+{
+  "pairs": {
+    "m5": {
+      "device": "MacBook Pro · M5",
+      "model": "qwen36",
+      "estimate": false,
+      "note": "B12, 4-bit MLX",
+      "speed": [
+        51.0,
+        59.5
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 1.78388608,
+          "gops_per_token": 15.67108864,
+          "intensity": 8.784803478033755,
+          "ridge": 26.013071895424837,
+          "bandwidth_roof": 85.76780867083171,
+          "compute_roof": 253.97086899509745
+        },
+        {
+          "gb_per_token": 1.72097152,
+          "gops_per_token": 15.16777216,
+          "intensity": 8.813493996693216,
+          "ridge": 26.013071895424837,
+          "bandwidth_roof": 88.90327249575867,
+          "compute_roof": 262.3984562806091
+        }
+      ],
+      "roof": [
+        85.76780867083171,
+        88.90327249575867
+      ],
+      "attainment": [
+        0.5946286933333333,
+        0.6692667022222223
+      ],
+      "kind": "bw",
+      "label": "Bandwidth-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.20081043232160806,
+        0.22675438279396987
+      ]
+    },
+    "m5pro": {
+      "device": "MacBook Pro · M5 Pro",
+      "model": "qwen27",
+      "estimate": true,
+      "note": "Estimate, MTPLX dynamic Q4",
+      "speed": [
+        21,
+        44
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 6.589478485333333,
+          "gops_per_token": 97.48081698133332,
+          "intensity": 14.7934039390679,
+          "ridge": 29.315960912052116,
+          "bandwidth_roof": 46.58942292372781,
+          "compute_roof": 92.3258573194295
+        },
+        {
+          "gb_per_token": 6.589478485333333,
+          "gops_per_token": 97.48081698133332,
+          "intensity": 14.7934039390679,
+          "ridge": 29.315960912052116,
+          "bandwidth_roof": 46.58942292372781,
+          "compute_roof": 92.3258573194295
+        }
+      ],
+      "roof": [
+        46.58942292372781,
+        46.58942292372781
+      ],
+      "attainment": [
+        0.4507460853159609,
+        0.9444203692334419
+      ],
+      "kind": "bw",
+      "label": "Bandwidth-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.22745523962311107,
+        0.47657288301985173
+      ]
+    },
+    "rtx4090": {
+      "device": "GeForce RTX 4090",
+      "model": "qwen27",
+      "estimate": false,
+      "note": "B10, Q4_K_S 16.68 GiB",
+      "speed": [
+        38.41,
+        46.16
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 22.194967295999998,
+          "gops_per_token": 155.769803776,
+          "intensity": 7.018248853381866,
+          "ridge": 81.94444444444444,
+          "bandwidth_roof": 45.415701071191165,
+          "compute_roof": 530.2696543084846
+        },
+        {
+          "gb_per_token": 18.168435455999997,
+          "gops_per_token": 131.610612736,
+          "intensity": 7.243915583966066,
+          "ridge": 81.94444444444444,
+          "bandwidth_roof": 55.4808366653891,
+          "compute_roof": 627.6089616396572
+        }
+      ],
+      "roof": [
+        45.415701071191165,
+        55.4808366653891
+      ],
+      "attainment": [
+        0.8457427518247618,
+        0.8319989887390474
+      ],
+      "kind": "bw",
+      "label": "Bandwidth-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.07243484458881548,
+        0.0735489816452029
+      ]
+    },
+    "r9700": {
+      "device": "Radeon AI PRO R9700",
+      "model": "qwen27",
+      "estimate": false,
+      "note": "B8, Q4-class, MTP=2",
+      "speed": [
+        51.8,
+        51.8
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 7.107374182399999,
+          "gops_per_token": 95.5327352832,
+          "intensity": 13.441354406212051,
+          "ridge": 74.6875,
+          "bandwidth_roof": 90.04732037112002,
+          "compute_roof": 500.35205061699844
+        },
+        {
+          "gb_per_token": 7.107374182399999,
+          "gops_per_token": 95.5327352832,
+          "intensity": 13.441354406212051,
+          "ridge": 74.6875,
+          "bandwidth_roof": 90.04732037112002,
+          "compute_roof": 500.35205061699844
+        }
+      ],
+      "roof": [
+        90.04732037112002,
+        90.04732037112002
+      ],
+      "attainment": [
+        0.5752530978879999,
+        0.5752530978879999
+      ],
+      "kind": "bw",
+      "label": "Bandwidth-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.10352710643660586,
+        0.10352710643660586
+      ]
+    },
+    "rtx5090": {
+      "device": "GeForce RTX 5090",
+      "model": "qwen27",
+      "estimate": false,
+      "note": "B3, Q4_K_M",
+      "speed": [
+        59,
+        59
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 17.899179776,
+          "gops_per_token": 132.395078656,
+          "intensity": 7.396712045627984,
+          "ridge": 58.482142857142854,
+          "bandwidth_roof": 100.11631943061388,
+          "compute_roof": 791.5702083783654
+        },
+        {
+          "gb_per_token": 17.899179776,
+          "gops_per_token": 132.395078656,
+          "intensity": 7.396712045627984,
+          "ridge": 58.482142857142854,
+          "bandwidth_roof": 100.11631943061388,
+          "compute_roof": 791.5702083783654
+        }
+      ],
+      "roof": [
+        100.11631943061388,
+        100.11631943061388
+      ],
+      "attainment": [
+        0.5893145127142857,
+        0.5893145127142857
+      ],
+      "kind": "bw",
+      "label": "Bandwidth-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.07453539733496184,
+        0.07453539733496184
+      ]
+    },
+    "halo": {
+      "device": "Ryzen AI Max+ 395 / Halo",
+      "model": "flashnext",
+      "estimate": false,
+      "note": "B7, UD-IQ4_XS, MTP + n-gram",
+      "speed": [
+        31.7,
+        47.1
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 2.5826492416,
+          "gops_per_token": 39.607959552,
+          "intensity": 15.336174542797037,
+          "ridge": 57.8125,
+          "bandwidth_roof": 99.12302293183382,
+          "compute_roof": 373.6622680744148
+        },
+        {
+          "gb_per_token": 1.8447494582857142,
+          "gops_per_token": 28.29139968,
+          "intensity": 15.33617454279704,
+          "ridge": 57.8125,
+          "bandwidth_roof": 138.77223210456734,
+          "compute_roof": 523.1271753041806
+        }
+      ],
+      "roof": [
+        99.12302293183382,
+        138.77223210456734
+      ],
+      "attainment": [
+        0.31980461311999997,
+        0.3394050761142857
+      ],
+      "kind": "lat",
+      "label": "Latency-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.0848359674188108,
+        0.09003546790054055
+      ]
+    },
+    "spark": {
+      "device": "1 × DGX Spark",
+      "model": "flashnext",
+      "estimate": false,
+      "note": "B5, NVFP4, MTP3",
+      "speed": [
+        36.83,
+        45.75
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 2.6095237008695658,
+          "gops_per_token": 35.61561700173913,
+          "intensity": 13.648320952161123,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 104.61679267715745,
+          "compute_roof": 861.9814167055115
+        },
+        {
+          "gb_per_token": 2.6095237008695658,
+          "gops_per_token": 35.61561700173913,
+          "intensity": 13.648320952161123,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 104.61679267715745,
+          "compute_roof": 861.9814167055115
+        }
+      ],
+      "roof": [
+        104.61679267715745,
+        104.61679267715745
+      ],
+      "attainment": [
+        0.35204673224551686,
+        0.4373102905303393
+      ],
+      "kind": "lat",
+      "label": "Latency-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.0427271392239105,
+        0.053075390157314835
+      ]
+    },
+    "m5max": {
+      "device": "MacBook Pro · M5 Max",
+      "model": "flashnext",
+      "estimate": false,
+      "note": "B1, MTPLX dynamic Q4",
+      "speed": [
+        63.5,
+        63.5
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 2.706798775652174,
+          "gops_per_token": 35.61561700173913,
+          "intensity": 13.157836970410898,
+          "ridge": 29.315960912052116,
+          "bandwidth_roof": 226.83621905069884,
+          "compute_roof": 505.3962703810817
+        },
+        {
+          "gb_per_token": 2.706798775652174,
+          "gops_per_token": 35.61561700173913,
+          "intensity": 13.157836970410898,
+          "ridge": 29.315960912052116,
+          "bandwidth_roof": 226.83621905069884,
+          "compute_roof": 505.3962703810817
+        }
+      ],
+      "roof": [
+        226.83621905069884,
+        226.83621905069884
+      ],
+      "attainment": [
+        0.2799376583939952,
+        0.2799376583939952
+      ],
+      "kind": "lat",
+      "label": "Latency-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.1256439822005797,
+        0.1256439822005797
+      ]
+    },
+    "pro6000": {
+      "device": "RTX PRO 6000 Blackwell",
+      "model": "flashnext",
+      "estimate": false,
+      "note": "B9, NVFP4, no MTP",
+      "speed": [
+        81,
+        88
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 3.425952256,
+          "gops_per_token": 30.301989888,
+          "intensity": 8.844837179190392,
+          "ridge": 69.75446428571429,
+          "bandwidth_roof": 523.0662502262262,
+          "compute_roof": 4125.141631358728
+        },
+        {
+          "gb_per_token": 3.425952256,
+          "gops_per_token": 30.301989888,
+          "intensity": 8.844837179190392,
+          "ridge": 69.75446428571429,
+          "bandwidth_roof": 523.0662502262262,
+          "compute_roof": 4125.141631358728
+        }
+      ],
+      "roof": [
+        523.0662502262262,
+        523.0662502262262
+      ],
+      "attainment": [
+        0.15485610085714285,
+        0.16823872685714283
+      ],
+      "kind": "lat",
+      "label": "Latency-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.019635689447424002,
+        0.021332600881152002
+      ]
+    },
+    "spark2": {
+      "device": "2 × DGX Spark",
+      "model": "glmflash",
+      "estimate": false,
+      "note": "B16, EXL3 4-bit, DFlash2",
+      "speed": [
+        46.58,
+        62.61
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 7.786398299428572,
+          "gops_per_token": 131.88534718171428,
+          "intensity": 16.937914310316373,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 70.12227977601272,
+          "compute_roof": 465.5558885961899
+        },
+        {
+          "gb_per_token": 5.5959741371663245,
+          "gops_per_token": 94.78413041806982,
+          "intensity": 16.937914310316376,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 97.570143574052,
+          "compute_roof": 647.7877649895556
+        }
+      ],
+      "roof": [
+        70.12227977601272,
+        97.570143574052
+      ],
+      "attainment": [
+        0.6642681919182837,
+        0.641692199135501
+      ],
+      "kind": "bw",
+      "label": "Bandwidth-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.10005243439290311,
+        0.09665202614780702
+      ]
+    },
+    "m5ultra": {
+      "device": "Mac Studio · M5 Ultra",
+      "model": "glmflash",
+      "estimate": false,
+      "note": "B17, oQ4e, DFlash2",
+      "speed": [
+        44.0,
+        62.4
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 9.574514933333333,
+          "gops_per_token": 148.46834848,
+          "intensity": 15.506618300120117,
+          "ridge": 30.0,
+          "bandwidth_roof": 125.33272007569205,
+          "compute_roof": 242.47592411826093
+        },
+        {
+          "gb_per_token": 5.337831441860465,
+          "gops_per_token": 78.91588018604651,
+          "intensity": 14.784258559978229,
+          "ridge": 30.0,
+          "bandwidth_roof": 224.81039595767905,
+          "compute_roof": 456.1819486157785
+        }
+      ],
+      "roof": [
+        125.33272007569205,
+        224.81039595767905
+      ],
+      "attainment": [
+        0.3510655475555555,
+        0.2775672349767442
+      ],
+      "kind": "lat",
+      "label": "Latency-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.18146131480888888,
+        0.13678752565581395
+      ]
+    },
+    "pro2": {
+      "device": "2 × RTX PRO 6000 Blackwell",
+      "model": "glmflash",
+      "estimate": true,
+      "note": "Estimate, IQ4_XS",
+      "speed": [
+        41,
+        70
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 10.82883584,
+          "gops_per_token": 93.137339392,
+          "intensity": 8.600863543241228,
+          "ridge": 69.75446428571429,
+          "bandwidth_roof": 165.48408586827372,
+          "compute_roof": 1342.1040456598746
+        },
+        {
+          "gb_per_token": 10.82883584,
+          "gops_per_token": 93.137339392,
+          "intensity": 8.600863543241228,
+          "ridge": 69.75446428571429,
+          "bandwidth_roof": 165.48408586827372,
+          "compute_roof": 1342.1040456598746
+        }
+      ],
+      "roof": [
+        165.48408586827372,
+        165.48408586827372
+      ],
+      "attainment": [
+        0.24775796285714285,
+        0.42300139999999997
+      ],
+      "kind": "lat",
+      "label": "Latency-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.030549047320576,
+        0.05215691005952
+      ]
+    },
+    "m5ultra512": {
+      "device": "M5 Ultra · 512 GB",
+      "model": "glm53",
+      "estimate": true,
+      "note": "Estimate, IQ4_XS, DFlash2",
+      "speed": [
+        20,
+        40
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 16.42639204848485,
+          "gops_per_token": 267.72106984727276,
+          "intensity": 16.298227210032223,
+          "ridge": 30.0,
+          "bandwidth_roof": 73.05316934224071,
+          "compute_roof": 134.4683106956691
+        },
+        {
+          "gb_per_token": 16.42639204848485,
+          "gops_per_token": 267.72106984727276,
+          "intensity": 16.298227210032223,
+          "ridge": 30.0,
+          "bandwidth_roof": 73.05316934224071,
+          "compute_roof": 134.4683106956691
+        }
+      ],
+      "roof": [
+        73.05316934224071,
+        73.05316934224071
+      ],
+      "attainment": [
+        0.2737732008080808,
+        0.5475464016161616
+      ],
+      "kind": "mix",
+      "label": "Mixed",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.1487339276929293,
+        0.2974678553858586
+      ]
+    },
+    "station": {
+      "device": "DGX Station · GB300",
+      "model": "glm53",
+      "estimate": true,
+      "note": "Estimate, IQ4_XS split HBM/CPU, DFlash2",
+      "speed": [
+        21,
+        40
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 16.42639204848485,
+          "gops_per_token": 267.72106984727276,
+          "intensity": 16.298227210032223,
+          "ridge": 87.527352297593,
+          "bandwidth_roof": 55.64216398234001,
+          "compute_roof": 298.81846821259796
+        },
+        {
+          "gb_per_token": 16.42639204848485,
+          "gops_per_token": 267.72106984727276,
+          "intensity": 16.298227210032223,
+          "ridge": 87.527352297593,
+          "bandwidth_roof": 55.64216398234001,
+          "compute_roof": 298.81846821259796
+        }
+      ],
+      "roof": [
+        55.64216398234001,
+        55.64216398234001
+      ],
+      "attainment": [
+        0.37741163349910484,
+        0.7188793019030568
+      ],
+      "kind": "mix",
+      "label": "Mixed",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.07027678083490911,
+        0.1338605349236364
+      ]
+    }
+  },
+  "references": {
+    "halo_nospec": {
+      "device": "Ryzen AI Max+ 395 / Halo",
+      "model": "flashnext",
+      "estimate": false,
+      "note": "B7 without speculation",
+      "speed": [
+        16.8,
+        16.8
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 3.256623104,
+          "gops_per_token": 30.603979776000003,
+          "intensity": 9.397458286901598,
+          "ridge": 57.8125,
+          "bandwidth_roof": 78.6090351338366,
+          "compute_roof": 483.59723501079856
+        },
+        {
+          "gb_per_token": 3.256623104,
+          "gops_per_token": 30.603979776000003,
+          "intensity": 9.397458286901598,
+          "ridge": 57.8125,
+          "bandwidth_roof": 78.6090351338366,
+          "compute_roof": 483.59723501079856
+        }
+      ],
+      "roof": [
+        78.6090351338366,
+        78.6090351338366
+      ],
+      "attainment": [
+        0.2137158912,
+        0.2137158912
+      ],
+      "kind": "lat",
+      "label": "Latency-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.03473965271870271,
+        0.03473965271870271
+      ]
+    },
+    "spark2_nospec": {
+      "device": "2 × DGX Spark",
+      "model": "glmflash",
+      "estimate": false,
+      "note": "B16 without speculation",
+      "speed": [
+        18.0,
+        18.0
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 9.927394048,
+          "gops_per_token": 93.137339392,
+          "intensity": 9.38185176710737,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 54.999327855833286,
+          "compute_roof": 659.2415072281303
+        },
+        {
+          "gb_per_token": 9.927394048,
+          "gops_per_token": 93.137339392,
+          "intensity": 9.38185176710737,
+          "ridge": 112.45421245421245,
+          "bandwidth_roof": 54.999327855833286,
+          "compute_roof": 659.2415072281303
+        }
+      ],
+      "roof": [
+        54.999327855833286,
+        54.999327855833286
+      ],
+      "attainment": [
+        0.3272767268571429,
+        0.3272767268571429
+      ],
+      "kind": "lat",
+      "label": "Latency-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.027304106010684042,
+        0.027304106010684042
+      ]
+    },
+    "m5ultra_nospec": {
+      "device": "Mac Studio · M5 Ultra",
+      "model": "glmflash",
+      "estimate": false,
+      "note": "B17 without drafting",
+      "speed": [
+        32.9,
+        38.8
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 10.228835839999999,
+          "gops_per_token": 93.137339392,
+          "intensity": 9.10537043011143,
+          "ridge": 30.0,
+          "bandwidth_roof": 117.31540311824969,
+          "compute_roof": 386.5259651500439
+        },
+        {
+          "gb_per_token": 10.2026752,
+          "gops_per_token": 90.3063808,
+          "intensity": 8.851245289078692,
+          "ridge": 30.0,
+          "bandwidth_roof": 117.61621108942094,
+          "compute_roof": 398.6429273445094
+        }
+      ],
+      "roof": [
+        117.31540311824969,
+        117.61621108942094
+      ],
+      "attainment": [
+        0.28044058261333327,
+        0.3298864981333333
+      ],
+      "kind": "lat",
+      "label": "Latency-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.08511717961102222,
+        0.09733021041777777
+      ]
+    },
+    "station_glmflash": {
+      "device": "DGX Station · GB300 (HBM only)",
+      "model": "glmflash",
+      "estimate": false,
+      "note": "B15, NVFP4 in HBM",
+      "speed": [
+        137,
+        137
+      ],
+      "endpoints": [
+        {
+          "gb_per_token": 10.127394048,
+          "gops_per_token": 93.137339392,
+          "intensity": 9.196575046903913,
+          "ridge": 11.267605633802816,
+          "bandwidth_roof": 701.0688007545375,
+          "compute_roof": 858.9465892223197
+        },
+        {
+          "gb_per_token": 10.127394048,
+          "gops_per_token": 93.137339392,
+          "intensity": 9.196575046903913,
+          "ridge": 11.267605633802816,
+          "bandwidth_roof": 701.0688007545375,
+          "compute_roof": 858.9465892223197
+        }
+      ],
+      "roof": [
+        701.0688007545375,
+        701.0688007545375
+      ],
+      "attainment": [
+        0.19541591332056335,
+        0.19541591332056335
+      ],
+      "kind": "lat",
+      "label": "Latency-bound",
+      "binding_roof": "bandwidth",
+      "compute_share_of_vector_peak": [
+        0.1594976937088,
+        0.1594976937088
+      ]
+    }
+  },
+  "prefill": {
+    "m5_prefill": {
+      "device": "MacBook Pro · M5",
+      "note": "B12 at 4K",
+      "speed": 1144,
+      "intensity": 7637.761627858824,
+      "ridge": 104.57516339869281,
+      "share_of_matrix_peak": 0.453305627864375
+    },
+    "spark_prefill": {
+      "device": "1 × DGX Spark",
+      "note": "B5 at 8K",
+      "speed": 1606.5,
+      "intensity": 7415.433909007059,
+      "ridge": 457.87545787545787,
+      "share_of_matrix_peak": 0.158218131071826
+    },
+    "m5max_prefill": {
+      "device": "MacBook Pro · M5 Max",
+      "note": "B1 at 65K",
+      "speed": 1094,
+      "intensity": 7203.564368749714,
+      "ridge": 114.00651465798046,
+      "share_of_matrix_peak": 0.19239988816924286
+    },
+    "pro6000_prefill": {
+      "device": "RTX PRO 6000 Blackwell",
+      "note": "B9 at 100K",
+      "speed": 12000,
+      "intensity": 7415.433909007059,
+      "ridge": 281.25,
+      "share_of_matrix_peak": 0.29311378453571424
+    }
+  },
+  "devices": {
+    "m5": [
+      "MacBook Pro · M5",
+      153,
+      3.98,
+      16,
+      "Derived: A19 benchmark 257 FP32 FLOP/core/clock × 10 cores × ~1.55 GHz"
+    ],
+    "m5pro": [
+      "MacBook Pro · M5 Pro",
+      307,
+      9.0,
+      36,
+      "Derived: 20 cores × ~1.75 GHz"
+    ],
+    "m5max": [
+      "MacBook Pro · M5 Max",
+      614,
+      18.0,
+      70,
+      "Derived: 40 cores × ~1.75 GHz (A19 benchmark author’s extrapolation)"
+    ],
+    "m5ultra": [
+      "Mac Studio · M5 Ultra",
+      1200,
+      36.0,
+      140,
+      "Derived: 80 cores × ~1.75 GHz"
+    ],
+    "rtx4090": [
+      "GeForce RTX 4090",
+      1008,
+      82.6,
+      165,
+      "NVIDIA Ada specifications"
+    ],
+    "r9700": [
+      "Radeon AI PRO R9700",
+      640,
+      47.8,
+      191,
+      "AMD specifications (FP32 vector)"
+    ],
+    "rtx5090": [
+      "GeForce RTX 5090",
+      1792,
+      104.8,
+      209,
+      "NVIDIA Blackwell whitepaper"
+    ],
+    "halo": [
+      "Ryzen AI Max+ 395 / Halo",
+      256,
+      14.8,
+      59,
+      "2,560 shaders × 2 × 2.9 GHz, single-issue (dual-issue counts 29.7)"
+    ],
+    "spark": [
+      "1 × DGX Spark",
+      273,
+      30.7,
+      125,
+      "Derived: 6,144 CUDA cores × 2 × ~2.5 GHz; NVIDIA publishes no FP32 figure"
+    ],
+    "spark2": [
+      "2 × DGX Spark",
+      546,
+      61.4,
+      250,
+      "Two nodes summed (tensor parallel)"
+    ],
+    "pro6000": [
+      "RTX PRO 6000 Blackwell",
+      1792,
+      125.0,
+      504,
+      "NVIDIA specifications (125 TFLOPS FP32)"
+    ],
+    "pro2": [
+      "2 × RTX PRO 6000 Blackwell",
+      1792,
+      125.0,
+      504,
+      "Sequential layer split: one card active at a time"
+    ],
+    "m5ultra512": [
+      "M5 Ultra · 512 GB",
+      1200,
+      36.0,
+      140,
+      "Same chip as M5 Ultra"
+    ],
+    "station": [
+      "DGX Station · GB300",
+      914,
+      80.0,
+      2500,
+      "GB300 ~80 TFLOPS FP32 (third-party); bandwidth blended 60% HBM 7,100 / 40% CPU 396 GB/s"
+    ],
+    "station_hbm": [
+      "DGX Station · GB300 (HBM only)",
+      7100,
+      80.0,
+      2500,
+      "GB300; model entirely in HBM"
+    ]
+  }
+}

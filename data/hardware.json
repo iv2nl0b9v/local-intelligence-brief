@@ -7,7 +7,7 @@
     "AI compute TFLOPS / TOPS": "~16 TFLOPS E FP16 · INT8 ~30 TOPS · GPU accel.",
     "Best-fit shortlist model / precision": "Qwen3.6-35B-A3B · 4-bit MLX oMLX 0.3.6 · ~20 GB peak",
     "Decode tokens / sec": "51–60 M 1K–4K · two runs · B12",
-    "Decode bottleneck": "Bandwidth BW 57–67% · compute 2%"
+    "Decode bottleneck": "Bandwidth 59–67% of 86–89 tok/s roof"
   },
   {
     "Device / configuration": "MacBook Pro · M5 ProH1 20-core GPU",
@@ -17,7 +17,7 @@
     "AI compute TFLOPS / TOPS": "~36 TFLOPS E FP16 · INT8 ~67 TOPS · GPU accel.",
     "Best-fit shortlist model / precision": "Qwen3.8-27B · dynamic Q4 MTPLX · native MTP drafting",
     "Decode tokens / sec": "21–44 E Upper end: repetitive editing",
-    "Decode bottleneck": "Bandwidth BW 44–93% · compute 4–8%"
+    "Decode bottleneck": "Bandwidth (E) 45–94% of 47 tok/s roof"
   },
   {
     "Device / configuration": "GeForce RTX 4090H3",
@@ -27,7 +27,7 @@
     "AI compute TFLOPS / TOPS": "661 TFLOPS FP8",
     "Best-fit shortlist model / precision": "Qwen3.8-27B · Q4_K_S llama.cpp · no MTP",
     "Decode tokens / sec": "38–46 M 64K → 4K · B10",
-    "Decode bottleneck": "Bandwidth BW 67–82% · compute 0.7%"
+    "Decode bottleneck": "Bandwidth 83–85% of 45–55 tok/s roof"
   },
   {
     "Device / configuration": "Radeon AI PRO R9700H4",
@@ -37,7 +37,7 @@
     "AI compute TFLOPS / TOPS": "766 TOPS INT4 · 383 TFLOPS FP8",
     "Best-fit shortlist model / precision": "Qwen3.8-27B · Q4-class + MTP llama.cpp Vulkan · MTP=2",
     "Decode tokens / sec": "51.8 M AMD vendor · preliminary · B8",
-    "Decode bottleneck": "Bandwidth BW 57% · compute 1.7%"
+    "Decode bottleneck": "Bandwidth 58% of 90 tok/s roof"
   },
   {
     "Device / configuration": "GeForce RTX 5090H5",
@@ -47,7 +47,7 @@
     "AI compute TFLOPS / TOPS": "1,676 TFLOPS FP4",
     "Best-fit shortlist model / precision": "Qwen3.8-27B · Q4_K_M LM Studio / CUDA",
     "Decode tokens / sec": "59 M 6.1K · no MTP · B3",
-    "Decode bottleneck": "Bandwidth BW 58% · compute 0.7%"
+    "Decode bottleneck": "Bandwidth 59% of 100 tok/s roof"
   },
   {
     "Device / configuration": "Ryzen AI Max+ 395 / HaloH2 Radeon 8060S",
@@ -57,7 +57,7 @@
     "AI compute TFLOPS / TOPS": "50 TOPS NPU · INT8",
     "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · UD-IQ4_XS llama.cpp ROCm · MTP + n-gram drafting",
     "Decode tokens / sec": "32–47 M 8K new code → rewrite · B7",
-    "Decode bottleneck": "Overhead BW 23–34% · compute 1%"
+    "Decode bottleneck": "Latency 32–34% of 99–139 tok/s roof"
   },
   {
     "Device / configuration": "1 × DGX SparkH7 Single NVIDIA GB10 system",
@@ -67,7 +67,7 @@
     "AI compute TFLOPS / TOPS": "500 TFLOPS FP4",
     "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 vLLM + MTP3 · table on SSD",
     "Decode tokens / sec": "37–46 M Prose → code · B5",
-    "Decode bottleneck": "Mixed BW 35–44% · compute 0.7%"
+    "Decode bottleneck": "Latency 35–44% of 105 tok/s roof"
   },
   {
     "Device / configuration": "MacBook Pro · M5 MaxH1 40-core GPU",
@@ -77,7 +77,7 @@
     "AI compute TFLOPS / TOPS": "~70 TFLOPS E FP16 · INT8 ~130 TOPS · GPU accel.",
     "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · dynamic Q4 MTPLX 2.12 + MTP · n-gram table on SSD",
     "Decode tokens / sec": "63.5 M 65.5K prompt · B1",
-    "Decode bottleneck": "Mixed BW ~41% · compute 1.9%"
+    "Decode bottleneck": "Latency 28% of 227 tok/s roof"
   },
   {
     "Device / configuration": "RTX PRO 6000 BlackwellH6 Workstation Edition",
@@ -87,7 +87,7 @@
     "AI compute TFLOPS / TOPS": "2,015 TFLOPS FP4",
     "Best-fit shortlist model / precision": "Qwen3.8-Flash-Next · NVFP4 vLLM · n-gram table in ~100 GB host RAM",
     "Decode tokens / sec": "81–88 M No MTP; 120–173 MTP · B9",
-    "Decode bottleneck": "Overhead BW 15–17% · compute 0.2%"
+    "Decode bottleneck": "Latency 15–17% of 523 tok/s roof"
   },
   {
     "Device / configuration": "2 × DGX SparkH7",
@@ -97,7 +97,7 @@
     "AI compute TFLOPS / TOPS": "1,000 TFLOPS FP4 · summed",
     "Best-fit shortlist model / precision": "GLM-5.3-Flash · NVFP4 / EXL3 4-bit TP2 · DFlash2 drafter · 200G RoCE",
     "Decode tokens / sec": "28–63 M Prose → code · B16",
-    "Decode bottleneck": "Bandwidth BW 62–64% · compute 1.5%"
+    "Decode bottleneck": "Bandwidth 64–66% of 70–98 tok/s roof"
   },
   {
     "Device / configuration": "Mac Studio · M5 UltraH8 80-core GPU",
@@ -107,7 +107,7 @@
     "AI compute TFLOPS / TOPS": "~140 TFLOPS E FP16 · INT8 ~260 TOPS · GPU accel.",
     "Best-fit shortlist model / precision": "GLM-5.3-Flash · oQ4e / mixed 4/8-bit oMLX + DFlash2 drafter",
     "Decode tokens / sec": "44–62 M 4K → short prompt · B17",
-    "Decode bottleneck": "Overhead BW 25–36% · compute 2–3%"
+    "Decode bottleneck": "Latency 28–35% of 125–225 tok/s roof"
   },
   {
     "Device / configuration": "2 × RTX PRO 6000 BlackwellH6",
@@ -117,7 +117,7 @@
     "AI compute TFLOPS / TOPS": "4,030 TFLOPS FP4 · summed",
     "Best-fit shortlist model / precision": "GLM-5.3-Flash · IQ4_XS Layer split · ~157 GB weights · fit projected",
     "Decode tokens / sec": "41–70 E Best ~55 · B13 anchor",
-    "Decode bottleneck": "Overhead BW 25–42% · compute 0.2%"
+    "Decode bottleneck": "Latency (E) 25–42% of 165 tok/s roof"
   },
   {
     "Device / configuration": "M5 Ultra · 512 GBH8 Ships late October",
@@ -127,7 +127,7 @@
     "AI compute TFLOPS / TOPS": "~140 TFLOPS E FP16 · INT8 ~260 TOPS · GPU accel.",
     "Best-fit shortlist model / precision": "GLM-5.3 · IQ4_XS / oQ4 Needs DFlash2 drafter · ~365–420 GB weights",
     "Decode tokens / sec": "20–40 E Drafting · 15–25 without",
-    "Decode bottleneck": "Bandwidth BW 30–50% assumed"
+    "Decode bottleneck": "Mixed (E) 27–55% of 73 tok/s roof"
   },
   {
     "Device / configuration": "DGX Station · GB300H9 OEM order · deskside",
@@ -137,6 +137,6 @@
     "AI compute TFLOPS / TOPS": "15,000 TFLOPS FP4 vendor",
     "Best-fit shortlist model / precision": "GLM-5.3 · IQ4_XS, split HBM / CPU Needs DFlash2 drafter + split-memory backend",
     "Decode tokens / sec": "21–40 E Drafting · 16–25 without",
-    "Decode bottleneck": "CPU memory 396 GB/s tier · compute <1%"
+    "Decode bottleneck": "Mixed (E) 38–72% of 56 tok/s roof"
   }
 ]
