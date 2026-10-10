@@ -175,16 +175,6 @@
     "measurement": "B10",
     "rtx5090_measured_utilization_at_16GB": 0.5267857142857143
   },
-  "ultra512_rejected_glm53": {
-    "endpoints": [
-      15.0,
-      25.0
-    ],
-    "displayed": [
-      15,
-      25
-    ]
-  },
   "cache_gb_128k_scenarios": {
     "qwen27_with_one_mtp_and_recurrent": 9.277800448,
     "qwen35_with_one_mtp_and_recurrent": 3.015704576,
@@ -201,18 +191,41 @@
     "ssd_engram": 202.75466862592
   },
   "station_glm53": {
-    "baseline": [
+    "baseline_no_drafting": [
       15.915908572173855,
       25.066176785244867
     ],
+    "dflash2_gain": [
+      1.337386018237082,
+      1.6082474226804124
+    ],
     "endpoints": [
-      22.282272001043395,
-      45.119118213440764
+      21.285713591965035,
+      40.312614211321645
     ],
     "displayed": [
-      22,
-      45
+      21,
+      40
     ]
+  },
+  "ultra512_glm53": {
+    "baseline_no_drafting": [
+      15.0,
+      25.0
+    ],
+    "dflash2_gain": [
+      1.337386018237082,
+      1.6082474226804124
+    ],
+    "endpoints": [
+      20.06079027355623,
+      40.20618556701031
+    ],
+    "displayed": [
+      20,
+      40
+    ],
+    "cross_check_m3_ultra_glm52_oq4_scaled_to_1200": 21.245421245421245
   },
   "station_mimo_v26_pro_rejected": {
     "weights_gb": 566,
@@ -224,17 +237,235 @@
       0.6,
       0.63
     ],
-    "baseline": [
+    "baseline_no_drafting": [
       11.964727798612643,
       17.974407757456735
     ],
     "endpoints": [
-      16.7506189180577,
-      32.35393396342212
+      16.00145966987709,
+      28.907294950136606
     ],
     "displayed": [
-      17,
-      32
+      16,
+      29
     ]
+  },
+  "decode_bottleneck": {
+    "M5 / Qwen3.6-35B-A3B": {
+      "gb_per_token": 1.7,
+      "gflop_per_token": 6.0,
+      "bandwidth_utilization": [
+        0.5666666666666667,
+        0.6666666666666666
+      ],
+      "fp16_compute_utilization": [
+        0.019125,
+        0.0225
+      ]
+    },
+    "M5 Pro / Qwen3.8-27B": {
+      "gb_per_token": 6.5,
+      "gflop_per_token": 69.33333333333333,
+      "bandwidth_utilization": [
+        0.44462540716612375,
+        0.9315960912052117
+      ],
+      "fp16_compute_utilization": [
+        0.04044444444444444,
+        0.08474074074074073
+      ]
+    },
+    "RTX 4090 / Qwen3.8-27B": {
+      "gb_per_token": 17.9,
+      "gflop_per_token": 52.0,
+      "bandwidth_utilization": [
+        0.6748015873015872,
+        0.8168650793650793
+      ],
+      "fp16_compute_utilization": [
+        0.005987878787878788,
+        0.007248484848484848
+      ]
+    },
+    "R9700 / Qwen3.8-27B": {
+      "gb_per_token": 7.0,
+      "gflop_per_token": 62.4,
+      "bandwidth_utilization": [
+        0.5665625,
+        0.5665625
+      ],
+      "fp16_compute_utilization": [
+        0.01692314136125654,
+        0.01692314136125654
+      ]
+    },
+    "RTX 5090 / Qwen3.8-27B": {
+      "gb_per_token": 17.5,
+      "gflop_per_token": 52.0,
+      "bandwidth_utilization": [
+        0.576171875,
+        0.576171875
+      ],
+      "fp16_compute_utilization": [
+        0.00732219570405728,
+        0.00732219570405728
+      ]
+    },
+    "Halo / Flash-Next": {
+      "gb_per_token": 1.8285714285714287,
+      "gflop_per_token": 17.142857142857142,
+      "bandwidth_utilization": [
+        0.2285714285714286,
+        0.33571428571428574
+      ],
+      "fp16_compute_utilization": [
+        0.009297820823244552,
+        0.013656174334140436
+      ]
+    },
+    "Halo / Flash-Next no drafting": {
+      "gb_per_token": 3.2,
+      "gflop_per_token": 12.0,
+      "bandwidth_utilization": [
+        0.21000000000000002,
+        0.21000000000000002
+      ],
+      "fp16_compute_utilization": [
+        0.0034169491525423736,
+        0.0034169491525423736
+      ]
+    },
+    "1x Spark / Flash-Next": {
+      "gb_per_token": 2.586956521739131,
+      "gflop_per_token": 20.869565217391305,
+      "bandwidth_utilization": [
+        0.3506131549609811,
+        0.43589743589743596
+      ],
+      "fp16_compute_utilization": [
+        0.006177391304347826,
+        0.007679999999999999
+      ]
+    },
+    "M5 Max / Flash-Next (65K, incl. ~1.75 GB cache)": {
+      "gb_per_token": 3.9945652173913047,
+      "gflop_per_token": 20.869565217391305,
+      "bandwidth_utilization": [
+        0.4131187154793939,
+        0.4131187154793939
+      ],
+      "fp16_compute_utilization": [
+        0.018931677018633537,
+        0.018931677018633537
+      ]
+    },
+    "RTX PRO 6000 / Flash-Next": {
+      "gb_per_token": 3.4,
+      "gflop_per_token": 12.0,
+      "bandwidth_utilization": [
+        0.1536830357142857,
+        0.1669642857142857
+      ],
+      "fp16_compute_utilization": [
+        0.0019285714285714286,
+        0.0020952380952380953
+      ]
+    },
+    "2x Spark / GLM-5.3-Flash prose": {
+      "gb_per_token": 7.464285714285714,
+      "gflop_per_token": 82.28571428571429,
+      "bandwidth_utilization": [
+        0.6370617477760335,
+        0.6370617477760335
+      ],
+      "fp16_compute_utilization": [
+        0.015338057142857143,
+        0.015338057142857143
+      ]
+    },
+    "2x Spark / GLM-5.3-Flash coding": {
+      "gb_per_token": 5.364476386036961,
+      "gflop_per_token": 59.13757700205338,
+      "bandwidth_utilization": [
+        0.6150480252122963,
+        0.6150480252122963
+      ],
+      "fp16_compute_utilization": [
+        0.014808049281314168,
+        0.014808049281314168
+      ]
+    },
+    "2x Spark / GLM-5.3-Flash no drafting": {
+      "gb_per_token": 9.5,
+      "gflop_per_token": 36.0,
+      "bandwidth_utilization": [
+        0.3131868131868132,
+        0.3131868131868132
+      ],
+      "fp16_compute_utilization": [
+        0.002592,
+        0.002592
+      ]
+    },
+    "M5 Ultra / GLM-5.3-Flash DFlash2": {
+      "gb_per_token": 6.886363636363636,
+      "gflop_per_token": 65.45454545454545,
+      "bandwidth_utilization": [
+        0.2525,
+        0.3557954545454545
+      ],
+      "fp16_compute_utilization": [
+        0.02057142857142857,
+        0.028987012987012985
+      ]
+    },
+    "M5 Ultra / GLM-5.3-Flash no drafting": {
+      "gb_per_token": 10.1,
+      "gflop_per_token": 36.0,
+      "bandwidth_utilization": [
+        0.2769083333333333,
+        0.3265666666666666
+      ],
+      "fp16_compute_utilization": [
+        0.008459999999999999,
+        0.009977142857142858
+      ]
+    },
+    "2x RTX PRO 6000 / GLM-5.3-Flash": {
+      "gb_per_token": 10.8,
+      "gflop_per_token": 36.0,
+      "bandwidth_utilization": [
+        0.2470982142857143,
+        0.421875
+      ],
+      "fp16_compute_utilization": [
+        0.0014642857142857142,
+        0.0025
+      ]
+    },
+    "DGX Station / GLM-5.3-Flash in HBM (reference)": {
+      "gb_per_token": 10.1,
+      "gflop_per_token": 36.0,
+      "bandwidth_utilization": [
+        0.19488732394366198,
+        0.19488732394366198
+      ],
+      "fp16_compute_utilization": [
+        0.0019728000000000002,
+        0.0019728000000000002
+      ]
+    }
+  },
+  "moe_drafting_read_bound": {
+    "two_spark_glmflash_structured_tps": 99.44,
+    "tokens_per_step": 8,
+    "step_ms": 80.05,
+    "max_step_reads_over_single_token_reads": 4.600768421052631
+  },
+  "prefill_compute_utilization_fp16": {
+    "rtx_pro_6000_flashnext_12000tps": 0.2857142857142857,
+    "spark_flashnext_1606tps": 0.15417599999999998,
+    "m5max_flashnext_1094tps_65k": 0.18754285714285715,
+    "m5_qwen36_1144tps_4k": 0.429
   }
 }

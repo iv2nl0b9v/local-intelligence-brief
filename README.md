@@ -31,12 +31,12 @@ Decode is one active request, warm model, with workload/context differences reco
 ### Important unresolved evidence
 
 - Measured rows are third-party or vendor results, labelled **M**, not this report's replication. The R9700's **51.8 tok/s** is AMD's preliminary vendor number (Vulkan, MTP=2, quantization unstated). Halo's **32–47** comes from one community llama.cpp thread whose same-build runs varied 25–36 tok/s across days.
-- Three rows remain estimates:
+- Four rows remain estimates:
   - **M5 Pro / Qwen3.8-27B: 21–44.** The upper end extrapolates favorable repetitive editing. An independent 2.33× MTP multiplier verified on M5 Pro supports roughly 40, but there is no direct measurement.
   - **2 × RTX PRO 6000 / GLM-5.3-Flash IQ4_XS: 41–70, best ~55.** Assumes llama.cpp's sequential layer split. Four cards measured 63.7 tok/s with NVFP4, which does not fit on two.
-  - **DGX Station / GLM-5.3: 22–45.** Assumes drafting gains on split HBM/CPU memory.
-- Dual Spark no longer pairs with GLM-5.3-Flash: measured single-request speed is 14.6–30.8 tok/s, which fails the gate. It now runs Flash-Next split across both nodes (TP2), measured at 42–52 tok/s against 37–46 on one Spark.
-- The 512 GB M5 Ultra is not listed. It has the same chip and bandwidth as the 256 GB model and would get the same pairing at the same speed. The only model its extra memory unlocks, GLM-5.3, fails the gate there (15–25 tok/s estimated).
+  - **M5 Ultra 512 GB / GLM-5.3: 20–40** and **DGX Station / GLM-5.3: 21–40.** Both qualify only with a DFlash2 drafter. The drafter exists for GLM-5.3, but no full-model run on these systems was found. The gain applied (1.34–1.61×) is the smallest measured DFlash2 gain on a GLM MoE (oMLX on M5 Ultra). Without drafting both fall to 15–25 tok/s, and GLM-5.3-Flash is the fallback.
+- Dual Spark runs GLM-5.3-Flash at 28–63 tok/s (prose to coding) with the DFlash2 drafter, which is licensed for non-commercial use only. Without drafting it measures ~14–18 tok/s; the fallback is Flash-Next split across both nodes at 42–52.
+- Each device row includes a decode bottleneck: the share of peak bandwidth and FP16 compute implied by its speed. Compute never exceeds ~8%. Dense models on discrete GPUs are bandwidth-bound; small-active MoE models on fast memory are mostly limited by fixed per-token overhead. The bytes-per-token model for MoE drafting is an assumption calibrated against one two-Spark run.
 - The single RTX PRO 6000 Flash-Next result (81–88 tok/s without MTP) keeps the 51B n-gram table in about 100 GB of host RAM. The card-only price excludes that host.
 - Compressed MLA versus expanded per-head KV changes GLM-Flash's 128K cache dramatically. The selected memory budget requires the compressed-cache backend scenario.
 - Apple compute figures are third-party estimates for the matrix units in each M5 GPU core (FP16/INT8), scaled from A19 microbenchmarks; Apple publishes none. They are peak values that mainly affect prefill. Single-user decode on the Macs is limited by memory bandwidth, which is why they decode well despite lower peaks.
