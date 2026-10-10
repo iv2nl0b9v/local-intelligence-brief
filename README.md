@@ -18,7 +18,7 @@ Choose the highest-scoring fitting model **within the report's shortlist** whose
 
 Intelligence uses Artificial Analysis Intelligence Index v4.3.2. Scores describe the tested model and reasoning setting, not a fresh evaluation of the local quantization. Four Claude Opus releases (4.6 → 4.8 → 5 → 5.5: 32* → 42 → 51 → 58, February to September 2026; *AA estimate) mark the frontier trajectory. They are proprietary references, not local deployment options. The best local-fitting model, GLM-5.3 (45), sits between Opus 4.8 and Opus 5.
 
-Decode is one active request, warm model, with workload/context differences recorded per source. Model-memory budgets use **131,072 total cached tokens**, concurrency one, decimal GB, and separately list SSD lookup tables and runtime allowances. Speed estimates are not 128K speed forecasts.
+Decode is one active request, warm model, with workload/context differences recorded per source. Model-memory budgets use **131,072 total cached tokens**, concurrency one, decimal GB, and separately list SSD lookup tables and runtime allowances. Speed estimates are not 128K speed forecasts. Every model row includes a linked release date for that version; GLM-5.3 is explicitly labelled with its API release-note date. AI compute lists integer TOPS and floating-point TFLOPS separately, with precision and accelerator labels; they are not summed. Missing published integer ratings are shown with a dash.
 
 ## Re-evaluate the report
 
