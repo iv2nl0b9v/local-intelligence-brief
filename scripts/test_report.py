@@ -1,5 +1,4 @@
 """Regression checks for the actual failure modes found in the report audit."""
-import hashlib
 import json
 from pathlib import Path
 import shutil

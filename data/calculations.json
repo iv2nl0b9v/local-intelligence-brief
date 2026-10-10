@@ -6,36 +6,6 @@
     "concurrency": 1
   },
   "warning": "Assumed traffic, utilization, overhead and drafting factors; not measurements or confidence intervals.",
-  "pro_single_flashnext_superseded": {
-    "traffic_gb": [
-      5,
-      7
-    ],
-    "bandwidth_gbps": 1792,
-    "utilization": [
-      0.5,
-      0.7
-    ],
-    "overhead_ms": [
-      4,
-      7
-    ],
-    "central": 94.51476793248945,
-    "endpoints": [
-      67.51054852320675,
-      125.21961348027473
-    ],
-    "measured_no_mtp": [
-      81,
-      88
-    ],
-    "measured_with_mtp": [
-      120,
-      173
-    ],
-    "measurement": "B9",
-    "ideal_compute_roof": 167916.66666666666
-  },
   "pro_dual_glmflash_layer_split": {
     "traffic_gb": [
       10.8,
@@ -79,29 +49,7 @@
     "endpoints": [
       57.95601552393273,
       103.77761938702778
-    ],
-    "ideal_fp4_compute_roof_not_iq4_kernel_performance": 111944.44444444444
-  },
-  "pro_anchor": {
-    "measured_tp2_flashnext_fp8": 81.45,
-    "measured_tp4": 64.61,
-    "tp2_latency_ms": 12.277470841006751,
-    "residual_ms_for_6_to_10GB_at_60pct": [
-      9.48729226957818,
-      7.627173221959133
     ]
-  },
-  "m5_qwen35_moe_superseded": {
-    "endpoints": [
-      28.3823893148652,
-      49.164524421593825
-    ],
-    "measured": [
-      51.0,
-      59.5
-    ],
-    "measurement": "B12",
-    "max_traffic_gb_at_measured_peak_no_overhead": 2.5714285714285716
   },
   "m5pro_qwen38": {
     "fresh_coding": [
@@ -124,56 +72,6 @@
       39.61,
       41.94
     ]
-  },
-  "r9700_qwen38_superseded": {
-    "baseline": [
-      24,
-      32
-    ],
-    "assumed_net_drafting": [
-      1.25,
-      1.6
-    ],
-    "endpoints": [
-      30.0,
-      51.2
-    ],
-    "measured_vendor": 51.8,
-    "measurement": "B8"
-  },
-  "dual_spark_glmflash_rejected": {
-    "endpoints": [
-      19.716666666666665,
-      37.916666666666664
-    ],
-    "measured_single_request": [
-      14.6,
-      30.84
-    ],
-    "measurement": "B11"
-  },
-  "halo_flashnext_rejected_projection": {
-    "endpoints": [
-      15.36,
-      28.799999999999997
-    ],
-    "measured": [
-      31.7,
-      47.1
-    ],
-    "measurement": "B7"
-  },
-  "rtx4090_qwen27_superseded": {
-    "endpoints": [
-      37.8,
-      50.400000000000006
-    ],
-    "measured": [
-      38.41,
-      46.16
-    ],
-    "measurement": "B10",
-    "rtx5090_measured_utilization_at_16GB": 0.5267857142857143
   },
   "cache_gb_128k_scenarios": {
     "qwen27_with_one_mtp_and_recurrent": 9.277800448,

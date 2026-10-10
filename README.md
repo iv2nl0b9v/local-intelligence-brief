@@ -36,7 +36,6 @@ Decode is one active request, warm model, with workload/context differences reco
   - **2 × RTX PRO 6000 / GLM-5.3-Flash IQ4_XS: 41–70, best ~55.** Assumes llama.cpp's sequential layer split. The original four-card NVFP4 artifact does not fit on two. A different expert-NVFP4/FP8-WO artifact now measures **164.8 tok/s** on two **Server Edition** cards with SGLang and adaptive EAGLE (B19); that result and its price are not interchangeable with this Workstation IQ4_XS scenario.
   - **M5 Ultra 512 GB / GLM-5.3: 18–40** and **DGX Station / GLM-5.3: 19–40.** Both qualify only with a DFlash2 drafter. The drafter exists for GLM-5.3, but no full-model run on these systems was found. The 1.22–1.61× gain includes all three B17 prompt lengths, including the previously omitted 1K test. This transfer is a sensitivity scenario, not a conservative performance bound. Drafter memory and full-model backend support remain unverified. Without drafting both fall to 15–25 tok/s, and GLM-5.3-Flash is the fallback.
 - Dual Spark runs GLM-5.3-Flash EXL3 4-bit at 47–63 tok/s (prose to coding); the separate NVFP4 configuration reports 28–52. The EXL3 result uses the DFlash2 drafter, which is licensed for non-commercial use only. Without drafting it measures ~14–18 tok/s; the fallback is Flash-Next split across both nodes at 42–52.
-- Header accounting for the single PRO 6000 gives **9.951 GB/pass**, because dense/attention/shared weights remain BF16. This is not measured DRAM traffic and the historical benchmark did not pin the audited weight revision.
 
 - The single RTX PRO 6000 Flash-Next result (81–88 tok/s without MTP) keeps the 51B n-gram table in about 100 GB of host RAM. The card-only price excludes that host.
 - Compressed MLA versus expanded per-head KV changes GLM-Flash's 128K cache dramatically. The selected memory budget requires the compressed-cache backend scenario.
@@ -50,7 +49,6 @@ These limitations and all other assumptions are detailed in the research drawer.
 ```sh
 python scripts/calculations.py
 python scripts/export_report.py
-python scripts/check_weight_traffic.py
 python scripts/test_report.py
 ```
 
@@ -73,8 +71,6 @@ On other platforms, open `index.html` in Chromium/Chrome and print to PDF using 
 `index.html` and the scripts are editable sources. The PDF and `data/hardware.json`, `data/models.json`, `data/sources.json`, `data/research-notes.txt`, and `data/calculations.json` are derived outputs. `data/configs/` contains timestamped upstream JSON snapshots, not model weights. Source pages can change; citations and these snapshots are not a complete offline archive of the web.
 
 ## Audit evidence and reproducibility
-
-`data/weight-headers/` contains five captured safetensors JSON headers and a revision/URL/hash manifest. `scripts/check_weight_traffic.py` reproduces their category totals and the 9.951 GB parameter-read estimate offline. It extrapolates the selected experts from layer 0 across 48 layers; physical reads, cache effects and historical artifact identity remain unmeasured.
 
 `data/spark-decode-audit.json` preserves the numeric fields needed to reproduce the two headline workload medians, with upstream revision, paths and full-original-file hashes. It is a third-party log extract, not an in-house benchmark. The regression tests reject changed HTML headlines and check decode versus delivered rate formulas.
 

@@ -8,10 +8,7 @@
     ],
     "display": "51–60",
     "estimate": false,
-    "note": "B12, 4-bit MLX",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null
+    "note": "B12, 4-bit MLX"
   },
   "m5pro": {
     "device": "MacBook Pro · M5 Pro",
@@ -23,9 +20,6 @@
     "display": "21–44",
     "estimate": true,
     "note": "Estimate, MTPLX dynamic Q4",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null,
     "scenario": "m5pro_qwen38"
   },
   "rtx4090": {
@@ -37,10 +31,7 @@
     ],
     "display": "38–46",
     "estimate": false,
-    "note": "B10, Q4_K_S 16.68 GiB",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null
+    "note": "B10, Q4_K_S 16.68 GiB"
   },
   "r9700": {
     "device": "Radeon AI PRO R9700",
@@ -51,10 +42,7 @@
     ],
     "display": "51.8",
     "estimate": false,
-    "note": "B8, Q4-class, MTP=2",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null
+    "note": "B8, Q4-class, MTP=2"
   },
   "rtx5090": {
     "device": "GeForce RTX 5090",
@@ -65,10 +53,7 @@
     ],
     "display": "59",
     "estimate": false,
-    "note": "B3, Q4_K_M",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null
+    "note": "B3, Q4_K_M"
   },
   "halo": {
     "device": "Ryzen AI Max+ 395 / Halo",
@@ -79,10 +64,7 @@
     ],
     "display": "32–47",
     "estimate": false,
-    "note": "B7, UD-IQ4_XS, MTP + n-gram",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null
+    "note": "B7, UD-IQ4_XS, MTP + n-gram"
   },
   "spark": {
     "device": "1 × DGX Spark",
@@ -93,10 +75,7 @@
     ],
     "display": "37–46",
     "estimate": false,
-    "note": "B5, NVFP4, MTP3",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null
+    "note": "B5, NVFP4, MTP3"
   },
   "m5max": {
     "device": "MacBook Pro · M5 Max",
@@ -107,10 +86,7 @@
     ],
     "display": "63.5",
     "estimate": false,
-    "note": "B1, MTPLX dynamic Q4",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null
+    "note": "B1, MTPLX dynamic Q4"
   },
   "pro6000": {
     "device": "RTX PRO 6000 Blackwell",
@@ -121,10 +97,7 @@
     ],
     "display": "81–88",
     "estimate": false,
-    "note": "B9, NVFP4, no MTP",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": 9.95111452,
-    "bandwidth_gbps": 1792
+    "note": "B9, NVFP4, no MTP"
   },
   "spark2": {
     "device": "2 × DGX Spark",
@@ -135,10 +108,7 @@
     ],
     "display": "47–63",
     "estimate": false,
-    "note": "B16: EXL3 4-bit TP2, DFlash2; prose 33 / coding 42 prompt tokens",
-    "diagnosis": "Related profile",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null
+    "note": "B16: EXL3 4-bit TP2, DFlash2; prose 33 / coding 42 prompt tokens"
   },
   "m5ultra": {
     "device": "Mac Studio · M5 Ultra",
@@ -149,10 +119,7 @@
     ],
     "display": "44–62",
     "estimate": false,
-    "note": "B17, oQ4e, DFlash2",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null
+    "note": "B17, oQ4e, DFlash2"
   },
   "pro2": {
     "device": "2 × RTX PRO 6000 Blackwell",
@@ -164,9 +131,6 @@
     "display": "41–70",
     "estimate": true,
     "note": "Estimate, IQ4_XS",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null,
     "scenario": "pro_dual_glmflash_layer_split"
   },
   "m5ultra512": {
@@ -179,9 +143,6 @@
     "display": "18–40",
     "estimate": true,
     "note": "Estimate, IQ4_XS, DFlash2",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null,
     "scenario": "ultra512_glm53"
   },
   "station": {
@@ -194,9 +155,6 @@
     "display": "19–40",
     "estimate": true,
     "note": "Estimate, IQ4_XS split HBM/CPU, DFlash2",
-    "diagnosis": "Unprofiled",
-    "weight_gb_per_pass": null,
-    "bandwidth_gbps": null,
     "scenario": "station_glm53"
   }
 }
